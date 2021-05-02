@@ -4,29 +4,45 @@ import Navigation from '../components/Navigation';
 
 import unsplashInstance from '../config/unsplash';
 
-const PhotoComp = styled.img`
-    width: 200px;
-    height: auto;
-`;
+import ImageComp from '../components/ImageComp';
+import MainGrid from '../components/MainGrid';
+import { getTenRandomPhotos } from '../api/apiHelpers';
+
 
 const Home = () => {
+
 
     const [photos, setPhotos] = useState([]);
 
     const getPhotos = async () => {
         let response = await unsplashInstance.photos.get({ photoId: 'Sm2J8MF5ZAo' });
-        console.log(response);
-        setPhotos(response);
+        console.log(response.response.id);
+        let photo = {
+            id: response.response.id,
+            url: response.response.urls.regular
+        };
+        setPhotos(photo);
     }
+
+    useEffect(async () => {
+        let resp = await getTenRandomPhotos();
+        
+        resp.response.map(item => {
+            let photo = {
+                id: item.id,
+                url: item.urls.regular
+            };
+            setPhotos((prevState) => [...prevState, photo]);
+        })
+    }, [])
 
     return(
         <>
             <Navigation />
-            <button style={{marginTop: '200px'}} onClick={getPhotos}>get photo </button>
-            {photos && 
-                    <PhotoComp src={photos.response.urls.regular} />
-                
-            }
+                <MainGrid>
+                    {photos !== null && photos.map(item => <ImageComp photoSrc={item.url} />)
+                    }
+                </MainGrid>
         </>
     )
 }
