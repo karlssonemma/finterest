@@ -10,6 +10,8 @@ import { useAuth } from '../contexts/AuthContext';
 import InputField from '../components/InputField';
 import { StyledForm } from '../components/StyledForm';
 import { FormBtn } from '../components/Buttons/FormBtn';
+import { readUsers } from '../helpers/firebaseHelpers';
+import { readUsersCollections } from '../helpers/firebaseHelpers';
 
 const SignUp = () => {
 
@@ -33,10 +35,18 @@ const SignUp = () => {
             setError('')
             setLoading(true)
             const user = await signup(data.email, data.password)
-            console.log('SUCCESS!!', user.user.email)
+            // console.log('SUCCESS!!', user.user.email)
+            const users = await readUsers();
+            users.doc(user.user.uid).set({
+                email: user.user.email,
+                id: user.user.uid,
+                signedUp: new Date().toLocaleDateString(),
+                collections: []
+            })
             router.push('/login')
         } catch (error) {
             setError('Failed to create account', error)
+            console.log(error)
         }
         setLoading(false)
     }

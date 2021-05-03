@@ -25,7 +25,7 @@ const ImageComp = ({ photoSrc }) => {
         <Container>
             <Photo src={photoSrc} />
             <ButtonField>
-                <SelectCollection />
+                <SelectCollection url={photoSrc} />
             </ButtonField>
         </Container>
     )

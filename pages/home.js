@@ -6,23 +6,13 @@ import unsplashInstance from '../config/unsplash';
 
 import ImageComp from '../components/ImageComp';
 import MainGrid from '../components/MainGrid';
-import { getTenRandomPhotos } from '../api/apiHelpers';
+import { getTenRandomPhotos } from '../helpers/apiHelpers';
 
 
 const Home = () => {
 
 
     const [photos, setPhotos] = useState([]);
-
-    const getPhotos = async () => {
-        let response = await unsplashInstance.photos.get({ photoId: 'Sm2J8MF5ZAo' });
-        console.log(response.response.id);
-        let photo = {
-            id: response.response.id,
-            url: response.response.urls.regular
-        };
-        setPhotos(photo);
-    }
 
     useEffect(async () => {
         let resp = await getTenRandomPhotos();
@@ -40,7 +30,7 @@ const Home = () => {
         <>
             <Navigation />
                 <MainGrid>
-                    {photos !== null && photos.map(item => <ImageComp photoSrc={item.url} />)
+                    {photos !== null && photos.map(item => <ImageComp key={item.id} photoSrc={item.url} />)
                     }
                 </MainGrid>
         </>
