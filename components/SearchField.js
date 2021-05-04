@@ -6,10 +6,11 @@ const StyledInput = styled.input`
     border-bottom: 1px solid black;
 `;
 
-const SearchField = () => {
+const SearchField = ({ handleInput }) => {
     return(
         <StyledInput 
             placeholder='search'
+            onChange={(e) => handleInput(e)}
         />
     )
 }

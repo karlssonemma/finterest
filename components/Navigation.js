@@ -23,7 +23,7 @@ const StyledMenuBtn = styled.button`
     z-index: 100;
 `;
 
-const Navigation = () => {
+const Navigation = ({ handleInput }) => {
 
     const handleMenu = () => {
         document.querySelector('#menu').classList.toggle('open');
@@ -32,7 +32,7 @@ const Navigation = () => {
     return(
         <StyledNav>
             <p>L</p>
-            <SearchField />
+            <SearchField handleInput={(e) => handleInput(e)} />
             <Menu />
             <StyledMenuBtn onClick={handleMenu}>V</StyledMenuBtn>
         </StyledNav>

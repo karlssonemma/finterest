@@ -30,20 +30,21 @@ const SelectCollection = ({ url }) => {
         
     }, [])
 
+
     const onSubmit = async (data) => {
         
-            firebaseInstance.firestore().collection('usersCollections').where('user', '==', currentUser.uid).where('name', '==', data.collectionId)
-            .get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    firebaseInstance.firestore().collection('usersCollections').doc(doc.id).update({
-                        photos: firebaseInstance.firestore.FieldValue.arrayUnion(url)
-                    })
+        firebaseInstance.firestore().collection('collections').where('user', '==', currentUser.uid).where('name', '==', data.collectionId)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                firebaseInstance.firestore().collection('collections').doc(doc.id).update({
+                    photos: firebaseInstance.firestore.FieldValue.arrayUnion(url)
                 })
             })
-            .catch((error) => {
-                console.log("Error getting documents: ", error);
-            });
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
 
     };
 

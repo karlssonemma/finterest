@@ -4,7 +4,18 @@ import styled from 'styled-components';
 import SelectCollection from './SelectCollection';
 
 const Container = styled.li`
+
+    animation: slideIn 1s;
     
+    @keyframes slideIn {
+        0% {
+            opacity: 0%;
+            transform: translateX(-20deg)
+        } 100% {
+            opacity: 100%;
+            transform: translateX(0)
+        }
+    }
 `;
 
 const Photo = styled.img`

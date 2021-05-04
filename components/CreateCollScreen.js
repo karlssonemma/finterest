@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { readCurrentUser, readUsersCollections, readUsers } from '../helpers/firebaseHelpers';
+import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections } from '../helpers/firebaseHelpers';
 import Overlay from '../components/Overlay';
 import CloseBtn from './Buttons/CloseBtn';
 import StandardBtn from './Buttons/StandardBtn';

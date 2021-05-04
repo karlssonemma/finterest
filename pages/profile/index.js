@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
-import CreateCollScreen from '../components/CreateCollScreen';
-import MainGrid from '../components/MainGrid';
-import Navigation from '../components/Navigation';
-import Overlay from '../components/Overlay';
-import { useAuth } from '../contexts/AuthContext';
-import { readCurrentUser, readCurrentUsersCollections, readUsers } from '../helpers/firebaseHelpers';
+import CollectionComp from '../../components/CollectionComp';
+import CreateCollScreen from '../../components/CreateCollScreen';
+import MainGrid from '../../components/MainGrid';
+import Navigation from '../../components/Navigation';
+import Overlay from '../../components/Overlay';
+import { useAuth } from '../../contexts/AuthContext';
+import { readCurrentUser, readCurrentUsersCollections, readUsers } from '../../helpers/firebaseHelpers';
 
 const Container = styled.section`
     height: 100px;
@@ -55,10 +56,11 @@ const Profile = () => {
                     <h1>username</h1>
                     <button onClick={openCreateCollWindow}>create coll</button>
                 </Container>
-                {
-                    collections && collections.map(item => <p>{item.name}</p>)
-                }
                 <MainGrid>
+
+                {
+                    collections && collections.map(item => <CollectionComp coll={item} />)
+                }
 
                 </MainGrid>
             </main>
