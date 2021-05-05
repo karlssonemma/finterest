@@ -7,7 +7,7 @@ import MainGrid from '../../components/MainGrid';
 import Navigation from '../../components/Navigation';
 import Overlay from '../../components/Overlay';
 import { useAuth } from '../../contexts/AuthContext';
-import { readCurrentUser, readCurrentUsersCollections, readUsers } from '../../helpers/firebaseHelpers';
+import { readCurrentUser, readUsersCollections } from '../../helpers/firebaseHelpers';
 
 const Container = styled.section`
     height: 100px;
@@ -33,11 +33,11 @@ const Profile = () => {
     }, [])
 
     const getCollections = async () => {
-        let coll = await readCurrentUsersCollections({ id: currentUser.uid })
+        let coll = await readUsersCollections(currentUser.uid)
         coll.get()
         .then(snapshot => {
             snapshot.forEach(doc => {
-                setCollections(prevState => [...prevState, doc.data()])
+                setCollections(prevState => [...prevState, {...doc.data(), id: doc.id}])
             })
         })
     };
@@ -59,7 +59,7 @@ const Profile = () => {
                 <MainGrid>
 
                 {
-                    collections && collections.map(item => <CollectionComp coll={item} />)
+                    collections && collections.map(item => <CollectionComp key={item.id} coll={item} />)
                 }
 
                 </MainGrid>

@@ -1,7 +1,6 @@
 import React from 'react';
-
 import styled from 'styled-components';
-import SelectCollection from './SelectCollection';
+
 
 const Container = styled.li`
 
@@ -17,7 +16,7 @@ const Container = styled.li`
         }
     }
 `;
-
+//kopia av comp i ImageComp, borde gøras till egen comp
 const Photo = styled.img`
     width: 100%;
     height: calc(100% - 80px);
@@ -30,18 +29,16 @@ const ButtonField = styled.div`
     background-color: blue;
 `;
 
-const ImageComp = ({ item }) => {
-    const { id, url } = item;
-    // console.log(item)
+const ImageInCollection = ({ item, handleClick }) => {
 
     return(
         <Container>
-            <Photo src={url} />
+            <Photo src={item.url} />
             <ButtonField>
-                <SelectCollection item={item} />
+                <button onClick={(item) => handleClick(item)}>X</button>
             </ButtonField>
         </Container>
     )
 }
 
-export default ImageComp;
+export default ImageInCollection;

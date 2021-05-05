@@ -8,11 +8,31 @@ export const readUsers = async () => {
     return await firebaseInstance.firestore().collection('users')
 };
 
-export const readUsersCollections = async () => {
-    return await firebaseInstance.firestore().collection('collections')
+export const readCurrentUser = async (id) => {
+    return await firebaseInstance.firestore().collection('users').doc(id)
 };
 
-export async function readCurrentUsersCollections({ id }) {
-    // const { currentUser } = useAuth();
-    return await firebaseInstance.firestore().collection('collections').where('user', '==', `${id}`)
+export const readUsersCollections = async (id) => {
+    return await firebaseInstance.firestore().collection('users').doc(id).collection('collections');
+};
+
+export const getCollectionFromUser = async (userId, collId) => {
+    return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).get();
+};
+
+export const deleteCollection = async (userId, collId) => {
+    return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).delete();
+};
+
+export const readPhotosFromCollection = async (userId, collId) => {
+    // console.log(userId, collId)
+    return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos');
+};
+
+export const readPhotoFromCollection = async (userId, collId, photoId) => {
+    await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId);
+};
+
+export const deletePhotoFromCollection = async (userId, collId, photoId) => {
+    await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId).delete();
 };

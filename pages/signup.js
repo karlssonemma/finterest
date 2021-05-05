@@ -40,8 +40,7 @@ const SignUp = () => {
             users.doc(user.user.uid).set({
                 email: user.user.email,
                 id: user.user.uid,
-                signedUp: new Date().toLocaleDateString(),
-                collections: []
+                signedUp: new Date().toLocaleDateString()
             })
             router.push('/login')
         } catch (error) {

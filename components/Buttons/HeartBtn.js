@@ -14,9 +14,11 @@ const Icon = styled.img`
 
 const HeartBtn = ({ filled }) => {
 
+    let photoSrc = filled ? '/filled-heart.png' : '/outlined-heart.png';
+
     return(
         <StyledBtn type='submit'>
-            <Icon src={'/outlined-heart.png'} />
+            <Icon src={photoSrc} />
         </StyledBtn>
     )
 }

@@ -17,13 +17,13 @@ const Icon = styled.img`
     height: auto;
 `;
 
-const CloseBtn = ({ btnFunction }) => {
+const IconBtn = ({ btnFunction, icon }) => {
 
     return(
         <StyledBtn onClick={() => btnFunction()}>
-            <Icon src ={'/cancel.png'} />
+            <Icon src ={icon} />
         </StyledBtn>
     )
 }
 
-export default CloseBtn;
+export default IconBtn;

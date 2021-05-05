@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections } from '../helpers/firebaseHelpers';
 import Overlay from '../components/Overlay';
-import CloseBtn from './Buttons/CloseBtn';
+import IconBtn from './Buttons/IconBtn';
 import StandardBtn from './Buttons/StandardBtn';
 import { useAuth } from '../contexts/AuthContext';
 import firebaseInstance from '../config/firebase';
@@ -25,12 +25,10 @@ const CreateCollScreen = () => {
     };
 
     const createColl = async () => {
-        let coll = await readUsersCollections();
-        coll.add({
+        let user = await readCurrentUser(currentUser.uid);
+        user.collection('collections').doc().set({
                 name: text,
-                photos: [],
                 createdAt: new Date().toLocaleDateString(),
-                id: text,
                 user: currentUser.uid
             })
         closeWindow();
@@ -39,7 +37,7 @@ const CreateCollScreen = () => {
     
     return(
         <Overlay className='createCollScreen'>
-            <CloseBtn btnFunction={closeWindow} />
+            <IconBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             <input type='text' placeholder='name of coll' onChange={e => handleText(e)} />
             <StandardBtn onClick={createColl}>Create coll</StandardBtn>
         </Overlay>

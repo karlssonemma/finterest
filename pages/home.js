@@ -56,7 +56,7 @@ const Home = () => {
         <>
             <Navigation handleInput={(e) => setSearchInput(e.target.value)} />
                 <MainGrid>
-                    {photos !== null && photos.map(item => <ImageComp key={item.id} photoSrc={item.url} />)
+                    {photos !== null && photos.map(item => <ImageComp key={item.id} item={item} />)
                     }
                 </MainGrid>
         </>
