@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 
 import { useAuth } from '../contexts/AuthContext';
-import { readCurrentUser, readCurrentUsersCollections, readUsers, readUsersCollections, readPhotoFromCollection, readPhotosFromCollection } from '../helpers/firebaseHelpers';
+import { readCurrentUser, readCurrentUsersCollections, readUsers, readUsersCollections, readPhotoFromCollection, readPhotosFromCollection, deletePhotoFromCollection, addPhoto } from '../helpers/firebaseHelpers';
 import HeartBtn from '../components/Buttons/HeartBtn';
 import firebaseInstance from '../config/firebase';
 
@@ -42,7 +42,7 @@ const SelectCollection = ({ item }) => {
                     })
                     
                 } else {
-                    console.log('doesnt exist')
+                    console.log('subcollection "photos" doesnt exist')
                 }
             })
         }
@@ -65,11 +65,20 @@ const SelectCollection = ({ item }) => {
         //endast pga tom string vid submit utan att select blivit touched
         let collId = data.collectionId ? data.collectionId : collections[0].id;
 
-        let coll = await readUsersCollections(currentUser.uid)
-        coll.doc(collId).collection('photos').doc(id).set({
-            url: url,
-            id: id
-        });
+        let coll = await readPhotoFromCollection(currentUser.uid, collId, id)
+        coll.get()
+        .then(doc => {
+            if(doc.exists) {
+                deletePhotoFromCollection(currentUser.uid, collId, doc.id)
+                console.log('exists', doc.id)
+            } else {
+                addPhoto(currentUser.uid, collId, id, {
+                    url: url,
+                    id: id
+                });
+                console.log('doenst exist', doc.id)
+            }
+        }).then(() => setFilled(!filled))
     };
 
     return(

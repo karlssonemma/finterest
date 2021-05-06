@@ -30,9 +30,14 @@ export const readPhotosFromCollection = async (userId, collId) => {
 };
 
 export const readPhotoFromCollection = async (userId, collId, photoId) => {
-    await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId);
+    return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId);
 };
 
 export const deletePhotoFromCollection = async (userId, collId, photoId) => {
     await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId).delete();
+};
+
+export const addPhoto = async (userId, collId, photoId, photoObject) => {
+    console.log(photoObject)
+    await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId).set(photoObject);
 };
