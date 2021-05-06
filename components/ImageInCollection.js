@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import IconBtn from './Buttons/CloseBtn';
+
 
 const Container = styled.li`
 

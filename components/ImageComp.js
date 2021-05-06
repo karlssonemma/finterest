@@ -27,6 +27,7 @@ const Photo = styled.img`
 const ButtonField = styled.div`
     width: 100%;
     height: 80px;
+    padding: 0 ${props => props.theme.space[2]};
     background-color: blue;
 `;
 

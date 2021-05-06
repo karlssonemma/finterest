@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections } from '../helpers/firebaseHelpers';
 import Overlay from '../components/Overlay';
-import IconBtn from './Buttons/IconBtn';
+import CloseBtn from './Buttons/CloseBtn';
 import StandardBtn from './Buttons/StandardBtn';
 import { useAuth } from '../contexts/AuthContext';
 import firebaseInstance from '../config/firebase';
@@ -37,7 +37,7 @@ const CreateCollScreen = () => {
     
     return(
         <Overlay className='createCollScreen'>
-            <IconBtn btnFunction={closeWindow} icon={'/cancel.png'} />
+            <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             <input type='text' placeholder='name of coll' onChange={e => handleText(e)} />
             <StandardBtn onClick={createColl}>Create coll</StandardBtn>
         </Overlay>

@@ -6,10 +6,6 @@ const StyledBtn = styled.button`
     outline: none;
     border: none;
     background-color: transparent;
-
-    position: absolute;
-    top: 20px;
-    right: 20px;
 `;
 
 const Icon = styled.img`
@@ -21,7 +17,7 @@ const CloseBtn = ({ btnFunction, icon }) => {
 
     return(
         <StyledBtn onClick={() => btnFunction()}>
-            <Icon src={icon} />
+            <Icon src='/cancel.png' />
         </StyledBtn>
     )
 }

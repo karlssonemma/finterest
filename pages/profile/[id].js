@@ -99,7 +99,7 @@ const CollectionPage = () => {
         <MainGrid>
             {
                 photos && photos.map(item => 
-                    <ImageInCollection item={item} handleClick={() => handleDeletePhoto(item.id)} />
+                    <ImageInCollection key={item.id} item={item} handleClick={() => handleDeletePhoto(item.id)} />
                 )
             }
         </MainGrid>

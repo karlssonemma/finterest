@@ -8,6 +8,18 @@ import { readCurrentUser, readCurrentUsersCollections, readUsers, readUsersColle
 import HeartBtn from '../components/Buttons/HeartBtn';
 import firebaseInstance from '../config/firebase';
 
+const StyledForm = styled.form`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const StyledSelect = styled.select`
+    padding: ${props => props.theme.space[2]};
+`;
+
 const SelectCollection = ({ item }) => {
 
     const { id, url } = item;
@@ -16,9 +28,7 @@ const SelectCollection = ({ item }) => {
     const [selectedCollId, setSelectedCollId] = useState('');
     const [filled, setFilled] = useState(false);
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        mode: 'onChange'
-    });
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     //før att sætta selected collid
     useEffect(() => {
@@ -27,20 +37,22 @@ const SelectCollection = ({ item }) => {
         };
     }, [collections])
 
+    //uppdaterar heart icon då select ändras
     useEffect(async () => {
-        
         if (selectedCollId.length > 0) {
             let coll = await readPhotosFromCollection(currentUser.uid, selectedCollId)
             coll.get()
             .then(sub => {
                 //checkar om coll "photos" existerar
                 if (sub.docs.length > 0) {
+                    let found = false;
                     sub.forEach(doc => {
                         if(doc.data().id === id) {
-                            setFilled(!filled)
+                            found = true;
+                            console.log('found', selectedCollId, filled)
                         }
                     })
-                    
+                    setFilled(found);
                 } else {
                     console.log('subcollection "photos" doesnt exist')
                 }
@@ -82,16 +94,16 @@ const SelectCollection = ({ item }) => {
     };
 
     return(
-        <form onSubmit={handleSubmit(onSubmit)} onChange={e => console.log(e.target.value)}>
-            <select {...register('collectionId')}>
+        <StyledForm onSubmit={handleSubmit(onSubmit)} onChange={e => setSelectedCollId(e.target.value)}>
+            <StyledSelect {...register('collectionId')}>
                 {
                     collections && collections.map((coll, i) => {
                         return <option key={coll.id} value={coll.id}>{coll.name}</option> 
                     }
                 )}
-            </select>
+            </StyledSelect>
             <HeartBtn filled={filled} />
-        </form>
+        </StyledForm>
     )
 }
 
