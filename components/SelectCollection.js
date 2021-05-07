@@ -18,6 +18,8 @@ const StyledForm = styled.form`
 
 const StyledSelect = styled.select`
     padding: ${props => props.theme.space[2]};
+    border: none;
+    border-bottom: 1px solid black;
 `;
 
 const SelectCollection = ({ item }) => {
@@ -95,13 +97,16 @@ const SelectCollection = ({ item }) => {
 
     return(
         <StyledForm onSubmit={handleSubmit(onSubmit)} onChange={e => setSelectedCollId(e.target.value)}>
-            <StyledSelect {...register('collectionId')}>
-                {
-                    collections && collections.map((coll, i) => {
-                        return <option key={coll.id} value={coll.id}>{coll.name}</option> 
-                    }
-                )}
-            </StyledSelect>
+            {
+                collections && 
+                    <StyledSelect {...register('collectionId')}>
+                        {
+                            collections && collections.map((coll, i) => {
+                                return <option key={coll.id} value={coll.id}>{coll.name}</option> 
+                            }
+                        )}
+                    </StyledSelect>
+            }
             <HeartBtn filled={filled} />
         </StyledForm>
     )

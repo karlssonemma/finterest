@@ -6,6 +6,7 @@ import SelectCollection from './SelectCollection';
 const Container = styled.li`
 
     animation: slideIn 1s;
+    list-style: none;
     
     @keyframes slideIn {
         0% {
@@ -26,9 +27,8 @@ const Photo = styled.img`
 
 const ButtonField = styled.div`
     width: 100%;
-    height: 80px;
+    height: 60px;
     padding: 0 ${props => props.theme.space[2]};
-    background-color: blue;
 `;
 
 const ImageComp = ({ item }) => {

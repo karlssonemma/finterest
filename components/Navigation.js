@@ -15,7 +15,7 @@ const StyledNav = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    background-color: lightblue;
+    /* background-color: lightblue; */
     position: absolute;
     top: 0;
 `;
@@ -52,10 +52,9 @@ const Navigation = ({ handleInput }) => {
 
     return(
         <StyledNav>
-            <p>L</p>
-            {
-                (path === '/profile[id]') ? <SearchField handleInput={(e) => handleInput(e)} /> : ''
-            }
+            <p>Finterest</p>
+            <SearchField handleInput={(e) => handleInput(e)} /> 
+            
             <Menu />
             <StyledMenuBtn onClick={(e) => handleMenu(e)}><Icon aria-hidden='true' src={'/next.png'} /></StyledMenuBtn>
         </StyledNav>

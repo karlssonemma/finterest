@@ -3,11 +3,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
-const Container = styled(Link)`
+const Container = styled.li`
     width: auto;
-    height: auto;
-    border: 1px solid black;
-    background-color: blue;
+    //må ändras
+    height: 200px;
+    border: 2px solid black;
+
+    list-style: none;
 `;
 
 const CollectionComp = ({ coll }) => {
@@ -17,8 +19,12 @@ const CollectionComp = ({ coll }) => {
     };
 
     return(
-        <Container href={`/profile/${coll.id}`}>
-            <p>{coll.name}</p>
+        <Container>
+            <Link href={`/profile/${coll.id}`}>
+                <a>
+                    <p>{coll.name}</p>
+                </a>
+            </Link>
         </Container>
     )
 }

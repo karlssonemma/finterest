@@ -20,7 +20,7 @@ const Icon = styled.img`
 const CloseBtn = ({ btnFunction, icon }) => {
 
     return(
-        <StyledBtn onClick={() => btnFunction()}>
+        <StyledBtn onClick={() => btnFunction()} aria-label='Close window.'>
             <Icon src={icon} />
         </StyledBtn>
     )

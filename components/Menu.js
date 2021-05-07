@@ -12,9 +12,9 @@ const StyledSection = styled.section`
 
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
 
-    background-color: green;
+    background-color: white;
 
     display: none;
 
@@ -23,12 +23,23 @@ const StyledSection = styled.section`
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+            width: max-content;
+            height: max-content;
+            padding: 50px;
+
+            top: 100px;
+
+            border: 2px solid black;
+        }
     }
 `;
 
 
 const StyledLink = styled.a`
     cursor: pointer;
+    font-size: ${props => props.theme.fontSizes.lg};
 `;
 
 const Menu = () => {

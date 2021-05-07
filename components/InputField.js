@@ -14,11 +14,16 @@ const StyledInput = styled.input`
 
     border: none;
 
-    background-color: lightblue;
+    background-color: #1011;
 `;
 
 const StyledLabel = styled.label`
+    padding-bottom: ${props => props.theme.space[0]};
+
     text-transform: uppercase;
+    font-size: ${props => props.theme.fontSizes.xs};
+    letter-spacing: ${props => props.theme.space[0]};
+    color: rgba(0, 0, 0, 0.5);
 `;
 
 const InputField = (props) => {

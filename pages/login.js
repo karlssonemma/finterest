@@ -4,10 +4,24 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/AuthContext';
+import Link from 'next/link';
 
 import InputField from '../components/InputField';
 import { StyledForm } from '../components/StyledForm';
 import { FormBtn } from '../components/Buttons/FormBtn';
+import BigLogo from '../components/BigLogo';
+import { Pagetitle } from '../components/Pagetitle';
+
+const StyledMain = styled.main`
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
 
 const LogIn = () => {
 
@@ -33,24 +47,28 @@ const LogIn = () => {
     }
 
     return(
-        <main>
+        <StyledMain>
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
+                <Pagetitle>Log In</Pagetitle>
                 {error && <p>{error}</p>}
                 <InputField 
                     inputName='email'
                     inputType='email'
-                    labelText='Email:'
+                    labelText='Email'
                     register={register}
                 />
                 <InputField 
                     inputName='password'
                     inputType='password'
-                    labelText='Password:'
+                    labelText='Password'
                     register={register}
                 />
                 <FormBtn typ='submit'>Log in</FormBtn>
             </StyledForm>
-        </main>
+            <Link href='/signup'>
+                <a>Dont have an account? Click here to create one</a>
+            </Link>
+        </StyledMain>
 
     )
 }

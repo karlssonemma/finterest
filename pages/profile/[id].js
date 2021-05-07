@@ -7,10 +7,13 @@ import Link from 'next/link';
 
 import Navigation from '../../components/Navigation';
 import { useAuth } from '../../contexts/AuthContext';
-import { deletePhotoFromCollection, getCollectionFromUser, readPhotosFromCollection, deleteCollection } from '../../helpers/firebaseHelpers';
+import { deletePhotoFromCollection, getCollectionFromUser, readPhotosFromCollection, deleteCollection, deleteCollectionDoc } from '../../helpers/firebaseHelpers';
 import MainGrid from '../../components/MainGrid';
 import ImageInCollection from '../../components/ImageInCollection';
 import theme from '../../utils/theme';
+import DeleteCollScreen from '../../components/DeleteCollScreen';
+import StandardBtn from '../../components/Buttons/StandardBtn';
+import { Pagetitle } from '../../components/Pagetitle';
 
 const Container = styled.section`
     height: 100px;
@@ -26,7 +29,7 @@ const Container = styled.section`
 `;
 
 const Arrow = styled.img`
-    width: 20px;
+    width: 30px;
     height: auto;
     margin-left: ${props => props.theme.space[1]};
     transform: rotate(180deg);
@@ -45,6 +48,11 @@ const CollectionPage = () => {
         handleGetCollInfo();
         handleGetPhotos();
     }, []);
+
+    const openDeleteCollWindow = () => {
+        let item = document.querySelector('.deleteCollScreen')
+        item.classList.toggle('visible');
+    };
 
     const handleGetCollInfo = async () => {
         let coll = await getCollectionFromUser(currentUser.uid, collId);
@@ -69,32 +77,16 @@ const CollectionPage = () => {
         .then(() => handleGetPhotos())
     };
 
-    const handleDeleteColl = async () => {
-        let photos = await readPhotosFromCollection(currentUser.uid, collId)
-        photos.get()
-        .then((query) => {
-            query.forEach((doc) => {
-                doc.ref.delete()
-            })
-        })
-
-        await deleteCollection(currentUser.uid, collId)
-        .then(() => {
-            console.log('successful delete')
-            router.push('/profile')
-        })
-        
-    };
-
     return(
         <>
         <Navigation />
+        <DeleteCollScreen />
         <Container>
             <Link href={'/profile'}>
                 <a style={{position: 'absolute', left: '0'}}><Arrow src='/right.svg' /></a>
             </Link>
-            <h1>{collName}</h1>
-            <button onClick={handleDeleteColl}>delete coll</button>
+            <Pagetitle>{collName}</Pagetitle>
+            <StandardBtn onClick={openDeleteCollWindow}>Delete collection</StandardBtn>
         </Container>
         <MainGrid>
             {

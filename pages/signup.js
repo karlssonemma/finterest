@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { object, string, ref } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Link from 'next/link';
 
 import { useAuth } from '../contexts/AuthContext';
 import InputField from '../components/InputField';
@@ -12,6 +13,18 @@ import { StyledForm } from '../components/StyledForm';
 import { FormBtn } from '../components/Buttons/FormBtn';
 import { readUsers } from '../helpers/firebaseHelpers';
 import { readUsersCollections } from '../helpers/firebaseHelpers';
+import BigLogo from '../components/BigLogo';
+import { Pagetitle } from '../components/Pagetitle';
+
+const StyledMain = styled.main`
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
 
 const SignUp = () => {
 
@@ -42,7 +55,7 @@ const SignUp = () => {
                 id: user.user.uid,
                 signedUp: new Date().toLocaleDateString()
             })
-            router.push('/login')
+            router.push('/profile')
         } catch (error) {
             setError('Failed to create account', error)
             console.log(error)
@@ -51,34 +64,38 @@ const SignUp = () => {
     }
 
     return(
-        <main>
+        <StyledMain>
             {errors.confirmPassword && <p>{errors.confirmPassword.message }</p>}
             {errors.password && <p>{errors.password.message }</p>}
             {error}
             <StyledForm
                 onSubmit={handleSubmit(onSubmit)}
-            >
+                >
+                <Pagetitle>Sign up</Pagetitle>
                 <InputField 
                     inputName='email'
                     inputType='email'
-                    labelText='Email:'
+                    labelText='Email'
                     register={register}
                 />
                 <InputField 
                     inputName='password'
                     inputType='password'
-                    labelText='Password:'
+                    labelText='Password'
                     register={register}
                 />
                 <InputField 
                     inputName='confirmPassword'
                     inputType='password'
-                    labelText='Confirm password:'
+                    labelText='Confirm password'
                     register={register}
                 />
                 <FormBtn type='submit'>Log In</FormBtn>
             </StyledForm>
-        </main>
+            <Link href='/login'>
+                <a>Already have an account? Click here to log in</a>
+            </Link>
+        </StyledMain>
 
     )
 }

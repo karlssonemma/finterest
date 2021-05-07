@@ -6,24 +6,23 @@ import unsplashInstance from '../config/unsplash';
 
 import ImageComp from '../components/ImageComp';
 import MainGrid from '../components/MainGrid';
-import { getPhotosBySearch, getTenRandomPhotos } from '../helpers/apiHelpers';
+import { getPhotosBySearch, fetchTenRandomPhotosPhotos } from '../helpers/apiHelpers';
+import { useAuth } from '../contexts/AuthContext';
+
 
 
 const Home = () => {
 
+    const { currentUser } = useAuth();
     const [photos, setPhotos] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
+    useEffect(() => {
+        window.addEventListener('scroll', () => checkIfScrollIsAtBottom())
+    }, [])
+
     useEffect(async () => {
-        let resp = await getTenRandomPhotos();
-        
-        resp.response.map(item => {
-            let photo = {
-                id: item.id,
-                url: item.urls.regular
-            };
-            setPhotos((prevState) => [...prevState, photo]);
-        })
+        getMorePhotos()
     }, [])
 
     useEffect(async () => {
@@ -45,12 +44,32 @@ const Home = () => {
             } catch(e) {
                 console.log('errrrr', e)
             }
-            
-            
         };
-    
-        
     }, [searchInput])
+
+    const checkIfScrollIsAtBottom = () => {
+        if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+            //max req är 50/h så hehe bäst att ha denna inaktiv
+            // getMorePhotos()
+        };
+    };
+
+    const getMorePhotos = async () => {
+        try {
+            let resp = await fetchTenRandomPhotosPhotos();
+            console.log(resp)
+            resp.response.map(item => {
+                let photo = {
+                    id: item.id,
+                    url: item.urls.regular
+                };
+                setPhotos((prevState) => [...prevState, photo]);
+            })
+        } catch (e) {
+            console.log('err', e)
+        }
+        
+    };
 
     return(
         <>

@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import React from 'react';
 
 const StyledInput = styled.input`
+    padding: ${props => props.theme.space[2]} ${props => props.theme.space[3]};
     border: none;
-    border-bottom: 1px solid black;
+    border: 2px solid black;
+
+    background-color: transparent;
 `;
 
 const SearchField = ({ handleInput }) => {

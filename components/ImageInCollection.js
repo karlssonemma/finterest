@@ -7,6 +7,7 @@ import IconBtn from './Buttons/CloseBtn';
 const Container = styled.li`
 
     animation: slideIn 1s;
+    list-style: none;
     
     @keyframes slideIn {
         0% {
@@ -28,7 +29,18 @@ const Photo = styled.img`
 const ButtonField = styled.div`
     width: 100%;
     height: 80px;
-    background-color: blue;
+`;
+
+const Close = styled.button`
+    background-color: transparent;
+    border: none;
+
+    //float tillfälligt
+    float: right;
+`;
+
+const Icon = styled.img`
+    width: 20px;
 `;
 
 const ImageInCollection = ({ item, handleClick }) => {
@@ -37,7 +49,7 @@ const ImageInCollection = ({ item, handleClick }) => {
         <Container>
             <Photo src={item.url} />
             <ButtonField>
-                <button onClick={(item) => handleClick(item)}>X</button>
+                <Close onClick={(item) => handleClick(item)}><Icon src={'/cancel.png'} /></Close>
             </ButtonField>
         </Container>
     )
