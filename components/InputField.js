@@ -12,9 +12,7 @@ const StyledInput = styled.input`
     padding: ${props => props.theme.space[1]};
     margin-bottom: ${props => props.theme.space[1]};
 
-    border: none;
-
-    background-color: #1011;
+    border-bottom: 2px solid black;
 `;
 
 const StyledLabel = styled.label`

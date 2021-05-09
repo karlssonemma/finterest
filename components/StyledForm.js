@@ -10,5 +10,6 @@ export const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: lightgray;
+    background-color: white;
+    border: 2px solid black;
 `;

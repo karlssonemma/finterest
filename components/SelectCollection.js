@@ -19,7 +19,7 @@ const StyledForm = styled.form`
 const StyledSelect = styled.select`
     padding: ${props => props.theme.space[2]};
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
 `;
 
 const SelectCollection = ({ item }) => {

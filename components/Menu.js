@@ -40,6 +40,10 @@ const StyledSection = styled.section`
 const StyledLink = styled.a`
     cursor: pointer;
     font-size: ${props => props.theme.fontSizes.lg};
+
+    &:hover {
+        text-decoration: underline;
+    }
 `;
 
 const Menu = () => {

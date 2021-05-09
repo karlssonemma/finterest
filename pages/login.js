@@ -20,6 +20,7 @@ const StyledMain = styled.main`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: lightgoldenrodyellow;
 `;
 
 
@@ -63,7 +64,7 @@ const LogIn = () => {
                     labelText='Password'
                     register={register}
                 />
-                <FormBtn typ='submit'>Log in</FormBtn>
+                <FormBtn typ='submit'>LOG IN</FormBtn>
             </StyledForm>
             <Link href='/signup'>
                 <a>Dont have an account? Click here to create one</a>
