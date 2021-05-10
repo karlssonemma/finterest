@@ -20,8 +20,13 @@ export function AuthProvider({ children }) {
         })
     }, [])
 
-    const signup = (email, password) => {
-        return auth.createUserWithEmailAndPassword(email, password)
+    const signup = async (email, password, username) => {
+        const user = await auth.createUserWithEmailAndPassword(email, password)
+        await user.user.updateProfile({
+            displayName: username
+        })
+
+        return user;
     };
 
     const login = (email, password) => {

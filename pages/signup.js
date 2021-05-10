@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -31,7 +31,8 @@ const SignUp = () => {
     const schema = object().shape({
         email: string().required(),
         password: string().min(6, 'Password must be at least 6 characters').max(15).required(),
-        confirmPassword: string().oneOf([ref('password')], 'Passwords must match')
+        confirmPassword: string().oneOf([ref('password')], 'Passwords must match'),
+        // username: string().min(5).max(15).isValid(false)
     })
 
     const { signup, currentUser, isAuthenticated } = useAuth();
@@ -43,16 +44,25 @@ const SignUp = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+
+    // useEffect(async () => {
+    //     const usersRef = await readUsers()
+    //     usersRef.where('username', '==', )
+    // }, [])
+
     const onSubmit = async (data) => {
+        console.log(data)
         try {
             setError('')
             setLoading(true)
-            const user = await signup(data.email, data.password)
+            const user = await signup(data.email, data.password, data.username)
             // console.log('SUCCESS!!', user.user.email)
+            // console.log(user.user.displayName)
             const users = await readUsers();
             users.doc(user.user.uid).set({
                 email: user.user.email,
                 id: user.user.uid,
+                username: user.user.displayName,
                 signedUp: new Date().toLocaleDateString()
             })
             router.push('/profile')
@@ -76,6 +86,12 @@ const SignUp = () => {
                     inputName='email'
                     inputType='email'
                     labelText='Email'
+                    register={register}
+                />
+                <InputField 
+                    inputName='username'
+                    inputType='username'
+                    labelText='Username'
                     register={register}
                 />
                 <InputField 

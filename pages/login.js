@@ -26,7 +26,7 @@ const StyledMain = styled.main`
 
 const LogIn = () => {
 
-    const { login } = useAuth();
+    const { login, currentUser } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const router = useRouter();

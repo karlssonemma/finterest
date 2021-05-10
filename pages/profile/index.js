@@ -67,7 +67,7 @@ const Profile = () => {
                     <Link href={'/home'}>
                         <a style={{position: 'absolute', left: '0'}}><Arrow src='/right.svg' /></a>
                     </Link>
-                    <Pagetitle>username</Pagetitle>
+                    <Pagetitle>{currentUser.displayName ? currentUser.displayName : 'username'}</Pagetitle>
                     <StandardBtn onClick={openCreateCollWindow}>Create collection</StandardBtn>
                 </Container>
                 <MainGrid>
