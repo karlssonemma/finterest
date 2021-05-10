@@ -1,8 +1,14 @@
 import unsplashInstance from '../config/unsplash';
 
-export const fetchTenRandomPhotosPhotos = async () => {
+export const fetchTenRandomPhotos = async () => {
     return await unsplashInstance.photos.getRandom({
         count: 10
+    })
+};
+
+export const fetchOneRandomPhoto = async () => {
+    return await unsplashInstance.photos.getRandom({
+        count: 1
     })
 };
 

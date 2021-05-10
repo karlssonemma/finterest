@@ -56,7 +56,7 @@ const Home = () => {
 
     const getMorePhotos = async () => {
         try {
-            let resp = await fetchTenRandomPhotosPhotos();
+            let resp = await fetchTenRandomPhotos();
             console.log(resp)
             resp.response.map(item => {
                 let photo = {
