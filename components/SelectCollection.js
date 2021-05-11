@@ -7,6 +7,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { readCurrentUser, readCurrentUsersCollections, readUsers, readUsersCollections, readPhotoFromCollection, readPhotosFromCollection, deletePhotoFromCollection, addPhoto } from '../helpers/firebaseHelpers';
 import HeartBtn from '../components/Buttons/HeartBtn';
 import firebaseInstance from '../config/firebase';
+import AddPhotoToNewCollScreen from '../components/AddPhotoToNewCollScreen';
+
 
 const StyledForm = styled.form`
     width: 100%;
@@ -63,11 +65,10 @@ const SelectCollection = ({ item }) => {
     }, [selectedCollId])
 
     useEffect(async () => {
-        readUsers()
+        readUsers();
         if (collections.length < 1) {
-            let coll = await readUsersCollections(currentUser.uid)
-            coll.get()
-            .then(snapshot => {
+            let coll = await readUsersCollections(currentUser.uid);
+            coll.onSnapshot(snapshot => {
                 snapshot.forEach(doc => {
                     setCollections(prevState => [...prevState, {...doc.data(), id: doc.id }])
                 })
@@ -76,39 +77,49 @@ const SelectCollection = ({ item }) => {
     }, [])
 
     const onSubmit = async (data) => {
-        //endast pga tom string vid submit utan att select blivit touched
-        let collId = data.collectionId ? data.collectionId : collections[0].id;
+        if(data.collectionId === 'new') {
+            document.querySelector('.addPhotoToNewCollScreen').classList.toggle('visible')
+        } else {
+             //endast pga tom string vid submit utan att select blivit touched
+            let collId = data.collectionId ? data.collectionId : collections[0].id;
 
-        let coll = await readPhotoFromCollection(currentUser.uid, collId, id)
-        coll.get()
-        .then(doc => {
-            if(doc.exists) {
-                deletePhotoFromCollection(currentUser.uid, collId, doc.id)
-                console.log('exists', doc.id)
-            } else {
-                addPhoto(currentUser.uid, collId, id, {
-                    url: url,
-                    id: id
-                });
-                console.log('doenst exist', doc.id)
-            }
-        }).then(() => setFilled(!filled))
+            let coll = await readPhotoFromCollection(currentUser.uid, collId, id)
+            coll.get()
+            .then(doc => {
+                if(doc.exists) {
+                    deletePhotoFromCollection(currentUser.uid, collId, doc.id)
+                    console.log('exists', doc.id)
+                } else {
+                    addPhoto(currentUser.uid, collId, id, {
+                        url: url,
+                        id: id
+                    });
+                    console.log('doenst exist', doc.id)
+                }
+            }).then(() => setFilled(!filled))
+        }
+        
     };
 
     return(
-        <StyledForm onSubmit={handleSubmit(onSubmit)} onChange={e => setSelectedCollId(e.target.value)}>
-            {
-                collections && 
-                    <StyledSelect {...register('collectionId')}>
-                        {
-                            collections && collections.map((coll, i) => {
-                                return <option key={coll.id} value={coll.id}>{coll.name}</option> 
-                            }
-                        )}
-                    </StyledSelect>
-            }
-            <HeartBtn filled={filled} />
-        </StyledForm>
+        <>
+        <AddPhotoToNewCollScreen item={item} />
+            <StyledForm onSubmit={handleSubmit(onSubmit)} onChange={e => setSelectedCollId(e.target.value)}>
+                {
+                    collections && 
+                        <StyledSelect {...register('collectionId')}>
+                            <option value='new'>N E W</option>
+                            {
+                                collections && collections.map((coll, i) => {
+                                    return <option key={coll.id} value={coll.id}>{coll.name}</option> 
+                                }
+                            )}
+                            
+                        </StyledSelect>
+                }
+                <HeartBtn filled={filled} />
+            </StyledForm>
+        </>
     )
 }
 

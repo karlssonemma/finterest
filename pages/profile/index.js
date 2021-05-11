@@ -38,10 +38,28 @@ const Profile = () => {
 
     const { currentUser } = useAuth();
     const [collections, setCollections] = useState([]);
+    const [filteredCollections, setFilteredCollections] = useState([]);
+    const [searchInput, setSearchInput] = useState('');
+
+    
 
     useEffect(() => {
         getCollections()
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if(collections.length) {
+            setFilteredCollections(collections)
+        }
+    }, [collections])
+
+    useEffect(() => {
+        if(searchInput.length > 0) {
+            setFilteredCollections(collections.filter(coll => (coll.name).toLowerCase().includes(searchInput.toLowerCase())))
+        } else {
+            setFilteredCollections(collections)
+        }
+    }, [searchInput]);
 
     const getCollections = async () => {
         let coll = await readUsersCollections(currentUser.uid)
@@ -58,9 +76,14 @@ const Profile = () => {
         item.classList.toggle('visible');
     };
 
+    const handleText = (e) => {
+        setSearchInput(e.target.value)
+    };
+
+
     return(
         <>
-            <Navigation />
+            <Navigation handleInput={e => handleText(e)} />
             <CreateCollScreen />
             <main>
                 <Container>
@@ -73,7 +96,7 @@ const Profile = () => {
                 <MainGrid>
 
                 {
-                    collections && collections.map(item => <CollectionComp key={item.id} coll={item} />)
+                    filteredCollections && filteredCollections.map(item => <CollectionComp key={item.id} coll={item} />)
                 }
 
                 </MainGrid>

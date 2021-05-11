@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections } from '../helpers/firebaseHelpers';
+import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, deleteCollectionDoc, readCurrentUserDoc, readCollections, readPhotosFromCollection } from '../helpers/firebaseHelpers';
 import Overlay from '../components/Overlay';
 import CloseBtn from './Buttons/CloseBtn';
 import StandardBtn from './Buttons/StandardBtn';
 import { useAuth } from '../contexts/AuthContext';
 import firebaseInstance from '../config/firebase';
+import { useRouter } from 'next/router';
 
 
-const DeleteCollScreen = () => {
+const DeleteCollScreen = ({ collId }) => {
 
     const { currentUser } = useAuth()
+    const router = useRouter()
 
     const closeWindow = () => {
         let item = document.querySelector('.deleteCollScreen')

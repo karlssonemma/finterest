@@ -6,7 +6,7 @@ import unsplashInstance from '../config/unsplash';
 
 import ImageComp from '../components/ImageComp';
 import MainGrid from '../components/MainGrid';
-import { getPhotosBySearch, fetchTenRandomPhotosPhotos } from '../helpers/apiHelpers';
+import { getPhotosBySearch, fetchTenRandomPhotos } from '../helpers/apiHelpers';
 import { useAuth } from '../contexts/AuthContext';
 
 

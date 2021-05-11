@@ -80,7 +80,7 @@ const CollectionPage = () => {
     return(
         <>
         <Navigation />
-        <DeleteCollScreen />
+        <DeleteCollScreen collId={collId} />
         <Container>
             <Link href={'/profile'}>
                 <a style={{position: 'absolute', left: '0'}}><Arrow src='/right.svg' /></a>

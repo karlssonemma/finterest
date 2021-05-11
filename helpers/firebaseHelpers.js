@@ -41,3 +41,28 @@ export const addPhoto = async (userId, collId, photoId, photoObject) => {
     console.log(photoObject)
     await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId).set(photoObject);
 };
+
+export const addCollection = async (userId, collObject) => {
+    await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc().set(collObject);
+};
+
+export const checkIfCollectionExistsByName = async (userId, input) => {
+    let found = false;
+    await firebaseInstance
+    .firestore()
+    .collection('users')
+    .doc(userId)
+    .collection('collections')
+    .where('name', '==', input)
+    .get()
+    .then(query => {
+        query.forEach(doc => {
+            if(doc.exists) found = true;
+        })
+    })
+    return found;
+};
+
+export const readCollectionByName = async (userId, input) => {
+    return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').where('name', '==', input);
+}
