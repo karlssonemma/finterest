@@ -96,7 +96,7 @@ const Profile = () => {
                 <MainGrid>
 
                 {
-                    filteredCollections && filteredCollections.map(item => <CollectionComp key={item.id} coll={item} />)
+                    filteredCollections && filteredCollections.map((item, i) => <CollectionComp key={item.id + i} coll={item} />)
                 }
 
                 </MainGrid>

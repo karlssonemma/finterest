@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 import Link from 'next/link';
+import theme from '../utils/theme';
 
 const Container = styled.li`
     width: auto;
@@ -10,20 +11,24 @@ const Container = styled.li`
     border: 2px solid black;
 
     list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    margin-bottom: ${props => props.theme.space[4]};
+`;
+
+const StyledLink = styled.a`
+    font-size: ${props => props.theme.fontSizes.lg};
 `;
 
 const CollectionComp = ({ coll }) => {
 
-    const handleClick = () => {
-        console.log('hejejej')
-    };
 
     return(
         <Container>
             <Link href={`/profile/${coll.id}`}>
-                <a>
-                    <p>{coll.name}</p>
-                </a>
+                <StyledLink>{coll.name}</StyledLink>
             </Link>
         </Container>
     )

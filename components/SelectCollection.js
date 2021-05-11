@@ -21,7 +21,6 @@ const StyledForm = styled.form`
 const StyledSelect = styled.select`
     padding: ${props => props.theme.space[2]};
     border: none;
-    border-bottom: 2px solid black;
 `;
 
 const SelectCollection = ({ item }) => {
@@ -108,10 +107,10 @@ const SelectCollection = ({ item }) => {
                 {
                     collections && 
                         <StyledSelect {...register('collectionId')}>
-                            <option value='new'>N E W</option>
+                            <option value='new'>--- NEW ---</option>
                             {
                                 collections && collections.map((coll, i) => {
-                                    return <option key={coll.id} value={coll.id}>{coll.name}</option> 
+                                    return <option key={coll.id + i} value={coll.id}>{coll.name}</option> 
                                 }
                             )}
                             
