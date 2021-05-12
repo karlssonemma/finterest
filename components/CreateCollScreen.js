@@ -2,20 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
+import firebaseInstance from '../config/firebase';
+import { useAuth } from '../contexts/AuthContext';
 import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections, checkIfCollectionExistsByName, addCollection } from '../helpers/firebaseHelpers';
 import Overlay from '../components/Overlay';
 import CloseBtn from './Buttons/CloseBtn';
 import StandardBtn from './Buttons/StandardBtn';
-import { useAuth } from '../contexts/AuthContext';
-import firebaseInstance from '../config/firebase';
+import { InputWithBorderBottom } from '../components/InputWithBorderBottom';
 
-const StyledInput = styled.input`
-    border: none;
-    border-bottom: 2px solid black;
-
-    padding: ${props => props.theme.space[2]};
-    margin-bottom: ${props => props.theme.space[2]};
-`;
 
 const CreateCollScreen = () => {
 
@@ -55,7 +49,7 @@ const CreateCollScreen = () => {
             {
                 nameAlreadyInUse && <p>Name already in use</p>
             }
-            <StyledInput type='text' placeholder='name of coll' onChange={e => handleText(e)} />
+            <InputWithBorderBottom type='text' placeholder='name of collection' onChange={e => handleText(e)} />
             
             <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create coll</StandardBtn>
         </Overlay>

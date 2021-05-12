@@ -14,7 +14,7 @@ const StyledHeader = styled.header`
     justify-content: space-between;
 
     /* background-color: lightblue; */
-    position: absolute;
+    position: fixed;
     top: 0;
 `;
 

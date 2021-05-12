@@ -15,8 +15,8 @@ const StyledNav = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    /* background-color: lightblue; */
-    position: absolute;
+    background-color: white;
+    position: fixed;
     top: 0;
 `;
 

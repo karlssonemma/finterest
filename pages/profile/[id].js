@@ -14,13 +14,13 @@ import theme from '../../utils/theme';
 import DeleteCollScreen from '../../components/DeleteCollScreen';
 import StandardBtn from '../../components/Buttons/StandardBtn';
 import { Pagetitle } from '../../components/Pagetitle';
+import IconBtn from '../../components/Buttons/IconBtn';
+
 
 const Container = styled.section`
-    height: 100px;
+    height: 200px;
     width: 100%;
-    background-color: gray;
-    //måste ändras
-    margin-top: 100px;
+    background-color: white;
 
     display: flex;
     flex-direction: column;
@@ -28,21 +28,40 @@ const Container = styled.section`
     justify-content: center;
 `;
 
+const BtnContainer = styled.section`
+    width: max-content;
+    display:flex;
+    justify-content: space-between;
+`;
+
 const Arrow = styled.img`
     width: 30px;
     height: auto;
-    margin-left: ${props => props.theme.space[1]};
+    margin-left: ${props => props.theme.space[4]};
     transform: rotate(180deg);
 `;
+
+const Date = styled.p`
+    font-size: ${props => props.theme.fontSizes.s};
+    color: gray;
+`;
+
+const LinkToProfile = () => {
+    return(
+        <Link href={'/profile'}>
+            <a style={{position: 'absolute', left: '0'}}><Arrow src='/right.svg' /></a>
+        </Link>
+    )
+};
 
 
 const CollectionPage = () => {
 
     const router = useRouter();
     const collId = router.query.id;
-    const { currentUser } = useAuth();
+    const { currentUser, isAuthenticated } = useAuth();
     const [photos, setPhotos] = useState([]);
-    const [collName, setCollName] = useState('');
+    const [collInfo, setCollInfo] = useState('');
 
     if (!isAuthenticated) {
         router.push('/login')
@@ -61,7 +80,7 @@ const CollectionPage = () => {
 
     const handleGetCollInfo = async () => {
         let coll = await getCollectionFromUser(currentUser.uid, collId);
-        setCollName(coll.data().name)
+        setCollInfo(coll.data())
     };
 
     const handleGetPhotos = async () => {
@@ -82,24 +101,37 @@ const CollectionPage = () => {
         .then(() => handleGetPhotos())
     };
 
+    const renderPhotos = () => {
+        return(
+            <MainGrid>
+                {
+                    photos.map(item => 
+                        <ImageInCollection key={item.id} item={item} handleClick={() => handleDeletePhoto(item.id)} />
+                    )
+                }
+            </MainGrid>
+        )
+    };
+
     return(
         <>
         <Navigation />
-        <DeleteCollScreen collId={collId} />
-        <Container>
-            <Link href={'/profile'}>
-                <a style={{position: 'absolute', left: '0'}}><Arrow src='/right.svg' /></a>
-            </Link>
-            <Pagetitle>{collName}</Pagetitle>
-            <StandardBtn onClick={openDeleteCollWindow}>Delete collection</StandardBtn>
-        </Container>
-        <MainGrid>
+        <main style={{marginTop: '100px'}}>
+            <DeleteCollScreen collId={collId} />
+            <Container>
+                <LinkToProfile />
+                <Pagetitle>{collInfo.name}</Pagetitle>
+                <Date>created: {collInfo.createdAt}</Date>
+                <BtnContainer>
+                    <IconBtn icon='/edit.png' btnFunction={console.log('clickkckck')} />
+                    <IconBtn icon='/cancel.png' btnFunction={openDeleteCollWindow} />
+                </BtnContainer>
+            </Container>
             {
-                photos && photos.map(item => 
-                    <ImageInCollection key={item.id} item={item} handleClick={() => handleDeletePhoto(item.id)} />
-                )
+                photos.length ? renderPhotos() : <p>Start by adding photos to your collection</p>
+                
             }
-        </MainGrid>
+        </main>
         </>
     )
 }

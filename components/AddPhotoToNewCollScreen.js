@@ -8,7 +8,17 @@ import CloseBtn from './Buttons/CloseBtn';
 import StandardBtn from './Buttons/StandardBtn';
 import { useAuth } from '../contexts/AuthContext';
 import firebaseInstance from '../config/firebase';
+import { InputWithBorderBottom } from '../components/InputWithBorderBottom';
 
+
+const StyledInput = styled.input`
+    border: none;
+    border-bottom: 2px solid black;
+
+    text-align: center;
+    padding: ${props => props.theme.space[2]};
+    margin-bottom: ${props => props.theme.space[2]};
+`;
 
 const AddPhotoToNewCollScreen = ({ item }) => {
 
@@ -57,7 +67,7 @@ const AddPhotoToNewCollScreen = ({ item }) => {
             {
                 nameAlreadyInUse && <p>Name already in use</p>
             }
-            <input type='text' placeholder='name of coll' onChange={e => handleText(e)} />
+            <InputWithBorderBottom type='text' placeholder='name of collection' onChange={e => handleText(e)} />
             <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create coll</StandardBtn>
             
         </Overlay>

@@ -81,10 +81,12 @@ const Home = () => {
     return(
         <>
             <Navigation handleInput={(e) => setSearchInput(e.target.value)} />
-                <MainGrid>
-                    {photos !== null && photos.map((item, i) => <ImageComp key={item.id + i} item={item} />)
-                    }
-                </MainGrid>
+                <main style={{marginTop: '100px'}}>
+                    <MainGrid>
+                        {photos !== null && photos.map((item, i) => <ImageComp key={item.id + i} item={item} />)
+                        }
+                    </MainGrid>
+                </main>
         </>
     )
 }

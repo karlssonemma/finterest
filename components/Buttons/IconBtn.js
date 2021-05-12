@@ -3,21 +3,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledBtn = styled.button`
-    outline: none;
     border: none;
     background-color: transparent;
-
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    cursor: pointer;
 `;
 
 const Icon = styled.img`
-    width: 20px;
+    width: 15px;
     height: auto;
+    margin: ${props => props.theme.space[3]} ${props => props.theme.space[1]};
 `;
 
-const CloseBtn = ({ btnFunction, icon }) => {
+const IconBtn = ({ btnFunction, icon }) => {
 
     return(
         <StyledBtn onClick={() => btnFunction()}>
@@ -26,4 +23,4 @@ const CloseBtn = ({ btnFunction, icon }) => {
     )
 }
 
-export default CloseBtn;
+export default IconBtn;

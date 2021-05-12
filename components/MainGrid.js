@@ -4,7 +4,7 @@ import theme from '../utils/theme';
 const MainGrid = styled.ul`
     width: 100%;
     height: max-content;
-    margin-top: 100px;
+    /* margin-top: 100px; */
     padding: ${props => props.theme.space[4]};
 
     display: grid;
