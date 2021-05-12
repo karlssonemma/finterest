@@ -26,7 +26,7 @@ const StyledLabel = styled.label`
 
 const InputField = (props) => {
     
-    let { inputType, inputName, labelText, register } = props;
+    let { inputType, inputName, labelText, register, handleInput } = props;
 
     return(
         <Container>

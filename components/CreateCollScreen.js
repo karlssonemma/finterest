@@ -29,8 +29,10 @@ const CreateCollScreen = () => {
     };
 
     useEffect(async () => {
-        let foundCollWithSameName = await checkIfCollectionExistsByName(currentUser.uid, text)
-        setNameAlreadyInUse(foundCollWithSameName)
+        if(text.length > 1) {
+            let foundCollWithSameName = await checkIfCollectionExistsByName(currentUser.uid, text)
+            setNameAlreadyInUse(foundCollWithSameName)
+        }
     }, [text])
 
     const handleText = (e) => {

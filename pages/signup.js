@@ -11,7 +11,7 @@ import { useAuth } from '../contexts/AuthContext';
 import InputField from '../components/InputField';
 import { StyledForm } from '../components/StyledForm';
 import { FormBtn } from '../components/Buttons/FormBtn';
-import { readUsers } from '../helpers/firebaseHelpers';
+import { checkIfUsernameExists, readUsers } from '../helpers/firebaseHelpers';
 import { readUsersCollections } from '../helpers/firebaseHelpers';
 import BigLogo from '../components/BigLogo';
 import { Pagetitle } from '../components/Pagetitle';
@@ -32,7 +32,7 @@ const SignUp = () => {
         email: string().required(),
         password: string().min(6, 'Password must be at least 6 characters').max(15).required(),
         confirmPassword: string().oneOf([ref('password')], 'Passwords must match'),
-        // username: string().min(5).max(15).isValid(false)
+        username: string().min(5).max(15)
     })
 
     const { signup, currentUser, isAuthenticated } = useAuth();
@@ -45,33 +45,33 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false);
 
 
-    // useEffect(async () => {
-    //     const usersRef = await readUsers()
-    //     usersRef.where('username', '==', )
-    // }, [])
-
     const onSubmit = async (data) => {
-        console.log(data)
-        try {
-            setError('')
-            setLoading(true)
-            const user = await signup(data.email, data.password, data.username)
-            // console.log('SUCCESS!!', user.user.email)
-            // console.log(user.user.displayName)
-            const users = await readUsers();
-            users.doc(user.user.uid).set({
-                email: user.user.email,
-                id: user.user.uid,
-                username: user.user.displayName,
-                signedUp: new Date().toLocaleDateString()
-            })
-            router.push('/profile')
-        } catch (error) {
-            setError('Failed to create account', error)
-            console.log(error)
+        let userNameAlreadyExists = await checkIfUsernameExists(data.username);
+        if (!userNameAlreadyExists) {
+            try {
+                setError('')
+                setLoading(true)
+                const user = await signup(data.email, data.password, data.username)
+                // console.log('SUCCESS!!', user.user.email)
+                // console.log(user.user.displayName)
+                const users = await readUsers();
+                users.doc(user.user.uid).set({
+                    email: user.user.email,
+                    id: user.user.uid,
+                    username: user.user.displayName,
+                    signedUp: new Date().toLocaleDateString()
+                })
+                router.push('/profile')
+            } catch (error) {
+                setError('Failed to create account', error)
+                console.log(error)
+            }
+            setLoading(false)
+        } else {
+            setError('username already exists')
         }
-        setLoading(false)
     }
+
 
     return(
         <StyledMain>

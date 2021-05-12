@@ -8,14 +8,21 @@ import ImageComp from '../components/ImageComp';
 import MainGrid from '../components/MainGrid';
 import { getPhotosBySearch, fetchTenRandomPhotos } from '../helpers/apiHelpers';
 import { useAuth } from '../contexts/AuthContext';
+import { useRouter } from 'next/router';
 
 
 
 const Home = () => {
 
-    const { currentUser } = useAuth();
+    const router = useRouter();
+    const { currentUser, isAuthenticated } = useAuth();
     const [photos, setPhotos] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+
+    if (!isAuthenticated) {
+        router.push('/login')
+        return <p>not signed in</p>
+    };
 
     useEffect(() => {
         window.addEventListener('scroll', () => checkIfScrollIsAtBottom())

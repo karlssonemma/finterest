@@ -63,6 +63,21 @@ export const checkIfCollectionExistsByName = async (userId, input) => {
     return found;
 };
 
+export const checkIfUsernameExists = async (input) => {
+    let found = false;
+    await firebaseInstance
+    .firestore()
+    .collection('users')
+    .where('username', '==', input)
+    .get()
+    .then(query => {
+        query.forEach(doc => {
+            if(doc.exists) found = true;
+        })
+    })
+    return found;
+};
+
 export const readCollectionByName = async (userId, input) => {
     return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').where('name', '==', input);
 }

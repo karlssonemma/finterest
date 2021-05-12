@@ -44,6 +44,11 @@ const CollectionPage = () => {
     const [photos, setPhotos] = useState([]);
     const [collName, setCollName] = useState('');
 
+    if (!isAuthenticated) {
+        router.push('/login')
+        return <p>not signed in</p>
+    };
+
     useEffect(() => {
         handleGetCollInfo();
         handleGetPhotos();

@@ -12,6 +12,7 @@ import Overlay from '../../components/Overlay';
 import { Pagetitle } from '../../components/Pagetitle';
 import { useAuth } from '../../contexts/AuthContext';
 import { readCurrentUser, readUsersCollections } from '../../helpers/firebaseHelpers';
+import { useRouter } from 'next/router';
 
 const Container = styled.section`
     height: 100px;
@@ -36,12 +37,16 @@ const Arrow = styled.img`
 
 const Profile = () => {
 
-    const { currentUser } = useAuth();
+    const router = useRouter();
+    const { currentUser, isAuthenticated } = useAuth();
     const [collections, setCollections] = useState([]);
     const [filteredCollections, setFilteredCollections] = useState([]);
     const [searchInput, setSearchInput] = useState('');
 
-    
+    if (!isAuthenticated) {
+        router.push('/login')
+        return <p>not signed in</p>
+    };
 
     useEffect(() => {
         getCollections()
@@ -90,7 +95,7 @@ const Profile = () => {
                     <Link href={'/home'}>
                         <a style={{position: 'absolute', left: '0'}}><Arrow src='/right.svg' /></a>
                     </Link>
-                    <Pagetitle>{currentUser.displayName ? currentUser.displayName : 'username'}</Pagetitle>
+                    <Pagetitle>{currentUser && currentUser.displayName ? currentUser.displayName : 'username'}</Pagetitle>
                     <StandardBtn onClick={openCreateCollWindow}>Create collection</StandardBtn>
                 </Container>
                 <MainGrid>
