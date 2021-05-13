@@ -21,6 +21,7 @@ const StyledForm = styled.form`
 const StyledSelect = styled.select`
     padding: ${props => props.theme.space[2]};
     border: none;
+    background-color: rgba(255,255,255, 0);
 `;
 
 const SelectCollection = ({ item }) => {

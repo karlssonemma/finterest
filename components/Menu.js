@@ -13,6 +13,7 @@ const StyledSection = styled.section`
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 100;
 
     background-color: white;
 

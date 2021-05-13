@@ -15,6 +15,7 @@ import DeleteCollScreen from '../../components/DeleteCollScreen';
 import StandardBtn from '../../components/Buttons/StandardBtn';
 import { Pagetitle } from '../../components/Pagetitle';
 import IconBtn from '../../components/Buttons/IconBtn';
+import EditCollNameScreen from '../../components/EditCollNameScreen';
 
 
 const Container = styled.section`
@@ -73,10 +74,7 @@ const CollectionPage = () => {
         handleGetPhotos();
     }, []);
 
-    const openDeleteCollWindow = () => {
-        let item = document.querySelector('.deleteCollScreen')
-        item.classList.toggle('visible');
-    };
+   
 
     const handleGetCollInfo = async () => {
         let coll = await getCollectionFromUser(currentUser.uid, collId);
@@ -113,18 +111,29 @@ const CollectionPage = () => {
         )
     };
 
+    const openDeleteCollWindow = () => {
+        let item = document.querySelector('.deleteCollScreen')
+        item.classList.toggle('visible');
+    };
+
+    const openChangeNameScreen = () => {
+        let item = document.querySelector('.editCollNameScreen')
+        item.classList.toggle('visible');
+    }
+
     return(
         <>
         <Navigation />
         <main style={{marginTop: '100px'}}>
             <DeleteCollScreen collId={collId} />
+            <EditCollNameScreen collId={collId} />
             <Container>
                 <LinkToProfile />
                 <Pagetitle>{collInfo.name}</Pagetitle>
                 <Date>created: {collInfo.createdAt}</Date>
                 <BtnContainer>
-                    <IconBtn icon='/edit.png' btnFunction={console.log('clickkckck')} />
-                    <IconBtn icon='/cancel.png' btnFunction={openDeleteCollWindow} />
+                    <IconBtn label='Edit name of collection.' icon='/edit.png' btnFunction={openChangeNameScreen} />
+                    <IconBtn label='Delete collection.' icon='/cancel.png' btnFunction={openDeleteCollWindow} />
                 </BtnContainer>
             </Container>
             {

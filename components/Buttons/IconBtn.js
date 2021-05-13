@@ -14,10 +14,10 @@ const Icon = styled.img`
     margin: ${props => props.theme.space[3]} ${props => props.theme.space[1]};
 `;
 
-const IconBtn = ({ btnFunction, icon }) => {
+const IconBtn = ({ btnFunction, icon, label }) => {
 
     return(
-        <StyledBtn onClick={() => btnFunction()}>
+        <StyledBtn aria-label={label} onClick={() => btnFunction()}>
             <Icon src={icon} />
         </StyledBtn>
     )

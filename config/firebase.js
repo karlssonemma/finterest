@@ -20,4 +20,5 @@ try {
 
 const firebaseInstance = firebase;
 export default firebaseInstance;
+
 export const auth = firebase.auth();

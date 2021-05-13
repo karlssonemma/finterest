@@ -7,13 +7,18 @@ const Container = styled.li`
 
     animation: slideIn 1s;
     list-style: none;
-    
+    height: 500px;
+    width: 100%;
+    position: relative;
+    //??
+    z-index: 0;
+
     @keyframes slideIn {
         0% {
             opacity: 0%;
             transform: translateX(-20deg)
         } 100% {
-            opacity: 100%;
+            opacity: 1;
             transform: translateX(0)
         }
     }
@@ -21,24 +26,37 @@ const Container = styled.li`
 
 const Photo = styled.img`
     width: 100%;
-    height: calc(100% - 80px);
+    height: 100%;
     object-fit: cover;
+
+    &:hover + .buttonField {
+        visibility: visible;
+    }
 `;
 
 const ButtonField = styled.div`
     width: 100%;
     height: 60px;
-    padding: 0 ${props => props.theme.space[2]};
+    position: absolute;
+    bottom: 0;
+    padding: ${props => props.theme.space[2]};
+    background-color: rgba(255,255,255, 0.8);
+    visibility: hidden;
+
+    &:hover {
+        visibility: visible;
+    }
+    
 `;
 
 const ImageComp = ({ item }) => {
-    const { id, url } = item;
+    const { id, url, alt_description } = item;
     // console.log(item)
 
     return(
         <Container>
-            <Photo src={url} />
-            <ButtonField>
+            <Photo src={url} alt={alt_description} />
+            <ButtonField className='buttonField'>
                 <SelectCollection item={item} />
             </ButtonField>
         </Container>

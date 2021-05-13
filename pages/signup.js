@@ -54,17 +54,16 @@ const SignUp = () => {
                 setError('')
                 setLoading(true)
                 const user = await signup(data.email, data.password, data.username)
-                // console.log('SUCCESS!!', user.user.email)
-                // console.log(user.user.displayName)
-                await setProfilePic(user.user.uid, data.profilePic[0]);
-                const users = await readUsers();
-                users.doc(user.user.uid).set({
-                    email: user.user.email,
-                    id: user.user.uid,
-                    username: user.user.displayName,
-                    signedUp: new Date().toLocaleDateString()
-                })
-                router.push('/profile')
+                console.log('SUCCESS!!', user)
+                // await setProfilePic(user.user.uid, data.profilePic[0]);
+                // const users = await readUsers();
+                // users.doc(user.user.uid).set({
+                //     email: user.user.email,
+                //     id: user.user.uid,
+                //     username: user.user.displayName,
+                //     signedUp: new Date().toLocaleDateString()
+                // })
+                // router.push('/profile')
             } catch (error) {
                 setError('Failed to create account', error)
                 console.log(error)

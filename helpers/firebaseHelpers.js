@@ -19,6 +19,9 @@ export const readUsersCollections = async (id) => {
 export const getCollectionFromUser = async (userId, collId) => {
     return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).get();
 };
+export const readCollectionFromUser = async (userId, collId) => {
+    return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId);
+};
 
 export const deleteCollectionDoc = async (userId, collId) => {
     return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).delete();

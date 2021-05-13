@@ -1,5 +1,6 @@
 import React, { useContext, createContext, useState, useEffect } from 'react';
 import firebaseInstace, { auth } from '../config/firebase';
+import firebase from 'firebase';
 
 const AuthContext = createContext();
 
@@ -30,7 +31,8 @@ export function AuthProvider({ children }) {
         return user;
     };
 
-    const login = (email, password) => {
+    const login = async (email, password) => {
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
         return auth.signInWithEmailAndPassword(email, password)
     };
 

@@ -10,6 +10,7 @@ const StyledBtn = styled.button`
     position: absolute;
     top: 20px;
     right: 20px;
+    cursor: pointer;
 `;
 
 const Icon = styled.img`

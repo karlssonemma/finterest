@@ -39,7 +39,8 @@ const LogIn = () => {
             setError('')
             setLoading(true)
             const user = await login(data.email, data.password)
-            console.log('SUCCESSful login!!', user.user.email)
+            console.log(user)
+            // console.log('SUCCESSful login!!', user.user.email)
             router.push('/home')
         } catch (error) {
             setError('Failed to log in', error)
