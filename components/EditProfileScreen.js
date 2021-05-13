@@ -6,19 +6,50 @@ import Overlay from '../components/Overlay';
 import CloseBtn from './Buttons/CloseBtn';
 import StandardBtn from './Buttons/StandardBtn';
 import { useAuth } from '../contexts/AuthContext';
-import firebaseInstance from '../config/firebase';
+import firebaseInstance, { auth } from '../config/firebase';
 import { useForm } from 'react-hook-form';
 import { InputWithBorderBottom } from '../components/InputWithBorderBottom';
+import { checkIfUsernameExists, readCurrentUser, setProfilePic } from '../helpers/firebaseHelpers';
 
 const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
 `;
 
+const FileInput = styled.input`
+    margin-bottom: ${props => props.theme.space[2]};
+
+    &::file-selector-button {
+        padding: ${props => props.theme.space[1]};
+        font-family: 'Manrope', sans-serif;
+        background-color: transparent;
+        border: 2px solid black;
+        cursor: pointer;
+    }
+`;
+
+const Check = styled.img`
+    width: 20px;
+    margin-left: ${props => props.theme.space[1]};
+    transform: translateY(-2px);
+`;
+
+const ProfileUpdated = () => {
+
+    return(
+        <div style={{height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <p>Profile successfully updated!</p>
+            <Check alt='' src={'/check.png'} />
+        </div>
+    )
+}
+
 const EditProfileScreen = ({ item }) => {
 
     const { currentUser } = useAuth()
     const [text, setText] = useState('');
+    const [error, setError] = useState('');
+    const [updated, setUpdated] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -32,17 +63,26 @@ const EditProfileScreen = ({ item }) => {
         setText(e.target.value)
     };
 
-    const updateProfile = () => {
-        console.log('updated')
-    }
 
     const onSubmit = async (data) => {
-        console.log(data.pic[0])
-        let ref = firebaseInstance.storage().ref('profilePictures')
-        let sunsetRef = ref.child(currentUser.uid)
-        sunsetRef.put(data.pic[0]).then(() => {
-            console.log('did it!!')
-        })
+        console.log(data)
+        let userNameAlreadyExists = await checkIfUsernameExists(data.username);
+        
+        if(!userNameAlreadyExists) {
+            let user = await readCurrentUser(currentUser.uid)
+            user.update({
+                username: data.username
+            })
+            currentUser.updateProfile({
+                displayName: data.username
+            })
+            if (data.pic.length) {
+                await setProfilePic(currentUser.uid, data.pic[0]);
+            }
+            setUpdated(true);
+        } else {
+            setError('username already exists')
+        }
     }
 
 
@@ -50,6 +90,7 @@ const EditProfileScreen = ({ item }) => {
     return (
         <Overlay className='editProfileWindow'>
             <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
+            {error && <p>{error}</p>}
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
                 <InputWithBorderBottom
                     type='text'
@@ -58,13 +99,13 @@ const EditProfileScreen = ({ item }) => {
                     onChange={e => handleText(e)}
                     {...register('username')}
                 />
-                <InputWithBorderBottom 
+                {/* <InputWithBorderBottom 
                     type='text' 
                     name='display-name' 
                     placeholder='Display name' 
                     {...register('display-name')} 
-                />
-                <input 
+                /> */}
+                <FileInput 
                     name='pic'
                     type='file' 
                     onChange={e => setPicture(e.target.value)} 
@@ -72,6 +113,7 @@ const EditProfileScreen = ({ item }) => {
                 />
                 <StandardBtn type='submit'>Create coll</StandardBtn>
             </StyledForm>
+            {updated && <ProfileUpdated />}
         </Overlay>
     )
 }

@@ -11,10 +11,11 @@ import { useAuth } from '../contexts/AuthContext';
 import InputField from '../components/InputField';
 import { StyledForm } from '../components/StyledForm';
 import { FormBtn } from '../components/Buttons/FormBtn';
-import { checkIfUsernameExists, readUsers } from '../helpers/firebaseHelpers';
-import { readUsersCollections } from '../helpers/firebaseHelpers';
+import { checkIfUsernameExists, readUsers, setProfilePic } from '../helpers/firebaseHelpers';
 import BigLogo from '../components/BigLogo';
 import { Pagetitle } from '../components/Pagetitle';
+import HeaderLanding from '../components/HeaderLanding';
+
 
 const StyledMain = styled.main`
     width: 100vw;
@@ -24,6 +25,7 @@ const StyledMain = styled.main`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: lightgreen;
 `;
 
 const SignUp = () => {
@@ -54,6 +56,7 @@ const SignUp = () => {
                 const user = await signup(data.email, data.password, data.username)
                 // console.log('SUCCESS!!', user.user.email)
                 // console.log(user.user.displayName)
+                await setProfilePic(user.user.uid, data.profilePic[0]);
                 const users = await readUsers();
                 users.doc(user.user.uid).set({
                     email: user.user.email,
@@ -74,6 +77,8 @@ const SignUp = () => {
 
 
     return(
+        <>
+        <HeaderLanding />
         <StyledMain>
             {errors.confirmPassword && <p>{errors.confirmPassword.message }</p>}
             {errors.password && <p>{errors.password.message }</p>}
@@ -83,15 +88,15 @@ const SignUp = () => {
                 >
                 <Pagetitle>Sign up</Pagetitle>
                 <InputField 
-                    inputName='email'
-                    inputType='email'
-                    labelText='Email'
-                    register={register}
-                />
-                <InputField 
                     inputName='username'
                     inputType='username'
                     labelText='Username'
+                    register={register}
+                />
+                <InputField 
+                    inputName='email'
+                    inputType='email'
+                    labelText='Email'
                     register={register}
                 />
                 <InputField 
@@ -106,13 +111,20 @@ const SignUp = () => {
                     labelText='Confirm password'
                     register={register}
                 />
-                <FormBtn type='submit'>Log In</FormBtn>
+                <InputField 
+                    inputName='profilePic'
+                    inputType='file'
+                    labelText='Profile picture'
+                    register={register}
+                />
+
+                <FormBtn type='submit'>Sign up</FormBtn>
             </StyledForm>
             <Link href='/login'>
                 <a>Already have an account? Click here to log in</a>
             </Link>
         </StyledMain>
-
+        </>
     )
 }
 

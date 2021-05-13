@@ -80,7 +80,7 @@ export const checkIfUsernameExists = async (input) => {
 
 export const readCollectionByName = async (userId, input) => {
     return await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').where('name', '==', input);
-}
+};
 
 export const getProfilePicWithUserId = async (userId) => {
             let pic;
@@ -92,5 +92,15 @@ export const getProfilePicWithUserId = async (userId) => {
             .then((url) => {
                 pic = url;
             })
+            .catch((e) => {
+                pic = null;
+            })
             return pic;
-}
+};
+
+export const setProfilePic = async (userId, picRef) => {
+    let ref = firebaseInstance.storage().ref('profilePictures')
+    ref.child(userId).put(picRef).then(() => {
+                console.log('did it!!')
+            })
+};

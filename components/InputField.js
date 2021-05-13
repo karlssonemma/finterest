@@ -9,10 +9,9 @@ const Container = styled.div`
 `;
 
 const StyledInput = styled.input`
-    padding: ${props => props.theme.space[1]};
+    padding: ${props => props.theme.space[2]};
     margin-bottom: ${props => props.theme.space[1]};
-
-    border-bottom: 2px solid black;
+    border: 1px solid lightgray;
 `;
 
 const StyledLabel = styled.label`

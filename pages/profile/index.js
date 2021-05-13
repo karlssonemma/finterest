@@ -91,7 +91,7 @@ const Profile = () => {
 
     useEffect(async () => {
         let url = await getProfilePicWithUserId(currentUser.uid)
-        setProfilePic(url)
+        url ? setProfilePic(url) : setProfilePic('/user.svg')
     }, [])
 
     useEffect(() => {

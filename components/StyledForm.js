@@ -11,5 +11,4 @@ export const StyledForm = styled.form`
     flex-direction: column;
     align-items: center;
     background-color: white;
-    border: 2px solid black;
 `;

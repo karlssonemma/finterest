@@ -11,6 +11,7 @@ import { StyledForm } from '../components/StyledForm';
 import { FormBtn } from '../components/Buttons/FormBtn';
 import BigLogo from '../components/BigLogo';
 import { Pagetitle } from '../components/Pagetitle';
+import HeaderLanding from '../components/HeaderLanding';
 
 const StyledMain = styled.main`
     width: 100vw;
@@ -48,6 +49,8 @@ const LogIn = () => {
     }
 
     return(
+        <>
+        <HeaderLanding />
         <StyledMain>
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
                 <Pagetitle>Log In</Pagetitle>
@@ -70,6 +73,7 @@ const LogIn = () => {
                 <a>Dont have an account? Click here to create one</a>
             </Link>
         </StyledMain>
+        </>
 
     )
 }
