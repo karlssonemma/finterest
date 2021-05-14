@@ -18,6 +18,7 @@ const Home = () => {
     const { currentUser, isAuthenticated } = useAuth();
     const [photos, setPhotos] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+    const [loadingPhotos, setLoadingPhotos] = useState(false);
 
     if (!isAuthenticated) {
         router.push('/login')
@@ -55,14 +56,18 @@ const Home = () => {
     }, [searchInput])
 
     const checkIfScrollIsAtBottom = () => {
-        if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-            //max req är 50/h så hehe bäst att ha denna inaktiv
-            // getMorePhotos()
-        };
+        if(loadingPhotos) {
+            console.log(document.body.scrollHeight)
+            // if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+            //     //max req är 50/h så hehe bäst att ha denna inaktiv
+            //     getMorePhotos()
+            // };
+        }
     };
 
     const getMorePhotos = async () => {
         try {
+            setLoadingPhotos(true)
             let resp = await fetchTenRandomPhotos();
             console.log(resp)
             resp.response.map(item => {
@@ -76,6 +81,7 @@ const Home = () => {
                     }
                 };
                 setPhotos((prevState) => [...prevState, photo]);
+                setLoadingPhotos(false)
             })
         } catch (e) {
             console.log('err', e)

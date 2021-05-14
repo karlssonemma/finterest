@@ -22,9 +22,15 @@ const FileInput = styled.input`
     &::file-selector-button {
         padding: ${props => props.theme.space[1]};
         font-family: 'Manrope', sans-serif;
-        background-color: transparent;
-        border: 2px solid black;
+        border: 2px solid gray;
         cursor: pointer;
+        color: gray;
+        background-color: transparent;
+    }
+    
+    &:hover::file-selector-button {
+        border: 2px solid black;
+        color: black;
     }
 `;
 
@@ -105,13 +111,14 @@ const EditProfileScreen = ({ item }) => {
                     placeholder='Display name' 
                     {...register('display-name')} 
                 /> */}
+                
                 <FileInput 
                     name='pic'
                     type='file' 
                     onChange={e => setPicture(e.target.value)} 
                     {...register('pic')} 
                 />
-                <StandardBtn type='submit'>Create coll</StandardBtn>
+                <StandardBtn type='submit'>Submit changes</StandardBtn>
             </StyledForm>
             {updated && <ProfileUpdated />}
         </Overlay>

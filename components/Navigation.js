@@ -18,6 +18,7 @@ const StyledNav = styled.header`
     background-color: white;
     position: fixed;
     top: 0;
+    z-index: 10;
 `;
 
 const StyledMenuBtn = styled.button`

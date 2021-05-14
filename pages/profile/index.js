@@ -35,35 +35,22 @@ const Arrow = styled.img`
     height: auto;
     margin-left: ${props => props.theme.space[4]};
     transform: rotate(180deg);
-    
-`;
-
-const CreateCollBtn = styled.button`
-    border: none;
-    padding: ${props => props.theme.space[1]};
-    background-color: transparent;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:hover {
-        border: 2px solid black;
-    }
-`;
-
-const AddIcon = styled.img`
-    width: 12px;
-    margin-right: ${props => props.theme.space[1]};
 `;
 
 const StyledPic = styled.img`
     width: 100px;
     height: 100px;
+    margin-bottom: ${props => props.theme.space[2]};
     border-radius: 50%;
+    
+    object-fit: cover;
 `;
 
-
+const BtnContainer = styled.div`
+    width: 45px;
+    display: flex;
+    justify-content: space-between;
+`;
 
 const LinkToFeed = () => {
     return(
@@ -159,9 +146,19 @@ const Profile = () => {
                     {
                         profilePic && <StyledPic src={profilePic} />
                     }
-                    <Pagetitle>{currentUser && currentUser.displayName ? currentUser.displayName : 'username'}</Pagetitle>
-                    <CreateCollBtn onClick={openCreateCollWindow}><AddIcon src={'/add.svg'} />collection</CreateCollBtn>
-                    <IconBtn icon='/edit.png' btnFunction={() => openEditProfileWindow()} />
+                    <Pagetitle>{currentUser && currentUser.displayName ? currentUser.displayName : currentUser.email}</Pagetitle>
+                    <BtnContainer>
+                        <IconBtn
+                            label='Create new collection.'
+                            icon='/add.svg'
+                            btnFunction={() => openCreateCollWindow()}
+                        />
+                        <IconBtn 
+                            icon='/settings.png' 
+                            btnFunction={() => openEditProfileWindow()}
+                            label='Profile settings.'
+                        />
+                    </BtnContainer>
                 </Container>
                 {
                     filteredCollections.length ? renderCollections() : <p>Start by creating a collection!</p>

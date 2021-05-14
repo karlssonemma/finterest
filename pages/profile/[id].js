@@ -30,8 +30,9 @@ const Container = styled.section`
 `;
 
 const BtnContainer = styled.section`
-    width: max-content;
-    display:flex;
+    width: 50px;
+    margin-top: ${props => props.theme.space[3]};
+    display: flex;
     justify-content: space-between;
 `;
 
@@ -73,8 +74,6 @@ const CollectionPage = () => {
         handleGetCollInfo();
         handleGetPhotos();
     }, []);
-
-   
 
     const handleGetCollInfo = async () => {
         let coll = await getCollectionFromUser(currentUser.uid, collId);
@@ -132,12 +131,22 @@ const CollectionPage = () => {
                 <Pagetitle>{collInfo.name}</Pagetitle>
                 <Date>created: {collInfo.createdAt}</Date>
                 <BtnContainer>
-                    <IconBtn label='Edit name of collection.' icon='/edit.png' btnFunction={openChangeNameScreen} />
-                    <IconBtn label='Delete collection.' icon='/cancel.png' btnFunction={openDeleteCollWindow} />
+                    <IconBtn 
+                        label='Edit name of collection.' 
+                        icon='/edit.png' 
+                        btnFunction={openChangeNameScreen} 
+                    />
+                    <IconBtn 
+                        label='Delete collection.' 
+                        icon='/cancel.png' 
+                        btnFunction={openDeleteCollWindow} 
+                    />
                 </BtnContainer>
             </Container>
             {
-                photos.length ? renderPhotos() : <p>Start by adding photos to your collection</p>
+                photos.length 
+                    ? renderPhotos() 
+                    : <p>Start by adding photos to your collection</p>
                 
             }
         </main>

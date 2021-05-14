@@ -18,7 +18,6 @@ const InfoBox = (props) => {
 
     const { newClassName, user } = props;
 
-    console.log(props)
 
     return(
         <Box className={newClassName}>
