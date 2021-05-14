@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import SelectCollection from './SelectCollection';
 import { ButtonFieldForImages } from '../components/ButtonFieldForImages';
 import IconBtn from './Buttons/IconBtn';
+import InfoBox from '../components/InfoBox';
 
 const Container = styled.li`
 
@@ -36,19 +37,29 @@ const Photo = styled.img`
 `;
 
 const ImageComp = ({ item }) => {
-    const { id, url, alt_description } = item;
-    // console.log(item)
+
+    const { id, url, alt_description, user } = item;
+    
+    const showInfo = () => {
+       let box = document.querySelector(`.infoBox_${id}`)    
+       box.classList.toggle('infoVisible');
+    };
 
     return(
         <Container>
             <Photo src={url} alt={alt_description} />
             <ButtonFieldForImages className='buttonField'>
-                    <IconBtn 
-                        icon='/info.png'
-                        white={true}
-                        label='Info about the photo.'
-                    />
-                    <SelectCollection item={item} />
+                <IconBtn 
+                    icon='/info.png'
+                    white={true}
+                    label='Info about the photo.'
+                    btnFunction={() => showInfo()}
+                />
+                <InfoBox 
+                    user={user}
+                    newClassName={`infoBox_${id}`}
+                />
+                <SelectCollection item={item} />
             </ButtonFieldForImages>
         </Container>
     )

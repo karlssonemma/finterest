@@ -69,7 +69,11 @@ const Home = () => {
                 let photo = {
                     id: item.id,
                     url: item.urls.regular,
-                    alt_description: item.alt_description
+                    alt_description: item.alt_description,
+                    user: {
+                        name: item.user.name,
+                        instagram: item.user.instagram_username
+                    }
                 };
                 setPhotos((prevState) => [...prevState, photo]);
             })

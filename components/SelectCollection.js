@@ -22,12 +22,14 @@ const StyledSelect = styled.select`
     margin-right: ${props => props.theme.space[2]};
     background-color: transparent;
     border: none;
+    
     color: white;
+    font-weight: 100;
 `;
 
 const SelectCollection = ({ item }) => {
 
-    const { id, url } = item;
+    const { id, url, user } = item;
     const { currentUser } = useAuth();
     const [collections, setCollections] = useState([]);
     const [selectedCollId, setSelectedCollId] = useState('');
@@ -93,7 +95,8 @@ const SelectCollection = ({ item }) => {
                 } else {
                     addPhoto(currentUser.uid, collId, id, {
                         url: url,
-                        id: id
+                        id: id,
+                        user: user
                     });
                     console.log('doenst exist', doc.id)
                 }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ButtonFieldForImages } from './ButtonFieldForImages';
 
 import IconBtn from './Buttons/IconBtn';
+import InfoBox from './InfoBox';
 
 
 const Container = styled.li`
@@ -34,7 +35,11 @@ const Photo = styled.img`
 
 
 const ImageInCollection = ({ item, handleClick }) => {
-    console.log(item)
+    
+    const showInfo = () => {
+        let box = document.querySelector(`.infoBox_${item.id}`)    
+        box.classList.toggle('infoVisible');
+     };
 
     return(
         <Container>
@@ -43,13 +48,18 @@ const ImageInCollection = ({ item, handleClick }) => {
                 <IconBtn 
                     icon='/info.png' 
                     white={true} 
-                    label='Info about the photo.' 
+                    label='Info about the photo.'
+                    btnFunction={() => showInfo()}
                 />
                 <IconBtn 
                     icon='/cancel.png' 
                     btnFunction={item => handleClick(item)} 
                     white={true}
                     label='Delete photo from collection.'
+                />
+                <InfoBox 
+                    newClassName={`infoBox_${item.id}`}
+                    user={item.user}
                 />
             </ButtonFieldForImages>
         </Container>
