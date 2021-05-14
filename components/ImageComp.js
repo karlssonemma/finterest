@@ -2,13 +2,14 @@ import React from 'react';
 
 import styled from 'styled-components';
 import SelectCollection from './SelectCollection';
+import { ButtonFieldForImages } from '../components/ButtonFieldForImages';
+import IconBtn from './Buttons/IconBtn';
 
 const Container = styled.li`
 
     animation: slideIn 1s;
     list-style: none;
     height: 500px;
-    width: 100%;
     position: relative;
     //??
     z-index: 0;
@@ -34,21 +35,6 @@ const Photo = styled.img`
     }
 `;
 
-const ButtonField = styled.div`
-    width: 100%;
-    height: 60px;
-    position: absolute;
-    bottom: 0;
-    padding: ${props => props.theme.space[2]};
-    background-color: rgba(255,255,255, 0.8);
-    visibility: hidden;
-
-    &:hover {
-        visibility: visible;
-    }
-    
-`;
-
 const ImageComp = ({ item }) => {
     const { id, url, alt_description } = item;
     // console.log(item)
@@ -56,9 +42,14 @@ const ImageComp = ({ item }) => {
     return(
         <Container>
             <Photo src={url} alt={alt_description} />
-            <ButtonField className='buttonField'>
-                <SelectCollection item={item} />
-            </ButtonField>
+            <ButtonFieldForImages className='buttonField'>
+                    <IconBtn 
+                        icon='/info.png'
+                        white={true}
+                        label='Info about the photo.'
+                    />
+                    <SelectCollection item={item} />
+            </ButtonFieldForImages>
         </Container>
     )
 }

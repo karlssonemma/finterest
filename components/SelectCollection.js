@@ -11,17 +11,18 @@ import AddPhotoToNewCollScreen from '../components/AddPhotoToNewCollScreen';
 
 
 const StyledForm = styled.form`
-    width: 100%;
-    height: 100%;
+    width: max-content;
+    height: max-content;
     display: flex;
     justify-content: space-between;
     align-items: center;
 `;
 
 const StyledSelect = styled.select`
-    padding: ${props => props.theme.space[2]};
+    margin-right: ${props => props.theme.space[2]};
+    background-color: transparent;
     border: none;
-    background-color: rgba(255,255,255, 0);
+    color: white;
 `;
 
 const SelectCollection = ({ item }) => {

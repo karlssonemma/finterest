@@ -9,16 +9,22 @@ const StyledBtn = styled.button`
 `;
 
 const Icon = styled.img`
-    width: 15px;
+    width: 18px;
     height: auto;
-    margin: ${props => props.theme.space[3]} ${props => props.theme.space[1]};
+
+    &.white {
+        filter: invert(100%);
+    }
+    /* margin: ${props => props.theme.space[3]} ${props => props.theme.space[1]}; */
 `;
 
-const IconBtn = ({ btnFunction, icon, label }) => {
+const IconBtn = (props) => {
 
-    return(
+    const { btnFunction, icon, label, white } = props;
+
+     return(
         <StyledBtn aria-label={label} onClick={() => btnFunction()}>
-            <Icon src={icon} />
+            <Icon src={icon} className={white ? 'white' : ''} />
         </StyledBtn>
     )
 }

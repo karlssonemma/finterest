@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ButtonFieldForImages } from './ButtonFieldForImages';
 
-import IconBtn from './Buttons/CloseBtn';
+import IconBtn from './Buttons/IconBtn';
 
 
 const Container = styled.li`
@@ -31,43 +32,26 @@ const Photo = styled.img`
     }
 `;
 
-const ButtonField = styled.div`
-    width: 100%;
-    height: max-content;
-    padding: ${props => props.theme.space[2]};
-
-    position: absolute;
-    bottom: 0;
-
-    background-color: rgba(255,255,255, 0.8);
-    visibility: hidden;
-
-    &:hover {
-        visibility: visible;
-    }
-`;
-
-const Close = styled.button`
-    background-color: transparent;
-    border: none;
-
-    //float tillfälligt
-    float: right;
-`;
-
-const Icon = styled.img`
-    width: 20px;
-`;
 
 const ImageInCollection = ({ item, handleClick }) => {
+    console.log(item)
 
     return(
         <Container>
             <Photo src={item.url} />
-            <ButtonField className='buttonField'>
-                <Close onClick={(item) => handleClick(item)}><Icon src={'/cancel.png'} /></Close>
-                <button>info</button>
-            </ButtonField>
+            <ButtonFieldForImages className='buttonField'>
+                <IconBtn 
+                    icon='/info.png' 
+                    white={true} 
+                    label='Info about the photo.' 
+                />
+                <IconBtn 
+                    icon='/cancel.png' 
+                    btnFunction={item => handleClick(item)} 
+                    white={true}
+                    label='Delete photo from collection.'
+                />
+            </ButtonFieldForImages>
         </Container>
     )
 }
