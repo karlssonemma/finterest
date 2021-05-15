@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
-import firebaseInstance from '../config/firebase';
-import { useAuth } from '../contexts/AuthContext';
-import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections, checkIfCollectionExistsByName, addCollection } from '../helpers/firebaseHelpers';
-import Overlay from '../components/Overlay';
-import CloseBtn from './Buttons/CloseBtn';
-import StandardBtn from './Buttons/StandardBtn';
-import { InputWithBorderBottom } from '../components/InputWithBorderBottom';
+import firebaseInstance from '../../config/firebase';
+import { useAuth } from '../../contexts/AuthContext';
+import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections, checkIfCollectionExistsByName, addCollection } from '../../helpers/firebaseHelpers';
+import Overlay from '../Overlay';
+import CloseBtn from '../Buttons/CloseBtn';
+import { StandardBtn } from '../Buttons/StandardBtn';
+import { InputWithBorderBottom } from '../FormComponents/InputWithBorderBottom';
 
 
 const CreateCollScreen = () => {

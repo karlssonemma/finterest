@@ -7,7 +7,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { readCurrentUser, readCurrentUsersCollections, readUsers, readUsersCollections, readPhotoFromCollection, readPhotosFromCollection, deletePhotoFromCollection, addPhoto } from '../helpers/firebaseHelpers';
 import HeartBtn from '../components/Buttons/HeartBtn';
 import firebaseInstance from '../config/firebase';
-import AddPhotoToNewCollScreen from '../components/AddPhotoToNewCollScreen';
+import AddPhotoToNewCollScreen from '../components/Modals/AddPhotoToNewCollScreen';
 
 
 const StyledForm = styled.form`
@@ -81,7 +81,7 @@ const SelectCollection = ({ item }) => {
 
     const onSubmit = async (data) => {
         if(data.collectionId === 'new') {
-            document.querySelector('.addPhotoToNewCollScreen').classList.toggle('visible')
+            document.querySelector(`.addPhotoToNewColl_${id}`).classList.toggle('visible')
         } else {
              //endast pga tom string vid submit utan att select blivit touched
             let collId = data.collectionId ? data.collectionId : collections[0].id;

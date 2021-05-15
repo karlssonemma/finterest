@@ -2,17 +2,18 @@ import styled from 'styled-components';
 
 import theme from '../../utils/theme';
 
-const StandardBtn = styled.button`
-    padding: ${props => props.theme.space[1]} ${props => props.theme.space[2]};
-    border: 2px solid gray;
+export const StandardBtn = styled.button`
+    padding: ${props => props.theme.space[2]} ${props => props.theme.space[4]};
+    border: 2px solid black;
     cursor: pointer;
-    color: gray;
+    color: black;
     background-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: .1em;
 
-    &:hover {
-        border: 2px solid black;
-        color: black;
+    &:hover, :focus {
+        background-color: black;
+        color: white;
     }
 `;
 
-export default StandardBtn;

@@ -11,11 +11,11 @@ import { deletePhotoFromCollection, getCollectionFromUser, readPhotosFromCollect
 import MainGrid from '../../components/MainGrid';
 import ImageInCollection from '../../components/ImageInCollection';
 import theme from '../../utils/theme';
-import DeleteCollScreen from '../../components/DeleteCollScreen';
+import DeleteCollScreen from '../../components/Modals/DeleteCollScreen';
 import StandardBtn from '../../components/Buttons/StandardBtn';
 import { Pagetitle } from '../../components/Pagetitle';
 import IconBtn from '../../components/Buttons/IconBtn';
-import EditCollNameScreen from '../../components/EditCollNameScreen';
+import EditCollNameScreen from '../../components/Modals/EditCollNameScreen';
 
 
 const Container = styled.section`
@@ -124,8 +124,6 @@ const CollectionPage = () => {
         <>
         <Navigation />
         <main style={{marginTop: '100px'}}>
-            <DeleteCollScreen collId={collId} />
-            <EditCollNameScreen collId={collId} />
             <Container>
                 <LinkToProfile />
                 <Pagetitle>{collInfo.name}</Pagetitle>
@@ -136,11 +134,13 @@ const CollectionPage = () => {
                         icon='/edit.png' 
                         btnFunction={openChangeNameScreen} 
                     />
+                    <EditCollNameScreen collId={collId} />
                     <IconBtn 
                         label='Delete collection.' 
                         icon='/cancel.png' 
                         btnFunction={openDeleteCollWindow} 
                     />
+                    <DeleteCollScreen collId={collId} />
                 </BtnContainer>
             </Container>
             {

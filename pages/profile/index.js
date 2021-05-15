@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 import StandardBtn from '../../components/Buttons/StandardBtn';
 import CollectionComp from '../../components/CollectionComp';
-import CreateCollScreen from '../../components/CreateCollScreen';
-import EditProfileScreen from '../../components/EditProfileScreen';
+import CreateCollScreen from '../../components/Modals/CreateCollScreen';
+import EditProfileScreen from '../../components/Modals/EditProfileScreen';
 import MainGrid from '../../components/MainGrid';
 import Navigation from '../../components/Navigation';
 import Overlay from '../../components/Overlay';
@@ -30,12 +30,6 @@ const Container = styled.section`
     justify-content: center;
 `;
 
-const Arrow = styled.img`
-    width: 30px;
-    height: auto;
-    margin-left: ${props => props.theme.space[4]};
-    transform: rotate(180deg);
-`;
 
 const StyledPic = styled.img`
     width: 100px;
@@ -51,15 +45,6 @@ const BtnContainer = styled.div`
     display: flex;
     justify-content: space-between;
 `;
-
-const LinkToFeed = () => {
-    return(
-        <Link href={'/home'}>
-            <a style={{position: 'absolute', left: '0', zIndex: '0'}}><Arrow src='/right.svg' /></a>
-        </Link>
-    )
-};
-
 
 
 const Profile = () => {
@@ -142,7 +127,6 @@ const Profile = () => {
             
             <main>
                 <Container>
-                    <LinkToFeed />
                     {
                         profilePic && <StyledPic src={profilePic} />
                     }

@@ -64,8 +64,13 @@ const Navigation = ({ handleInput }) => {
             <p>Finterest</p>
             <SearchField handleInput={(e) => handleInput(e)} /> 
             
+            <StyledMenuBtn 
+                onClick={(e) => handleMenu(e)} 
+            >
+                Menu
+                <Icon className='menu-icon' aria-hidden='true' src={'/next.png'} />
+            </StyledMenuBtn>
             <Menu />
-            <StyledMenuBtn onClick={(e) => handleMenu(e)}>Menu<Icon className='menu-icon' aria-hidden='true' src={'/next.png'} /></StyledMenuBtn>
         </StyledNav>
     )
 }

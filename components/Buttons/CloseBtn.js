@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledBtn = styled.button`
-    outline: none;
     border: none;
     background-color: transparent;
 

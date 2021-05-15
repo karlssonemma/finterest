@@ -39,12 +39,21 @@ const ImageInCollection = ({ item, handleClick }) => {
     const showInfo = () => {
         let box = document.querySelector(`.infoBox_${item.id}`)    
         box.classList.toggle('infoVisible');
-     };
+    };
+
+    const showBtns = () => {
+        document.querySelector(`.buttonField_${item.id}`).classList.toggle('visibleBtnField')
+    };
 
     return(
         <Container>
             <Photo src={item.url} />
-            <ButtonFieldForImages className='buttonField'>
+            <ButtonFieldForImages 
+                className={`buttonField_${item.id}`}
+                tabIndex={0}
+                onFocus={showBtns} 
+                onBlur={showBtns}
+            >
                 <IconBtn 
                     icon='/info.png' 
                     white={true} 
@@ -59,7 +68,7 @@ const ImageInCollection = ({ item, handleClick }) => {
                 />
                 <InfoBox 
                     newClassName={`infoBox_${item.id}`}
-                    user={item.user}
+                    photographer={item.user}
                 />
             </ButtonFieldForImages>
         </Container>

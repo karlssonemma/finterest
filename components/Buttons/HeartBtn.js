@@ -17,9 +17,10 @@ const Icon = styled.img`
 const HeartBtn = ({ filled }) => {
 
     let photoSrc = filled ? '/filled-heart.png' : '/outlined-heart.png';
+    let label = filled ? 'Delete from collection.' : 'Add to collection.';
 
     return(
-        <StyledBtn type='submit'>
+        <StyledBtn type='submit' aria-label={label}>
             <Icon src={photoSrc} />
         </StyledBtn>
     )

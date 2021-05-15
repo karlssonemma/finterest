@@ -24,7 +24,7 @@ const IconBtn = (props) => {
 
      return(
         <StyledBtn aria-label={label} onClick={() => btnFunction()}>
-            <Icon src={icon} className={white ? 'white' : ''} />
+            <Icon src={icon} className={white ? 'white' : ''} alt='' />
         </StyledBtn>
     )
 }

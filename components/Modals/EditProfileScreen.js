@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
-import Overlay from '../components/Overlay';
-import CloseBtn from './Buttons/CloseBtn';
-import StandardBtn from './Buttons/StandardBtn';
-import { useAuth } from '../contexts/AuthContext';
-import firebaseInstance, { auth } from '../config/firebase';
+import Overlay from '../Overlay';
+import CloseBtn from '../Buttons/CloseBtn';
+import { StandardBtn } from '../Buttons/StandardBtn';
+import { useAuth } from '../../contexts/AuthContext';
+import firebaseInstance, { auth } from '../../config/firebase';
 import { useForm } from 'react-hook-form';
-import { InputWithBorderBottom } from '../components/InputWithBorderBottom';
-import { checkIfUsernameExists, readCurrentUser, setProfilePic } from '../helpers/firebaseHelpers';
+import { InputWithBorderBottom } from '../FormComponents/InputWithBorderBottom';
+import { checkIfUsernameExists, readCurrentUser, setProfilePic } from '../../helpers/firebaseHelpers';
 
 const StyledForm = styled.form`
     display: flex;
@@ -18,19 +18,21 @@ const StyledForm = styled.form`
 
 const FileInput = styled.input`
     margin-bottom: ${props => props.theme.space[2]};
+    color: gray;
 
     &::file-selector-button {
         padding: ${props => props.theme.space[1]};
         font-family: 'Manrope', sans-serif;
-        border: 2px solid gray;
+        border: 2px solid black;
         cursor: pointer;
-        color: gray;
+        color: black;
         background-color: transparent;
+        margin-right: ${props => props.theme.space[2]};
     }
     
     &:hover::file-selector-button {
-        border: 2px solid black;
-        color: black;
+        background-color: black;
+        color: white;
     }
 `;
 

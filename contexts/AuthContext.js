@@ -18,7 +18,6 @@ export function AuthProvider({ children }) {
         auth.onAuthStateChanged(user => {
             user ? setCurrentUser(user) : setCurrentUser(null)
             setLoading(false)
-            
         })
     }, [])
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from '../utils/theme';
+import theme from '../../utils/theme';
 import styled from 'styled-components';
 
 const Container = styled.div`

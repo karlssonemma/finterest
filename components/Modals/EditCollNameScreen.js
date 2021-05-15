@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import Overlay from '../components/Overlay';
-import CloseBtn from './Buttons/CloseBtn';
-import StandardBtn from './Buttons/StandardBtn';
-import { useAuth } from '../contexts/AuthContext';
-import firebaseInstance from '../config/firebase';
+import Overlay from '../Overlay';
+import CloseBtn from '../Buttons/CloseBtn';
+import { StandardBtn } from '../Buttons/StandardBtn';
+import { useAuth } from '../../contexts/AuthContext';
+import firebaseInstance from '../../config/firebase';
 import { useRouter } from 'next/router';
-import { readCollectionFromUser } from '../helpers/firebaseHelpers';
+import { readCollectionFromUser } from '../../helpers/firebaseHelpers';
 
-import { InputWithBorderBottom } from '../components/InputWithBorderBottom';
+import { InputWithBorderBottom } from '../FormComponents/InputWithBorderBottom';
 
 
 const EditCollNameScreen = ({ collId }) => {

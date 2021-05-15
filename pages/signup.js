@@ -8,13 +8,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Link from 'next/link';
 
 import { useAuth } from '../contexts/AuthContext';
-import InputField from '../components/InputField';
-import { StyledForm } from '../components/StyledForm';
-import { FormBtn } from '../components/Buttons/FormBtn';
+import InputField from '../components/FormComponents/InputField';
+import { StyledForm } from '../components/FormComponents/StyledForm';
 import { checkIfUsernameExists, readUsers, setProfilePic } from '../helpers/firebaseHelpers';
 import BigLogo from '../components/BigLogo';
 import { Pagetitle } from '../components/Pagetitle';
 import HeaderLanding from '../components/HeaderLanding';
+import { StandardBtn } from '../components/Buttons/StandardBtn';
 
 
 const StyledMain = styled.main`
@@ -55,15 +55,15 @@ const SignUp = () => {
                 setLoading(true)
                 const user = await signup(data.email, data.password, data.username)
                 console.log('SUCCESS!!', user)
-                // await setProfilePic(user.user.uid, data.profilePic[0]);
-                // const users = await readUsers();
-                // users.doc(user.user.uid).set({
-                //     email: user.user.email,
-                //     id: user.user.uid,
-                //     username: user.user.displayName,
-                //     signedUp: new Date().toLocaleDateString()
-                // })
-                // router.push('/profile')
+                await setProfilePic(user.user.uid, data.profilePic[0]);
+                const users = await readUsers();
+                users.doc(user.user.uid).set({
+                    email: user.user.email,
+                    id: user.user.uid,
+                    username: user.user.displayName,
+                    signedUp: new Date().toLocaleDateString()
+                })
+                router.push('/profile')
             } catch (error) {
                 setError('Failed to create account', error)
                 console.log(error)
@@ -117,7 +117,7 @@ const SignUp = () => {
                     register={register}
                 />
 
-                <FormBtn type='submit'>Sign up</FormBtn>
+                <StandardBtn type='submit'>Sign up</StandardBtn>
             </StyledForm>
             <Link href='/login'>
                 <a>Already have an account? Click here to log in</a>

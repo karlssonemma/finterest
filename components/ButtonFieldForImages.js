@@ -9,15 +9,22 @@ export const ButtonFieldForImages = styled.div`
     position: absolute;
     bottom: 0;
 
-    visibility: hidden;
+    opacity: 0;
     background-color: rgba(0,0,0, 0.5);
 
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 
-    &:hover {
-        visibility: visible;
+    &.visibleBtnField {
+        opacity: 1
     }
+
+    /* &:hover {
+        opacity: 1;
+    }
+    &:focus {
+        opacity: 1;
+    } */
 
 `;

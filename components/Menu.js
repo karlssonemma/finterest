@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import Link from 'next/link';
 
-const StyledSection = styled.section`
+const StyledSection = styled.nav`
     width: 100vw;
     height: 100vh;
 
@@ -23,16 +23,16 @@ const StyledSection = styled.section`
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
 
-        @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
-            width: max-content;
-            height: max-content;
-            padding: 50px;
+    @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+        width: max-content;
+        height: max-content;
+        padding: 50px;
 
-            top: 100px;
+        top: 100px;
 
-            border: 2px solid black;
-        }
+        border: 2px solid black;
     }
 `;
 
@@ -62,15 +62,14 @@ const Menu = () => {
     };
 
     return(
-        <StyledSection id='menu'>
+        <StyledSection id='menu' tabIndex={0}>
             <Link href='/home'>
-                <StyledLink>Feed</StyledLink>
+                <StyledLink tabIndex={0}>Feed</StyledLink>
             </Link>
             <Link href='/profile'>
-                <StyledLink>Profile</StyledLink>
+                <StyledLink tabIndex={0}>Profile</StyledLink>
             </Link>
-            <StyledLink onClick={handleLogOut}>Log Out</StyledLink>
-           
+            <StyledLink tabIndex={0} onClick={handleLogOut}>Log Out</StyledLink>
         </StyledSection>
     )
 }

@@ -14,9 +14,9 @@ const StyledMain = styled.main`
   margin-top: 100px;
   padding: 0 ${props => props.theme.space[4]};
 
-  background-position: center;
+  /* background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   
   display: flex;
   align-items: center;
@@ -26,22 +26,27 @@ const Quote = styled.p`
   padding-bottom: ${props => props.theme.space[2]};
 
   font-size: ${props => props.theme.fontSizes.xl};
-  backdrop-filter: blur(10px);
 `;
 
 const Container = styled.section`
   height: max-content;
+  max-width: 600px;
   padding: ${props => props.theme.space[2]};
+
   border-radius: 10px;
+  background-color: lightgreen;
 `;
 
 const StyledLink = styled.a`
-  width: 100%;
+  width: max-content;
   height: max-content;
   border: 2px solid black;
-  padding: ${props => props.theme.space[1]};
+  padding: ${props => props.theme.space[1]} ${props => props.theme.space[5]};
+  
   display: block;
-  text-align: center;
+  text-transform: uppercase;
+  font-size: ${props => props.theme.fontSizes.s};
+  cursor: pointer;
 `;
 
 
@@ -65,7 +70,7 @@ export default function Home() {
       <HeaderLanding />
       {
         photo && 
-        <StyledMain style={{backgroundImage: `url(${photo.url})`}}>
+        <StyledMain>
           <Container>
             <Quote>
               "Cupim sausage salami, drumstick chicken ball tip jowl pork belly shoulder hamburger turducken."

@@ -13,7 +13,7 @@ const Container = styled.li`
     height: 500px;
     position: relative;
     //??
-    z-index: 0;
+    /* z-index: 0; */
 
     @keyframes slideIn {
         0% {
@@ -31,10 +31,14 @@ const Photo = styled.img`
     height: 100%;
     object-fit: cover;
 
-    &:hover + .buttonField {
-        visibility: visible;
-    }
+    /* &:hover + .buttonField {
+        opacity: 1;
+    } */
+
+
 `;
+
+
 
 const ImageComp = ({ item }) => {
 
@@ -45,10 +49,19 @@ const ImageComp = ({ item }) => {
        box.classList.toggle('infoVisible');
     };
 
+    const showBtns = () => {
+        document.querySelector(`.buttonField_${id}`).classList.toggle('visibleBtnField')
+    }
+
     return(
         <Container>
             <Photo src={url} alt={alt_description} />
-            <ButtonFieldForImages className='buttonField'>
+            <ButtonFieldForImages 
+                className={`buttonField_${id}`} 
+                tabIndex={0} 
+                onFocus={showBtns} 
+                onBlur={showBtns}
+            >
                 <IconBtn 
                     icon='/info.png'
                     white={true}
@@ -56,7 +69,7 @@ const ImageComp = ({ item }) => {
                     btnFunction={() => showInfo()}
                 />
                 <InfoBox 
-                    user={user}
+                    photographer={user}
                     newClassName={`infoBox_${id}`}
                 />
                 <SelectCollection item={item} />

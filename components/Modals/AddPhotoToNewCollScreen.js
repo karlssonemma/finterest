@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
-import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections, addPhoto, addCollection, readCollectionByName, checkIfCollectionExistsByName } from '../helpers/firebaseHelpers';
-import Overlay from '../components/Overlay';
-import CloseBtn from './Buttons/CloseBtn';
-import StandardBtn from './Buttons/StandardBtn';
-import { useAuth } from '../contexts/AuthContext';
-import firebaseInstance from '../config/firebase';
-import { InputWithBorderBottom } from '../components/InputWithBorderBottom';
+import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections, addPhoto, addCollection, readCollectionByName, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
+import Overlay from '../Overlay';
+import CloseBtn from '../Buttons/CloseBtn';
+import { StandardBtn } from '../Buttons/StandardBtn';
+import { useAuth } from '../../contexts/AuthContext';
+import firebaseInstance from '../../config/firebase';
+import { InputWithBorderBottom } from '../FormComponents/InputWithBorderBottom';
 
 
 const StyledInput = styled.input`
@@ -33,8 +33,8 @@ const AddPhotoToNewCollScreen = ({ item }) => {
     }, [text])
 
     const closeWindow = () => {
-        let item = document.querySelector('.addPhotoToNewCollScreen')
-        item.classList.toggle('visible');
+        let item2 = document.querySelector(`.addPhotoToNewColl_${item.id}`)
+        item2.classList.toggle('visible');
     };
 
     const handleText = (e) => {
@@ -62,13 +62,13 @@ const AddPhotoToNewCollScreen = ({ item }) => {
     };
     
     return(
-        <Overlay className='addPhotoToNewCollScreen'>
+        <Overlay className={`addPhotoToNewColl_${item.id}`}>
             <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             {
                 nameAlreadyInUse && <p>Name already in use</p>
             }
             <InputWithBorderBottom type='text' placeholder='name of collection' onChange={e => handleText(e)} />
-            <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create coll</StandardBtn>
+            <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create collection</StandardBtn>
             
         </Overlay>
     )

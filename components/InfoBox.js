@@ -16,13 +16,22 @@ const Box = styled.div`
 
 const InfoBox = (props) => {
 
-    const { newClassName, user } = props;
+    const { newClassName, photographer } = props;
 
+    const renderInfo = () => {
+        return(
+            <>
+                <p>By: {photographer.name ? photographer.name : 'Unknown'}</p>
+                <p>Instagram: {photographer.instagram ? photographer.instagram : 'Unknown'}</p>
+            </>
+        )
+    }
 
     return(
         <Box className={newClassName}>
-            {user.name && <p>By: {user.name}</p>}
-            {user.instagram && <p>Instagram: {user.instagram}</p>}
+            {
+                photographer && renderInfo()
+            }
         </Box>
     )
 }
