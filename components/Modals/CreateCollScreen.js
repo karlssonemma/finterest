@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import styled from 'styled-components';
-
-import firebaseInstance from '../../config/firebase';
 import { useAuth } from '../../contexts/AuthContext';
-import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections, checkIfCollectionExistsByName, addCollection } from '../../helpers/firebaseHelpers';
+import { checkIfCollectionExistsByName, addCollection } from '../../helpers/firebaseHelpers';
 import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
-import { InputWithBorderBottom } from '../FormComponents/InputWithBorderBottom';
+import InputField from '../FormComponents/InputField';
 
 
 const CreateCollScreen = () => {
@@ -49,7 +46,12 @@ const CreateCollScreen = () => {
             {
                 nameAlreadyInUse && <p>Name already in use</p>
             }
-            <InputWithBorderBottom type='text' placeholder='name of collection' onChange={e => handleText(e)} />
+            <InputField 
+                inputType='text' 
+                inputName='nameOfColl' 
+                labelText='name of collection' 
+                handleChange={e => handleText(e)} 
+            />
             
             <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create coll</StandardBtn>
         </ModalContainer>

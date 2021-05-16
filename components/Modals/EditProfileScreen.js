@@ -6,34 +6,15 @@ import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import { useAuth } from '../../contexts/AuthContext';
-import firebaseInstance, { auth } from '../../config/firebase';
 import { useForm } from 'react-hook-form';
-import { InputWithBorderBottom } from '../FormComponents/InputWithBorderBottom';
 import { checkIfUsernameExists, readCurrentUser, setProfilePic } from '../../helpers/firebaseHelpers';
+import InputField from '../FormComponents/InputField';
+import FileInput from '../FormComponents/FileInput';
 
 const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
-`;
-
-const FileInput = styled.input`
-    margin-bottom: ${props => props.theme.space[2]};
-    color: gray;
-
-    &::file-selector-button {
-        padding: ${props => props.theme.space[1]};
-        font-family: 'Manrope', sans-serif;
-        border: 2px solid black;
-        cursor: pointer;
-        color: black;
-        background-color: transparent;
-        margin-right: ${props => props.theme.space[2]};
-    }
-    
-    &:hover::file-selector-button {
-        background-color: black;
-        color: white;
-    }
+    width: 100%;
 `;
 
 const Check = styled.img`
@@ -99,26 +80,19 @@ const EditProfileScreen = ({ item }) => {
         <ModalContainer name='editProfileWindow'>
             <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             {error && <p>{error}</p>}
-            <StyledForm onSubmit={handleSubmit(onSubmit)}>
-                <InputWithBorderBottom
-                    type='text'
-                    name='username'
-                    placeholder='Username'
-                    onChange={e => handleText(e)}
-                    {...register('username')}
+            <StyledForm onSubmit={handleSubmit(onSubmit)}>                
+                <InputField 
+                    inputType='text' 
+                    inputName='username' 
+                    labelText='New username' 
+                    handleChange={e => handleText(e)} 
+                    register={register}
                 />
-                {/* <InputWithBorderBottom 
-                    type='text' 
-                    name='display-name' 
-                    placeholder='Display name' 
-                    {...register('display-name')} 
-                /> */}
-                
                 <FileInput 
-                    name='pic'
-                    type='file' 
-                    onChange={e => setPicture(e.target.value)} 
-                    {...register('pic')} 
+                    labelText='New profile picture'
+                    inputName='pic'
+                    handleChange={e => setPicture(e.target.value)} 
+                    register={register}
                 />
                 <StandardBtn type='submit'>Submit changes</StandardBtn>
             </StyledForm>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Navigation from '../components/Navigation';
+import HeaderMain from '../components/HeaderMain';
 
 import unsplashInstance from '../config/unsplash';
 
@@ -91,7 +91,7 @@ const Home = () => {
 
     return(
         <>
-            <Navigation handleInput={(e) => setSearchInput(e.target.value)} />
+            <HeaderMain handleInput={(e) => setSearchInput(e.target.value)} />
                 <main style={{marginTop: '100px'}}>
                     <MainGrid>
                         {photos !== null && photos.map((item, i) => <ImageComp key={item.id + i} item={item} />)

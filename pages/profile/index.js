@@ -8,7 +8,7 @@ import CollectionComp from '../../components/CollectionComp';
 import CreateCollScreen from '../../components/Modals/CreateCollScreen';
 import EditProfileScreen from '../../components/Modals/EditProfileScreen';
 import MainGrid from '../../components/MainGrid';
-import Navigation from '../../components/Navigation';
+import HeaderMain from '../../components/HeaderMain';
 import ModalContainer from '../../components/ModalContainer';
 import { Pagetitle } from '../../components/Pagetitle';
 import { useAuth } from '../../contexts/AuthContext';
@@ -121,7 +121,7 @@ const Profile = () => {
 
     return(
         <>
-            <Navigation handleInput={e => handleText(e)} />
+            <HeaderMain handleInput={e => handleText(e)} />
             <CreateCollScreen />
             <EditProfileScreen />
             

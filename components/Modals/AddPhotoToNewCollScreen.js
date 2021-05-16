@@ -2,23 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
-import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections, addPhoto, addCollection, readCollectionByName, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
+import { addPhoto, addCollection, readCollectionByName, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
 import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import { useAuth } from '../../contexts/AuthContext';
-import firebaseInstance from '../../config/firebase';
-import { InputWithBorderBottom } from '../FormComponents/InputWithBorderBottom';
+import InputField from '../FormComponents/InputField';
 
-
-const StyledInput = styled.input`
-    border: none;
-    border-bottom: 2px solid black;
-
-    text-align: center;
-    padding: ${props => props.theme.space[2]};
-    margin-bottom: ${props => props.theme.space[2]};
-`;
 
 const AddPhotoToNewCollScreen = ({ item }) => {
 
@@ -67,7 +57,11 @@ const AddPhotoToNewCollScreen = ({ item }) => {
             {
                 nameAlreadyInUse && <p>Name already in use</p>
             }
-            <InputWithBorderBottom type='text' placeholder='name of collection' onChange={e => handleText(e)} />
+            <InputField 
+                inputType='text' 
+                labelText='name of collection' 
+                handleChange={e => handleText(e)} 
+            />
             <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create collection</StandardBtn>
             
         </ModalContainer>

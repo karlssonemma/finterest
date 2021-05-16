@@ -15,7 +15,8 @@ import HeaderLanding from '../components/HeaderLanding';
 
 const StyledMain = styled.main`
     width: 100vw;
-    height: 100vh;
+    min-height: calc(100vh - 100px);
+    margin-top: 100px;
 
     display: flex;
     flex-direction: column;

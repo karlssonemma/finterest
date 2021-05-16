@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledBtn = styled.button`
     border: none;
     background-color: transparent;
-    padding: ${props => props.theme.space[3]};
+    padding: ${props => props.theme.space[4]};
 
     position: absolute;
     right: 0;

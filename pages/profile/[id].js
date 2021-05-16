@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import firebaseInstance from '../../config/firebase';
 import Link from 'next/link';
 
-import Navigation from '../../components/Navigation';
+import HeaderMain from '../../components/HeaderMain';
 import { useAuth } from '../../contexts/AuthContext';
 import { deletePhotoFromCollection, getCollectionFromUser, readPhotosFromCollection, deleteCollection, deleteCollectionDoc } from '../../helpers/firebaseHelpers';
 import MainGrid from '../../components/MainGrid';
@@ -122,7 +122,7 @@ const CollectionPage = () => {
 
     return(
         <>
-        <Navigation />
+        <HeaderMain />
         <main style={{marginTop: '100px'}}>
             <Container>
                 <LinkToProfile />

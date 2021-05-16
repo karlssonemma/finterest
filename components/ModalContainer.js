@@ -25,7 +25,7 @@ const Background = styled.div`
 const Container = styled.section`
     width: 100%;
     min-height: 100vh;
-    padding: ${props => props.theme.space[5]};
+    padding: 60px;
 
 
     background-color: white;
@@ -37,7 +37,7 @@ const Container = styled.section`
     justify-content: center;
 
     @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
-        min-width: 40%;
+        min-width: 30%;
         width: max-content;
         min-height: 300px;
     }

@@ -3,8 +3,8 @@ import theme from '../../utils/theme';
 
 export const StyledForm = styled.form`
     width: 80%;
-    max-width: 500px;
-    padding: ${props => props.theme.space[4]};
+    max-width: 400px;
+    padding: ${props => props.theme.space[5]};
     margin-top: ${props => props.theme.space[4]};
 
     display: flex;

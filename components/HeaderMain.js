@@ -47,10 +47,11 @@ const Icon = styled.img`
     transform: rotate(90deg);
 `;
 
-const Navigation = ({ handleInput }) => {
+const HeaderMain = ({ handleInput }) => {
 
     const router = useRouter();
     let path = router.route;
+    console.log(router)
 
  
     const handleMenu = (e) => {
@@ -62,8 +63,9 @@ const Navigation = ({ handleInput }) => {
     return(
         <StyledNav>
             <p>Finterest</p>
-            <SearchField handleInput={(e) => handleInput(e)} /> 
-            
+            {
+                router.asPath === '/profile' || router.asPath === '/home' ?  <SearchField handleInput={(e) => handleInput(e)} />  : ''
+            }            
             <StyledMenuBtn 
                 onClick={(e) => handleMenu(e)} 
             >
@@ -75,4 +77,4 @@ const Navigation = ({ handleInput }) => {
     )
 }
 
-export default Navigation;
+export default HeaderMain;

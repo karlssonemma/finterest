@@ -15,11 +15,13 @@ import BigLogo from '../components/BigLogo';
 import { Pagetitle } from '../components/Pagetitle';
 import HeaderLanding from '../components/HeaderLanding';
 import { StandardBtn } from '../components/Buttons/StandardBtn';
+import FileInput from '../components/FormComponents/FileInput';
 
 
 const StyledMain = styled.main`
     width: 100vw;
-    height: 100vh;
+    min-height: calc(100vh - 100px);
+    margin-top: 100px;
 
     display: flex;
     flex-direction: column;
@@ -110,13 +112,11 @@ const SignUp = () => {
                     labelText='Confirm password'
                     register={register}
                 />
-                <InputField 
+                <FileInput 
                     inputName='profilePic'
-                    inputType='file'
-                    labelText='Profile picture'
                     register={register}
+                    labelText='Profile picture'
                 />
-
                 <StandardBtn type='submit'>Sign up</StandardBtn>
             </StyledForm>
             <Link href='/login'>

@@ -6,11 +6,10 @@ import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import { useAuth } from '../../contexts/AuthContext';
-import firebaseInstance from '../../config/firebase';
 import { useRouter } from 'next/router';
 import { readCollectionFromUser } from '../../helpers/firebaseHelpers';
 
-import { InputWithBorderBottom } from '../FormComponents/InputWithBorderBottom';
+import InputField from '../FormComponents/InputField';
 
 
 const EditCollNameScreen = ({ collId }) => {
@@ -39,10 +38,11 @@ const EditCollNameScreen = ({ collId }) => {
     return(
         <ModalContainer name='editCollNameScreen'>
             <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
-            <InputWithBorderBottom 
-                placeholder='New name' 
-                type='text' 
-                onChange={e => handleText(e)} 
+            <InputField 
+                inputType='text' 
+                inputName='newCollName' 
+                labelText='New name' 
+                handleChange={e => handleText(e)} 
             />
             <StandardBtn onClick={changeName}>Change name</StandardBtn>
         </ModalContainer>

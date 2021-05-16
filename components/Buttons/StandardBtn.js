@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import theme from '../../utils/theme';
 
 export const StandardBtn = styled.button`
+    width: 100%;
     padding: ${props => props.theme.space[2]} ${props => props.theme.space[4]};
     border: 2px solid black;
+    
     cursor: pointer;
     color: black;
     background-color: transparent;
