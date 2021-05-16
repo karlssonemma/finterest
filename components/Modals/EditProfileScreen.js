@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
-import Overlay from '../Overlay';
+import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import { useAuth } from '../../contexts/AuthContext';
@@ -96,7 +96,7 @@ const EditProfileScreen = ({ item }) => {
 
 
     return (
-        <Overlay className='editProfileWindow'>
+        <ModalContainer name='editProfileWindow'>
             <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             {error && <p>{error}</p>}
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -123,7 +123,7 @@ const EditProfileScreen = ({ item }) => {
                 <StandardBtn type='submit'>Submit changes</StandardBtn>
             </StyledForm>
             {updated && <ProfileUpdated />}
-        </Overlay>
+        </ModalContainer>
     )
 }
 

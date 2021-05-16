@@ -44,6 +44,9 @@ const ImageInCollection = ({ item, handleClick }) => {
     const showBtns = () => {
         document.querySelector(`.buttonField_${item.id}`).classList.toggle('visibleBtnField')
     };
+    const hideBtns = () => {
+        document.querySelector(`.buttonField_${item.id}`).classList.remove('visibleBtnField')
+    }
 
     return(
         <Container>
@@ -51,8 +54,10 @@ const ImageInCollection = ({ item, handleClick }) => {
             <ButtonFieldForImages 
                 className={`buttonField_${item.id}`}
                 tabIndex={0}
-                onFocus={showBtns} 
-                onBlur={showBtns}
+                onFocus={showBtns}
+                onBlur={hideBtns}
+                onMouseLeave={hideBtns}
+                onMouseEnter={showBtns}
             >
                 <IconBtn 
                     icon='/info.png' 

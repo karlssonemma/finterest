@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { readCurrentUser, readUsersCollections, readUsers, readCurrentUsersCollections, readCurrentUserDoc, readCollections, addPhoto, addCollection, readCollectionByName, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
-import Overlay from '../Overlay';
+import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import { useAuth } from '../../contexts/AuthContext';
@@ -62,7 +62,7 @@ const AddPhotoToNewCollScreen = ({ item }) => {
     };
     
     return(
-        <Overlay className={`addPhotoToNewColl_${item.id}`}>
+        <ModalContainer name={`addPhotoToNewColl_${item.id}`}>
             <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             {
                 nameAlreadyInUse && <p>Name already in use</p>
@@ -70,7 +70,7 @@ const AddPhotoToNewCollScreen = ({ item }) => {
             <InputWithBorderBottom type='text' placeholder='name of collection' onChange={e => handleText(e)} />
             <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create collection</StandardBtn>
             
-        </Overlay>
+        </ModalContainer>
     )
 }
 

@@ -9,7 +9,7 @@ import CreateCollScreen from '../../components/Modals/CreateCollScreen';
 import EditProfileScreen from '../../components/Modals/EditProfileScreen';
 import MainGrid from '../../components/MainGrid';
 import Navigation from '../../components/Navigation';
-import Overlay from '../../components/Overlay';
+import ModalContainer from '../../components/ModalContainer';
 import { Pagetitle } from '../../components/Pagetitle';
 import { useAuth } from '../../contexts/AuthContext';
 import { getProfilePicWithUserId, readCurrentUser, readUsersCollections } from '../../helpers/firebaseHelpers';

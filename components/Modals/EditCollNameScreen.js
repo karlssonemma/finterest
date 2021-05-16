@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import Overlay from '../Overlay';
+import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import { useAuth } from '../../contexts/AuthContext';
@@ -37,7 +37,7 @@ const EditCollNameScreen = ({ collId }) => {
 
     
     return(
-        <Overlay className='editCollNameScreen'>
+        <ModalContainer name='editCollNameScreen'>
             <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             <InputWithBorderBottom 
                 placeholder='New name' 
@@ -45,7 +45,7 @@ const EditCollNameScreen = ({ collId }) => {
                 onChange={e => handleText(e)} 
             />
             <StandardBtn onClick={changeName}>Change name</StandardBtn>
-        </Overlay>
+        </ModalContainer>
     )
 }
 

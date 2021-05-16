@@ -5,10 +5,11 @@ import styled from 'styled-components';
 const StyledBtn = styled.button`
     border: none;
     background-color: transparent;
+    padding: ${props => props.theme.space[3]};
 
     position: absolute;
-    top: 20px;
-    right: 20px;
+    right: 0;
+    top: 0;
     cursor: pointer;
 `;
 

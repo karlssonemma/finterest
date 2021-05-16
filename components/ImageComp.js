@@ -50,7 +50,10 @@ const ImageComp = ({ item }) => {
     };
 
     const showBtns = () => {
-        document.querySelector(`.buttonField_${id}`).classList.toggle('visibleBtnField')
+        document.querySelector(`.buttonField_${id}`).classList.add('visibleBtnField')
+    }
+    const hideBtns = () => {
+        document.querySelector(`.buttonField_${id}`).classList.remove('visibleBtnField')
     }
 
     return(
@@ -59,8 +62,10 @@ const ImageComp = ({ item }) => {
             <ButtonFieldForImages 
                 className={`buttonField_${id}`} 
                 tabIndex={0} 
-                onFocus={showBtns} 
-                onBlur={showBtns}
+                onFocus={showBtns}
+                onBlur={hideBtns}
+                onMouseLeave={hideBtns}
+                onMouseEnter={showBtns}
             >
                 <IconBtn 
                     icon='/info.png'

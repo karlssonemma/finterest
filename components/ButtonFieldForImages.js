@@ -19,6 +19,9 @@ export const ButtonFieldForImages = styled.div`
     &.visibleBtnField {
         opacity: 1
     }
+    &:hover {
+        opacity: 1
+    }
 
     /* &:hover {
         opacity: 1;
