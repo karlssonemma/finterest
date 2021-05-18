@@ -40,11 +40,6 @@ const DeleteCollScreen = ({ collId }) => {
     const { currentUser } = useAuth()
     const router = useRouter()
 
-    const closeWindow = (e) => {
-        let item = document.querySelector('.deleteCollScreen')
-        item.classList.toggle('visible');
-    };
-
     const handleDeleteColl = async () => {
         let photos = await readPhotosFromCollection(currentUser.uid, collId)
         photos.get()
@@ -64,7 +59,6 @@ const DeleteCollScreen = ({ collId }) => {
     
     return(
         <ModalContainer name='deleteCollScreen'>
-                <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
                 <Text>Are you sure you want to delete this collection?</Text>
                 <StandardBtn onClick={handleDeleteColl}>Delete collection</StandardBtn>
         </ModalContainer>

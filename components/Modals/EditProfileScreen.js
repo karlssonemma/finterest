@@ -42,12 +42,6 @@ const EditProfileScreen = ({ item }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-
-    const closeWindow = () => {
-        let item = document.querySelector('.editProfileWindow')
-        item.classList.toggle('visible');
-    };
-
     const handleText = (e) => {
         setText(e.target.value)
     };
@@ -78,7 +72,6 @@ const EditProfileScreen = ({ item }) => {
 
     return (
         <ModalContainer name='editProfileWindow'>
-            <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             {error && <p>{error}</p>}
             <StyledForm onSubmit={handleSubmit(onSubmit)}>                
                 <InputField 

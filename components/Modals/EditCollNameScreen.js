@@ -18,10 +18,6 @@ const EditCollNameScreen = ({ collId }) => {
     const router = useRouter()
     const [name, setName] = useState('');
 
-    const closeWindow = () => {
-        let item = document.querySelector('.editCollNameScreen')
-        item.classList.toggle('visible');
-    };
 
     const handleText = (e) => {
         setName(e.target.value)
@@ -37,7 +33,6 @@ const EditCollNameScreen = ({ collId }) => {
     
     return(
         <ModalContainer name='editCollNameScreen'>
-            <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             <InputField 
                 inputType='text' 
                 inputName='newCollName' 

@@ -22,11 +22,6 @@ const AddPhotoToNewCollScreen = ({ item }) => {
         setNameAlreadyInUse(foundCollWithSameName)
     }, [text])
 
-    const closeWindow = () => {
-        let item2 = document.querySelector(`.addPhotoToNewColl_${item.id}`)
-        item2.classList.toggle('visible');
-    };
-
     const handleText = (e) => {
         setText(e.target.value)
     };
@@ -53,7 +48,6 @@ const AddPhotoToNewCollScreen = ({ item }) => {
     
     return(
         <ModalContainer name={`addPhotoToNewColl_${item.id}`}>
-            <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             {
                 nameAlreadyInUse && <p>Name already in use</p>
             }

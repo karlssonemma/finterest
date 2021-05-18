@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 
 import { useAuth } from '../contexts/AuthContext';
-import { readCurrentUser, readCurrentUsersCollections, readUsers, readUsersCollections, readPhotoFromCollection, readPhotosFromCollection, deletePhotoFromCollection, addPhoto } from '../helpers/firebaseHelpers';
+import { readUsers, readUsersCollections, readPhotoFromCollection, readPhotosFromCollection, deletePhotoFromCollection, addPhoto } from '../helpers/firebaseHelpers';
 import HeartBtn from '../components/Buttons/HeartBtn';
-import firebaseInstance from '../config/firebase';
 import AddPhotoToNewCollScreen from '../components/Modals/AddPhotoToNewCollScreen';
 
 

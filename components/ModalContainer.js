@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CloseBtn from '../components/Buttons/CloseBtn';
 
 
 const Background = styled.div`
@@ -27,7 +28,7 @@ const Container = styled.section`
     min-height: 100vh;
     padding: 60px;
 
-
+    z-index: 200;
     background-color: white;
     position: relative;
 
@@ -45,9 +46,15 @@ const Container = styled.section`
 
 const ModalContainer = ({ children, name }) => {
 
+    const closeWindow = () => {
+        let item = document.querySelector(`.${name}`)
+        item.classList.remove('visible');
+    };
+
     return(
-        <Background className={name}>
+        <Background className={name} onClick={closeWindow}>
             <Container>
+            <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
                 {children}
             </Container>
         </Background>

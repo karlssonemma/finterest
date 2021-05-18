@@ -14,11 +14,6 @@ const CreateCollScreen = () => {
     const [text, setText] = useState('');
     const [nameAlreadyInUse, setNameAlreadyInUse] = useState(false);
 
-    const closeWindow = () => {
-        let item = document.querySelector('.createCollScreen')
-        item.classList.toggle('visible');
-    };
-
     useEffect(async () => {
         if(text.length > 1) {
             let foundCollWithSameName = await checkIfCollectionExistsByName(currentUser.uid, text)
@@ -42,7 +37,6 @@ const CreateCollScreen = () => {
     
     return(
         <ModalContainer name='createCollScreen'>
-            <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
             {
                 nameAlreadyInUse && <p>Name already in use</p>
             }
