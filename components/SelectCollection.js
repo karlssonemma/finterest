@@ -46,25 +46,28 @@ const SelectCollection = ({ item }) => {
 
     //uppdaterar heart icon då select ändras
     useEffect(async () => {
-        if (selectedCollId.length > 0) {
-            let coll = await readPhotosFromCollection(currentUser.uid, selectedCollId)
-            coll.get()
+        let photoFoundInColl;
+
+        if(selectedCollId === 'new') {
+            photoFoundInColl = false;
+        } else if (selectedCollId.length > 0) {
+            let ref = await readPhotosFromCollection(currentUser.uid, selectedCollId)
+            ref.get()
             .then(sub => {
                 //checkar om coll "photos" existerar
                 if (sub.docs.length > 0) {
-                    let found = false;
+                    photoFoundInColl = false;
                     sub.forEach(doc => {
                         if(doc.data().id === id) {
-                            found = true;
-                            console.log('found', selectedCollId, filled)
+                            photoFoundInColl = true;
                         }
                     })
-                    setFilled(found);
                 } else {
-                    console.log('subcollection "photos" doesnt exist')
+                    photoFoundInColl = false;
                 }
             })
         }
+        setFilled(photoFoundInColl);
     }, [selectedCollId])
 
     useEffect(async () => {
