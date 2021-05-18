@@ -28,7 +28,12 @@ const StyledMenuBtn = styled.button`
     border: none;
     cursor: pointer;
     display: flex;
+
     border: 2px solid white;
+
+    & span {
+        margin-right: ${props => props.theme.space[1]};
+    }
 
     &:hover {
         border-color: black;
@@ -42,7 +47,6 @@ const StyledMenuBtn = styled.button`
 const Icon = styled.img`
     width: 20px;
     height: 20px;
-    margin-left: ${props => props.theme.space[1]};
     pointer-events: none;
     transform: rotate(90deg);
 `;
@@ -66,10 +70,9 @@ const HeaderMain = ({ handleInput }) => {
             {
                 router.asPath === '/profile' || router.asPath === '/home' ?  <SearchField handleInput={(e) => handleInput(e)} />  : ''
             }            
-            <StyledMenuBtn 
-                onClick={(e) => handleMenu(e)} 
-            >
-                Menu
+            <StyledMenuBtn onClick={(e) => handleMenu(e)}>
+                {
+                    screen.width > 300 ? <span>Menu</span> : ''               }
                 <Icon className='menu-icon' aria-hidden='true' src={'/next.png'} />
             </StyledMenuBtn>
             <Menu />

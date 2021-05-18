@@ -19,3 +19,11 @@ export const getPhotosBySearch = async ({ input }) => {
         perPage: 10
     })
 };
+export const getPhotosByColor = async ({ color }) => {
+    return await unsplashInstance.search.getPhotos({
+        query: 'cat',
+        color: color,
+        page: 1,
+        perPage: 1
+    })
+};

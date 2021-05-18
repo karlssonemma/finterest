@@ -14,9 +14,10 @@ const StyledHeader = styled.header`
     align-items: center;
     justify-content: space-between;
 
-    /* background-color: lightblue; */
+    background-color: transparent;
     position: fixed;
     top: 0;
+    left: 0;
 `;
 
 const StyledLink = styled.a`

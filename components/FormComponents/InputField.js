@@ -6,7 +6,8 @@ import styled from 'styled-components';
 const StyledInput = styled.input`
     padding: ${props => props.theme.space[2]};
     margin-bottom: ${props => props.theme.space[1]};
-    border: 2px solid black;
+    border: none;
+    border-bottom: 1px solid black;
 `;
 
 const StyledLabel = styled.label`

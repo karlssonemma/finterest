@@ -9,8 +9,18 @@ import MainGrid from '../components/MainGrid';
 import { getPhotosBySearch, fetchTenRandomPhotos } from '../helpers/apiHelpers';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
+import IconBtn from '../components/Buttons/IconBtn';
+import { StandardBtn } from '../components/Buttons/StandardBtn';
 
+// const StyledBtn = styled.button`
+//     border: none; 
+//     background-color: transparent;
+//     cursor: pointer;
+// `;
 
+// const Icon = styled.img`
+//     width: 18px;
+// `;
 
 const Home = () => {
 
@@ -97,6 +107,7 @@ const Home = () => {
                         {photos !== null && photos.map((item, i) => <ImageComp key={item.id + i} item={item} />)
                         }
                     </MainGrid>
+                    <StandardBtn style={{margin: '2em auto'}} onClick={getMorePhotos}>Load more</StandardBtn>
                 </main>
         </>
     )

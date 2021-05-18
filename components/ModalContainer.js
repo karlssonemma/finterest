@@ -12,7 +12,7 @@ const Background = styled.div`
 
     background-color: rgba(0,0,0, 0.8);
 
-    z-index: 100;
+    z-index: 20;
     display: none;
 
     &.visible {
@@ -28,7 +28,6 @@ const Container = styled.section`
     min-height: 100vh;
     padding: 60px;
 
-    z-index: 200;
     background-color: white;
     position: relative;
 
@@ -36,6 +35,7 @@ const Container = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 200;
 
     @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
         min-width: 30%;
@@ -46,15 +46,16 @@ const Container = styled.section`
 
 const ModalContainer = ({ children, name }) => {
 
-    const closeWindow = () => {
+    const closeWindow = (e) => {
         let item = document.querySelector(`.${name}`)
         item.classList.remove('visible');
+        console.log(e)
     };
 
     return(
-        <Background className={name} onClick={closeWindow}>
+        <Background className={name} onClick={e => closeWindow(e)}>
             <Container>
-            <CloseBtn btnFunction={closeWindow} icon={'/cancel.png'} />
+            <CloseBtn btnFunction={e => closeWindow(e)} icon={'/cancel.png'} />
                 {children}
             </Container>
         </Background>

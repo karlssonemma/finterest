@@ -8,7 +8,7 @@ const StyledInput = styled.input`
     &::file-selector-button {
         padding: ${props => props.theme.space[1]};
         font-family: 'Manrope', sans-serif;
-        border: 2px solid black;
+        border: 1px solid black;
         cursor: pointer;
         color: black;
         background-color: transparent;
