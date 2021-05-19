@@ -15,7 +15,7 @@ const StyledListItem = styled.li`
     margin-bottom: ${props => props.theme.space[4]};
     /* border-radius: 10px; */
     
-    /* box-shadow: 0 0 10px lightgray; */
+    box-shadow: 0 0 10px lightgray;
     list-style: none;
 
     position: relative;

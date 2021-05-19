@@ -98,7 +98,7 @@ const SelectCollection = ({ item }) => {
                     deletePhotoFromCollection(currentUser.uid, collId, doc.id)
                     console.log('exists', doc.id)
                 } else {
-                    addPhoto(currentUser.uid, collId, id, {
+                    addPhoto(currentUser.uid, collId, (`img${id}`), {
                         url: url,
                         id: id,
                         user: user
