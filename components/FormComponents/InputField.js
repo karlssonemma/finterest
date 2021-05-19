@@ -32,6 +32,7 @@ const InputField = (props) => {
     
     let { inputType, inputName, labelText, register, handleChange } = props;
 
+
     return(
 
             <StyledLabel><span>{labelText}</span>
@@ -41,14 +42,14 @@ const InputField = (props) => {
                     <StyledInput 
                         type={inputType}
                         name={inputName}
-                        onChange={handleChange ? (e) => handleChange(e) : ''}
                         {...register(inputName)}
+                        onChange={handleChange ? (e) => handleChange(e) : null}
                     />
                 : 
                     <StyledInput 
                         type='text'
                         name={inputName}
-                        onChange={handleChange ? (e) => handleChange(e) : ''}
+                        onChange={handleChange ? (e) => handleChange(e) : null}
                     />
             }
             </StyledLabel>

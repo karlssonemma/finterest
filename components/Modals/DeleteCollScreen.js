@@ -1,34 +1,13 @@
 import React, { useState } from 'react';
 
 import styled from 'styled-components';
+import { useAuth } from '../../contexts/AuthContext';
+import { useRouter } from 'next/router';
 
 import { deleteCollectionDoc, readPhotosFromCollection } from '../../helpers/firebaseHelpers';
 import ModalContainer from '../ModalContainer';
-import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
-import { useAuth } from '../../contexts/AuthContext';
-import firebaseInstance from '../../config/firebase';
-import { useRouter } from 'next/router';
 
-// const Container = styled.section`
-//     width: 100%;
-//     min-height: 100vh;
-//     padding: ${props => props.theme.space[5]};
-
-
-//     background-color: white;
-//     position: relative;
-
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: center;
-
-//     @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
-//         width: max-content;
-//         min-height: 300px;
-//     }
-// `;
 
 const Text = styled.p`
     margin-bottom: ${props => props.theme.space[3]};

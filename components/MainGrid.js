@@ -10,14 +10,14 @@ const MainGrid = styled.ul`
 
     display:grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    /* grid-template-rows: 1fr; */
 
     @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
         grid-template-columns: repeat(2, 1fr);
     }
 
     @media screen and (min-width: ${props => props.theme.breakpoints[2]}) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 `;
 

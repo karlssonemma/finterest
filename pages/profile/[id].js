@@ -71,15 +71,15 @@ const CollectionPage = () => {
     const [photos, setPhotos] = useState([]);
     const [collInfo, setCollInfo] = useState('');
 
-    if (!isAuthenticated) {
-        router.push('/login')
-        return <p>not signed in</p>
-    };
-
     useEffect(() => {
         handleGetCollInfo();
         handleGetPhotos();
     }, []);
+
+    if (!isAuthenticated) {
+        router.push('/login')
+        return <p>not signed in</p>
+    };
 
     const handleGetCollInfo = async () => {
         let coll = await getCollectionFromUser(currentUser.uid, collId);

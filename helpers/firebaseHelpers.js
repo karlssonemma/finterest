@@ -101,7 +101,7 @@ export const getProfilePicWithUserId = async (userId) => {
 };
 
 export const setProfilePic = async (userId, picRef) => {
-    let ref = firebaseInstance.storage().ref('profilePictures')
+    let ref = await firebaseInstance.storage().ref('profilePictures')
     ref.child(userId).put(picRef).then(() => {
                 console.log('did it!!')
             })

@@ -30,7 +30,7 @@ const Container = styled.div`
     grid-template-columns: repeat(3, 1fr);
 
     overflow: hidden;
-
+    background-color: green;
 `;
 
 const StyledLink = styled.a`
@@ -71,34 +71,35 @@ const StyledImg = styled.img`
 const CollectionComp = ({ coll }) => {
 
     const { currentUser } = useAuth();
-    const [photos, setPhotos] = useState(null)
+    const [photos, setPhotos] = useState(null);
 
     useEffect(async () => {
        let photoArr = [];
             let photosRef = await readPhotosFromCollection(currentUser.uid, coll.id);
             photosRef.onSnapshot(query => {
                 query.forEach(doc => {
-                    if(photoArr.length < 3) {
+                    
                         photoArr.push(doc.data())
-                    }
+                    
                 })
             })
             setPhotos(photoArr);
     }, [])
 
- 
 
     return(
         <StyledListItem>
         <Container>
             {
-                photos !== null &&
-                    <>
-                        {/* <StyledImg src={photos[0].url} className='backgroundImg' />
-                        <StyledImg src={photos[1].url} className='backgroundImg' />
-                        <StyledImg src={photos[2].url} className='backgroundImg' /> */}
-                    </>
-            } 
+                photos && photos.map((item, i) => 
+                    console.log('hfnrjkfnkr')
+                )
+                    
+                
+            }
+            <StyledImg src="https://images.unsplash.com/photo-1620503007227-b11daefacf0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjEzNDQwNjA&ixlib=rb-1.2.1&q=80&w=1080" className='backgroundImg' />
+            <StyledImg src="https://images.unsplash.com/photo-1620503007227-b11daefacf0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjEzNDQwNjA&ixlib=rb-1.2.1&q=80&w=1080" className='backgroundImg' />
+            <StyledImg src="https://images.unsplash.com/photo-1620503007227-b11daefacf0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjEzNDQwNjA&ixlib=rb-1.2.1&q=80&w=1080" className='backgroundImg' />
         </Container>
             <Link href={`/profile/${coll.id}`}>
                 <StyledLink><span>{coll.name}</span></StyledLink>

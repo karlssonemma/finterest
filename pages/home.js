@@ -29,27 +29,33 @@ const Home = () => {
     const [photos, setPhotos] = useState([]);
     const [searchInput, setSearchInput] = useState('');
     const [loadingPhotos, setLoadingPhotos] = useState(false);
+    const [count, setCount] = useState(11);
+
+
+    useEffect(async () => {
+        getRandomPhotos()
+        getRandomPhotos()
+        getRandomPhotos()
+    }, [])
+
+    useEffect(async () => {
+        setCount(11);
+        getSearchedPhotos();
+        getSearchedPhotos();
+        getSearchedPhotos();
+    }, [searchInput])
 
     if (!isAuthenticated) {
         router.push('/login')
         return <p>not signed in</p>
     };
 
-    useEffect(() => {
-        window.addEventListener('scroll', () => checkIfScrollIsAtBottom())
-    }, [])
-
-    useEffect(async () => {
-        getMorePhotos()
-    }, [])
-
-    useEffect(async () => {
-        console.log(searchInput)
+    const getSearchedPhotos = async () => {
         if (searchInput.length > 0) {
-
             setPhotos([])
             try {
-                let resp = await getPhotosBySearch({ input: searchInput });
+                let pageNr = (Math.floor(Math.random() * 200));
+                let resp = await getPhotosBySearch(searchInput, pageNr);
 
                 resp.response.results.map(item => {
                     let photo = {
@@ -60,61 +66,50 @@ const Home = () => {
                 })
                 console.log(resp.response)
             } catch(e) {
-                console.log('errrrr', e)
+                console.log('error', e)
             }
         };
-    }, [searchInput])
+    }
 
-    const checkIfScrollIsAtBottom = () => {
-        if(loadingPhotos) {
-            console.log(document.body.scrollHeight)
-            // if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
-            //     //max req är 50/h så hehe bäst att ha denna inaktiv
-            //     getMorePhotos()
-            // };
+    const getRandomPhotos = async () => {
+        try {
+            setLoadingPhotos(true)
+            let resp = await fetchTenRandomPhotos();
+            console.log(resp)
+            resp.response.map(item => {
+                let photo = {
+                    id: item.id,
+                    url: item.urls.regular,
+                    alt_description: item.alt_description,
+                    user: {
+                        name: item.user.name,
+                        instagram: item.user.instagram_username
+                    }
+                };
+                setPhotos((prevState) => [...prevState, photo]);
+                setLoadingPhotos(false)
+            })
+        } catch (e) {
+            console.log('err', e)
         }
     };
 
-    const getMorePhotos = async () => {
-        if(!searchInput.length) {
-            try {
-                setLoadingPhotos(true)
-                let resp = await fetchTenRandomPhotos();
-                console.log(resp)
-                resp.response.map(item => {
-                    let photo = {
-                        id: item.id,
-                        url: item.urls.regular,
-                        alt_description: item.alt_description,
-                        user: {
-                            name: item.user.name,
-                            instagram: item.user.instagram_username
-                        }
-                    };
-                    setPhotos((prevState) => [...prevState, photo]);
-                    setLoadingPhotos(false)
-                })
-            } catch (e) {
-                console.log('err', e)
-            }
-        } else {
-            try {
-                let resp = await getPhotosBySearch({ input: searchInput });
+    const addToCount = () => {
+        let oldCount = count;
+        let newCount = oldCount += 12;
+        setCount(newCount)
 
-                resp.response.results.map(item => {
-                    let photo = {
-                        id: item.id,
-                        url: item.urls.regular
-                    };
-                    setPhotos((prevState) => [...prevState, photo]);
-                })
-                console.log(resp.response)
-            } catch(e) {
-                console.log('errrrr', e)
+        if(newCount >= photos.length) {
+            if(!searchInput.length) {
+                getSearchedPhotos();
+                getSearchedPhotos();
+                getSearchedPhotos();
+            } else {
+                getRandomPhotos()
+                getRandomPhotos()
+                getRandomPhotos()
             }
         }
-        
-        
     };
 
     return(
@@ -122,10 +117,16 @@ const Home = () => {
             <HeaderMain handleInput={(e) => setSearchInput(e.target.value)} />
                 <main style={{marginTop: '100px'}}>
                     <MainGrid>
-                        {photos !== null && photos.map((item, i) => <ImageComp key={item.id + i} item={item} />)
+                        {photos !== null && photos.map((item, i) => {
+                            if (i <= count) {
+                                return(
+                                    <ImageComp key={item.id + i} item={item} />
+                                )
+                            }
+                        })
                         }
                     </MainGrid>
-                    <StandardBtn style={{margin: '2em auto'}} onClick={getMorePhotos}>Load more</StandardBtn>
+                    <StandardBtn style={{margin: '2em auto'}} onClick={addToCount}>Load more</StandardBtn>
                 </main>
         </>
     )

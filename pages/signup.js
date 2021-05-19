@@ -11,12 +11,11 @@ import { useAuth } from '../contexts/AuthContext';
 import InputField from '../components/FormComponents/InputField';
 import { StyledForm } from '../components/FormComponents/StyledForm';
 import { checkIfUsernameExists, readUsers, setProfilePic } from '../helpers/firebaseHelpers';
-import BigLogo from '../components/BigLogo';
 import { Pagetitle } from '../components/Pagetitle';
 import HeaderLanding from '../components/HeaderLanding';
 import { StandardBtn } from '../components/Buttons/StandardBtn';
 import FileInput from '../components/FormComponents/FileInput';
-import { fetchOneRandomPhoto, getPhotosByColor } from '../helpers/apiHelpers';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 
 const StyledMain = styled.main`
@@ -63,7 +62,9 @@ const SignUp = () => {
                 setLoading(true)
                 const user = await signup(data.email, data.password, data.username)
                 console.log('SUCCESS!!', user)
-                await setProfilePic(user.user.uid, data.profilePic[0]);
+                if(data.profilePic.length > 0) {
+                    await setProfilePic(user.user.uid, data.profilePic[0]);
+                }
                 const users = await readUsers();
                 users.doc(user.user.uid).set({
                     email: user.user.email,
@@ -87,35 +88,36 @@ const SignUp = () => {
         <>
         <HeaderLanding />
         <StyledMain>
-            {errors.confirmPassword && <p>{errors.confirmPassword.message }</p>}
-            {errors.password && <p>{errors.password.message }</p>}
-            {error}
+
             <StyledForm
                 onSubmit={handleSubmit(onSubmit)}
                 >
                 <Pagetitle>Sign up</Pagetitle>
+                {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword.message }</ErrorMessage>}
+                {errors.password && <ErrorMessage>{errors.password.message }</ErrorMessage>}
+                <ErrorMessage>{error}</ErrorMessage>
                 <InputField 
                     inputName='username'
-                    inputType='username'
-                    labelText='Username'
+                    inputType='text'
+                    labelText='Username *'
                     register={register}
                 />
                 <InputField 
                     inputName='email'
                     inputType='email'
-                    labelText='Email'
+                    labelText='Email *'
                     register={register}
                 />
                 <InputField 
                     inputName='password'
                     inputType='password'
-                    labelText='Password'
+                    labelText='Password *'
                     register={register}
                 />
                 <InputField 
                     inputName='confirmPassword'
                     inputType='password'
-                    labelText='Confirm password'
+                    labelText='Confirm password *'
                     register={register}
                 />
                 <FileInput 

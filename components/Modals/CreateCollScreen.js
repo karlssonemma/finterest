@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { checkIfCollectionExistsByName, addCollection } from '../../helpers/firebaseHelpers';
+
 import ModalContainer from '../ModalContainer';
-import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import InputField from '../FormComponents/InputField';
 import { ErrorMessage } from '../ErrorMessage';

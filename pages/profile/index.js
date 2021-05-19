@@ -61,11 +61,6 @@ const Profile = () => {
     const [searchInput, setSearchInput] = useState('');
     const [profilePic, setProfilePic] = useState(null);
 
-    if (!isAuthenticated) {
-        router.push('/login')
-        return <p>not signed in</p>
-    };
-
     useEffect(async () => {
         let url = await getProfilePicWithUserId(currentUser.uid)
         url ? setProfilePic(url) : setProfilePic('/user.svg')
@@ -88,6 +83,11 @@ const Profile = () => {
             setFilteredCollections(collections)
         }
     }, [searchInput]);
+
+    if (!isAuthenticated) {
+        router.push('/login')
+        return <p>not signed in</p>
+    };
 
     const getCollections = async () => {
         let coll = await readUsersCollections(currentUser.uid)

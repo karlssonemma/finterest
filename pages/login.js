@@ -12,6 +12,7 @@ import { StandardBtn } from '../components/Buttons/StandardBtn';
 import BigLogo from '../components/BigLogo';
 import { Pagetitle } from '../components/Pagetitle';
 import HeaderLanding from '../components/HeaderLanding';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 const StyledMain = styled.main`
     width: 100vw;
@@ -61,17 +62,17 @@ const LogIn = () => {
         <StyledMain>
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
                 <Pagetitle>Log In</Pagetitle>
-                {error && <p>{error}</p>}
+                {error && <ErrorMessage>{error}</ErrorMessage>}
                 <InputField 
                     inputName='email'
                     inputType='email'
-                    labelText='Email'
+                    labelText='Email *'
                     register={register}
                 />
                 <InputField 
                     inputName='password'
                     inputType='password'
-                    labelText='Password'
+                    labelText='Password *'
                     register={register}
                 />
                 <StandardBtn type='submit'>Log in</StandardBtn>

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
-
-import ModalContainer from '../ModalContainer';
-import CloseBtn from '../Buttons/CloseBtn';
-import { StandardBtn } from '../Buttons/StandardBtn';
 import { useAuth } from '../../contexts/AuthContext';
 import { useForm } from 'react-hook-form';
+
+import ModalContainer from '../ModalContainer';
+import { StandardBtn } from '../Buttons/StandardBtn';
 import { checkIfUsernameExists, readCurrentUser, setProfilePic } from '../../helpers/firebaseHelpers';
 import InputField from '../FormComponents/InputField';
 import FileInput from '../FormComponents/FileInput';
+import { ErrorMessage } from '../ErrorMessage';
 
 const StyledForm = styled.form`
     display: flex;
@@ -51,7 +51,9 @@ const EditProfileScreen = ({ item }) => {
 
     const handleText = (e) => {
         setText(e.target.value)
-        console.log('hbfjhnrjkflmr')
+        console.log(e.target.value)
+        setError('');
+        setUpdated(false)
     };
 
 
@@ -60,13 +62,16 @@ const EditProfileScreen = ({ item }) => {
         let userNameAlreadyExists = await checkIfUsernameExists(data.username);
         
         if(!userNameAlreadyExists) {
-            let user = await readCurrentUser(currentUser.uid)
-            user.update({
-                username: data.username
-            })
-            currentUser.updateProfile({
-                displayName: data.username
-            })
+            if(data.username) {
+                let user = await readCurrentUser(currentUser.uid)
+                console.log(user)
+                user.update({
+                    username: data.username
+                })
+                currentUser.updateProfile({
+                    displayName: data.username
+                })
+            }
             if (data.pic.length) {
                 await setProfilePic(currentUser.uid, data.pic[0]);
             }
@@ -80,7 +85,7 @@ const EditProfileScreen = ({ item }) => {
 
     return (
         <ModalContainer name='editProfileWindow'>
-            {error && <p>{error}</p>}
+            {error && <ErrorMessage>{error}</ErrorMessage>}
             <StyledForm onSubmit={handleSubmit(onSubmit)}>                
                 <InputField 
                     inputType='text' 

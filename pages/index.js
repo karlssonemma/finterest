@@ -8,18 +8,18 @@ import { fetchOneRandomPhoto } from '../helpers/apiHelpers';
 
 
 const StyledMain = styled.main`
-  height: 100vh;
+  height: max-content;
   width: 100vw;
 
   padding: 0 ${props => props.theme.space[4]};
-  background: url("https://images.unsplash.com/photo-1620503007227-b11daefacf0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjEzNDQwNjA&ixlib=rb-1.2.1&q=80&w=1080");
 
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+
+  @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+    height: calc(100vh - 100px);
+    grid-template-columns: 40% 60%;
+  }
 `;
 
 const Quote = styled.p`
@@ -29,12 +29,17 @@ const Quote = styled.p`
 `;
 
 const Container = styled.section`
-  height: max-content;
+  min-height: 100%;
   max-width: 600px;
   padding: ${props => props.theme.space[4]};
 
   border-radius: 10px;
   background-color:rgba(255,255,255, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
 `;
 
 const StyledLink = styled.a`
@@ -47,6 +52,8 @@ const StyledLink = styled.a`
   text-transform: uppercase;
   font-size: ${props => props.theme.fontSizes.s};
   cursor: pointer;
+  color: black;
+  text-decoration: none;
 
   &:hover {
     color: white;
@@ -54,47 +61,93 @@ const StyledLink = styled.a`
   }
 `;
 
+const Grid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+`;
+
+const BubbleImg = styled.img`
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  opacity: 0;
+  animation: 1s show 1s forwards;
+
+  &.bubble:first-child {
+    animation-delay: 1.5s;
+  }
+  &.bubble:nth-child(2) {
+    animation-delay: 2s;
+    width: 100px;
+    height: 100px;
+  }
+  &.bubble:nth-child(3) {
+    animation-delay: 1s;
+    width: 150px;
+    height: 150px;
+  }
+  &.bubble:nth-child(4) {
+    animation-delay: 1.25s;
+    width: 500px;
+    height: 500px;
+    grid-column: 1 / 4;
+  }
+
+  @keyframes show {
+    0% {
+      transform: translateY(20px)
+    }
+    100% {
+      transform: translateY(-0px);
+      opacity: 1;
+    }
+  }
+`;
+
 
 export default function Home() {
 
-  const [photo, setPhoto] = useState(null);
-  // useEffect(async() => {
-  //   try {
-  //     let resp = await fetchOneRandomPhoto()
-  //     console.log(resp)
-  //     setPhoto({ id: resp.response[0].id, url: resp.response[0].urls.regular })
-
-  //   } catch(e) {
-  //     console.log('Couldnt fetch photo', e)
-  //   }
-  // }, [])
+  const [photos, setPhotos] = useState(null);
 
   useEffect(async () => {
-    let photo = await fetchOneRandomPhoto();
-    setPhoto(photo.response[0].urls.regular)
-    console.log(photo)
+    let photoArr = [];
+    let resp = await fetchOneRandomPhoto();
+
+    resp.response.map(item => {
+      photoArr.push(item.urls.regular)
+    })
+    setPhotos(photoArr)
   }, [])
 
-  const backgroundImg = {
-    background: `url(${photo})`
-  }
 
   return (
     <>
       <HeaderLanding />
-      {
-        photo && 
         <StyledMain>
+          
           <Container>
             <Quote>
               "Cupim sausage salami, drumstick chicken ball tip jowl pork belly shoulder hamburger turducken."
             </Quote>
-            <Link href='/signup'>
+            <Link href='/signup' passHref={true}>
               <StyledLink>Sign up now</StyledLink>
             </Link>
           </Container>
+          <Grid>
+            {
+              photos && 
+              <>
+                <BubbleImg src={photos[0]} className='bubble' alt='' />
+                <BubbleImg src={photos[1]} className='bubble' alt='' />
+                <BubbleImg src={photos[2]} className='bubble' alt='' />
+                <BubbleImg src={photos[3]} className='bubble' alt='' />
+              </>
+            }
+
+          </Grid>
         </StyledMain>
-      }
     </>
     
   )

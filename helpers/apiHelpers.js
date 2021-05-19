@@ -2,21 +2,21 @@ import unsplashInstance from '../config/unsplash';
 
 export const fetchTenRandomPhotos = async () => {
     return await unsplashInstance.photos.getRandom({
-        count: 12
+        count: 30
     })
 };
 
 export const fetchOneRandomPhoto = async () => {
     return await unsplashInstance.photos.getRandom({
-        count: 1
+        count: 4
     })
 };
 
-export const getPhotosBySearch = async ({ input }) => {
+export const getPhotosBySearch = async (input, pageNr) => {
     return await unsplashInstance.search.getPhotos({
         query: input,
-        page: 1,
-        perPage: 12
+        page: pageNr,
+        perPage: 30
     })
 };
 export const getPhotosByColor = async ({ color }) => {

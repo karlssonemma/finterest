@@ -15,14 +15,14 @@ const StyledHeader = styled.header`
     justify-content: space-between;
 
     background-color: transparent;
-    position: fixed;
-    top: 0;
-    left: 0;
+
 `;
 
 const StyledLink = styled.a`
     margin-left: ${props => props.theme.space[1]};
     cursor: pointer;
+    color: black;
+    text-decoration: none;
     &:hover {
         text-decoration: underline;
     }
@@ -36,7 +36,7 @@ const NavLink = ({ link, children }) => {
     const router = useRouter();
 
     return(
-        <Link href={link}>
+        <Link href={link} passHref={true}>
             <StyledLink className={router.asPath === link ? 'active' : ''}>{children}</StyledLink>
         </Link>
     )

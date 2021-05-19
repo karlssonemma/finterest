@@ -45,8 +45,8 @@ const StyledMenuBtn = styled.button`
 `;
 
 const Icon = styled.img`
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    
     pointer-events: none;
     transform: rotate(90deg);
 `;
@@ -55,7 +55,6 @@ const HeaderMain = ({ handleInput }) => {
 
     const router = useRouter();
     let path = router.route;
-    console.log(router)
 
  
     const handleMenu = (e) => {
