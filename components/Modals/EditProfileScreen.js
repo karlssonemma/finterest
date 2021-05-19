@@ -42,8 +42,16 @@ const EditProfileScreen = ({ item }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+
+    const closeWindow = () => {
+        console.log('cliked')
+        let item = document.querySelector('.editProfileWindow')
+        item.classList.remove('visible');
+    };
+
     const handleText = (e) => {
         setText(e.target.value)
+        console.log('hbfjhnrjkflmr')
     };
 
 

@@ -3,17 +3,23 @@ import CloseBtn from '../components/Buttons/CloseBtn';
 
 
 const Background = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+    background-color: rgba(0,0,0, 0.8);
+`;
+
+const Container = styled.div`
     width: 100vw;
     height: 100vh;
 
     position: fixed;
     top: 0;
     left: 0;
-
-    background-color: rgba(0,0,0, 0.8);
-
-    z-index: 20;
     display: none;
+    z-index: 20;
+
 
     &.visible {
         display: flex;
@@ -23,7 +29,7 @@ const Background = styled.div`
     }
 `;
 
-const Container = styled.section`
+const Modal = styled.section`
     width: 100%;
     min-height: 100vh;
     padding: 60px;
@@ -53,12 +59,13 @@ const ModalContainer = ({ children, name }) => {
     };
 
     return(
-        <Background className={name} onClick={e => closeWindow(e)}>
-            <Container>
+        <Container className={name}>
+            <Background onClick={e => closeWindow(e)} />
+            <Modal>
             <CloseBtn btnFunction={e => closeWindow(e)} icon={'/cancel.png'} />
                 {children}
-            </Container>
-        </Background>
+            </Modal>
+       </Container>
     )
 }
 

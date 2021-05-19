@@ -46,6 +46,11 @@ const BtnContainer = styled.div`
     justify-content: space-between;
 `;
 
+const Text = styled.p`
+    text-align: center;
+    font-size: ${props => props.theme.fontSizes.m};
+`;
+
 
 const Profile = () => {
 
@@ -108,6 +113,7 @@ const Profile = () => {
         setSearchInput(e.target.value)
     };
 
+
     const renderCollections = () => {
         return(
             <MainGrid>
@@ -145,7 +151,9 @@ const Profile = () => {
                     </BtnContainer>
                 </Container>
                 {
-                    filteredCollections.length ? renderCollections() : <p>Start by creating a collection!</p>
+                    filteredCollections.length 
+                    ? renderCollections() 
+                    : <Text style={{textAlign: 'center'}}>Create a new collection by pressing +</Text>
                 }
             </main>
         </>

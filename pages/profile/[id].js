@@ -48,6 +48,12 @@ const Date = styled.p`
     color: gray;
 `;
 
+
+const Text = styled.p`
+    text-align: center;
+    font-size: ${props => props.theme.fontSizes.m};
+`;
+
 const LinkToProfile = () => {
     return(
         <Link href={'/profile'}>
@@ -146,7 +152,7 @@ const CollectionPage = () => {
             {
                 photos.length 
                     ? renderPhotos() 
-                    : <p>Start by adding photos to your collection</p>
+                    : <Text>Start by adding photos to your collection</Text>
                 
             }
         </main>

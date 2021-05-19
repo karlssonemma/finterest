@@ -76,26 +76,44 @@ const Home = () => {
     };
 
     const getMorePhotos = async () => {
-        try {
-            setLoadingPhotos(true)
-            let resp = await fetchTenRandomPhotos();
-            console.log(resp)
-            resp.response.map(item => {
-                let photo = {
-                    id: item.id,
-                    url: item.urls.regular,
-                    alt_description: item.alt_description,
-                    user: {
-                        name: item.user.name,
-                        instagram: item.user.instagram_username
-                    }
-                };
-                setPhotos((prevState) => [...prevState, photo]);
-                setLoadingPhotos(false)
-            })
-        } catch (e) {
-            console.log('err', e)
+        if(!searchInput.length) {
+            try {
+                setLoadingPhotos(true)
+                let resp = await fetchTenRandomPhotos();
+                console.log(resp)
+                resp.response.map(item => {
+                    let photo = {
+                        id: item.id,
+                        url: item.urls.regular,
+                        alt_description: item.alt_description,
+                        user: {
+                            name: item.user.name,
+                            instagram: item.user.instagram_username
+                        }
+                    };
+                    setPhotos((prevState) => [...prevState, photo]);
+                    setLoadingPhotos(false)
+                })
+            } catch (e) {
+                console.log('err', e)
+            }
+        } else {
+            try {
+                let resp = await getPhotosBySearch({ input: searchInput });
+
+                resp.response.results.map(item => {
+                    let photo = {
+                        id: item.id,
+                        url: item.urls.regular
+                    };
+                    setPhotos((prevState) => [...prevState, photo]);
+                })
+                console.log(resp.response)
+            } catch(e) {
+                console.log('errrrr', e)
+            }
         }
+        
         
     };
 

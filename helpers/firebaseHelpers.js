@@ -51,8 +51,7 @@ export const addCollection = async (userId, collObject) => {
 
 export const checkIfCollectionExistsByName = async (userId, input) => {
     let found = false;
-    await firebaseInstance
-    .firestore()
+    await firebaseInstance.firestore()
     .collection('users')
     .doc(userId)
     .collection('collections')

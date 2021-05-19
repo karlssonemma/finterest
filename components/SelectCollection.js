@@ -74,9 +74,12 @@ const SelectCollection = ({ item }) => {
         if (collections.length < 1) {
             let coll = await readUsersCollections(currentUser.uid);
             coll.onSnapshot(snapshot => {
+                let colls = [];
                 snapshot.forEach(doc => {
-                    setCollections(prevState => [...prevState, {...doc.data(), id: doc.id }])
+                    colls.push({...doc.data(), id: doc.id })
+                    // setCollections(prevState => [...prevState, {...doc.data(), id: doc.id }])
                 })
+                setCollections(colls)
             })
         }
     }, [])

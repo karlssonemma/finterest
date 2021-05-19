@@ -45,6 +45,12 @@ const AddPhotoToNewCollScreen = ({ item }) => {
         closeWindow();
         setText('');
     };
+
+    const closeWindow = (e) => {
+        let modal = document.querySelector(`.addPhotoToNewColl_${item.id}`)
+        modal.classList.remove('visible');
+        console.log(e)
+    };
     
     return(
         <ModalContainer name={`addPhotoToNewColl_${item.id}`}>

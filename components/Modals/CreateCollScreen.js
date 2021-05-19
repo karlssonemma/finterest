@@ -6,6 +6,7 @@ import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import InputField from '../FormComponents/InputField';
+import { ErrorMessage } from '../ErrorMessage';
 
 
 const CreateCollScreen = () => {
@@ -13,10 +14,12 @@ const CreateCollScreen = () => {
     const { currentUser } = useAuth()
     const [text, setText] = useState('');
     const [nameAlreadyInUse, setNameAlreadyInUse] = useState(false);
+    
 
     useEffect(async () => {
+        let foundCollWithSameName = false;
         if(text.length > 1) {
-            let foundCollWithSameName = await checkIfCollectionExistsByName(currentUser.uid, text)
+            foundCollWithSameName = await checkIfCollectionExistsByName(currentUser.uid, text);
             setNameAlreadyInUse(foundCollWithSameName)
         }
     }, [text])
@@ -26,19 +29,27 @@ const CreateCollScreen = () => {
     };
 
     const createColl = async () => {
-        addCollection(currentUser.uid, {
+        if(!nameAlreadyInUse) {
+            addCollection(currentUser.uid, {
                 name: text,
                 createdAt: new Date().toLocaleDateString(),
                 user: currentUser.uid
             })
         closeWindow();
         setText('');
+        }
+    };
+
+    const closeWindow = (e) => {
+        let item = document.querySelector('.createCollScreen')
+        item.classList.remove('visible');
+        console.log(e)
     };
     
     return(
         <ModalContainer name='createCollScreen'>
             {
-                nameAlreadyInUse && <p>Name already in use</p>
+                nameAlreadyInUse && <ErrorMessage>Name already in use</ErrorMessage>
             }
             <InputField 
                 inputType='text' 
