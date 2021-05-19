@@ -18,17 +18,10 @@ const StyledMain = styled.main`
     width: 100vw;
     min-height: 100vh;
 
-    background: url("https://images.unsplash.com/photo-1620503007227-b11daefacf0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjEzNDQwNjA&ixlib=rb-1.2.1&q=80&w=1080");
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: black;
 `;
 
 

@@ -6,21 +6,12 @@ import unsplashInstance from '../config/unsplash';
 
 import ImageComp from '../components/ImageComp';
 import MainGrid from '../components/MainGrid';
-import { getPhotosBySearch, fetchTenRandomPhotos } from '../helpers/apiHelpers';
+import { getPhotosBySearch, fetchRandomPhotos } from '../helpers/apiHelpers';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
 import IconBtn from '../components/Buttons/IconBtn';
 import { StandardBtn } from '../components/Buttons/StandardBtn';
 
-// const StyledBtn = styled.button`
-//     border: none; 
-//     background-color: transparent;
-//     cursor: pointer;
-// `;
-
-// const Icon = styled.img`
-//     width: 18px;
-// `;
 
 const Home = () => {
 
@@ -74,7 +65,7 @@ const Home = () => {
     const getRandomPhotos = async () => {
         try {
             setLoadingPhotos(true)
-            let resp = await fetchTenRandomPhotos();
+            let resp = await fetchRandomPhotos(30);
             console.log(resp)
             resp.response.map(item => {
                 let photo = {

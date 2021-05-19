@@ -5,6 +5,7 @@ import Link from 'next/link';
 import theme from '../utils/theme';
 import { useAuth } from '../contexts/AuthContext';
 import { readPhotosFromCollection } from '../helpers/firebaseHelpers';
+import { fetchRandomPhotos } from '../helpers/apiHelpers';
 
 
 const StyledListItem = styled.li`
@@ -12,16 +13,16 @@ const StyledListItem = styled.li`
     //må ändras
     height: 400px;
     margin-bottom: ${props => props.theme.space[4]};
-    border-radius: 10px;
+    /* border-radius: 10px; */
     
-    box-shadow: 0 0 10px lightgray;
+    /* box-shadow: 0 0 10px lightgray; */
     list-style: none;
 
     position: relative;
     overflow: hidden;
 `;
 
-const Container = styled.div`
+const ThreePicContainer = styled.div`
     display: grid;
     width: 100%;
     height: 100%;
@@ -30,7 +31,12 @@ const Container = styled.div`
     grid-template-columns: repeat(3, 1fr);
 
     overflow: hidden;
-    background-color: green;
+`;
+
+const OnePicContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 `;
 
 const StyledLink = styled.a`
@@ -71,36 +77,47 @@ const StyledImg = styled.img`
 const CollectionComp = ({ coll }) => {
 
     const { currentUser } = useAuth();
-    const [photos, setPhotos] = useState(null);
+    const [photos, setPhotos] = useState([]);
+
 
     useEffect(async () => {
-       let photoArr = [];
             let photosRef = await readPhotosFromCollection(currentUser.uid, coll.id);
-            photosRef.onSnapshot(query => {
+            photosRef.get()
+            .then(query => {
                 query.forEach(doc => {
-                    
-                        photoArr.push(doc.data())
-                    
+                    setPhotos(prevState => [...prevState, doc.data()])
                 })
             })
-            setPhotos(photoArr);
     }, [])
 
 
     return(
         <StyledListItem>
-        <Container>
             {
-                photos && photos.map((item, i) => 
-                    console.log('hfnrjkfnkr')
-                )
-                    
-                
+                photos.length < 3 
+                ? <OnePicContainer>
+                    {
+                        photos.map((item, i) => {
+                            if(i === 0) {
+                                return(
+                                    <StyledImg src={item.url} className='backgroundImg' key={item.id} />
+                                )
+                            }
+                        })
+                    }
+                </OnePicContainer> 
+                : <ThreePicContainer>
+                {
+                    photos.map((item, i) => {
+                        if(i < 3) {
+                            return(
+                                <StyledImg src={item.url} className='backgroundImg' key={item.id} />
+                            )
+                        }
+                    })
+                }
+            </ThreePicContainer> 
             }
-            <StyledImg src="https://images.unsplash.com/photo-1620503007227-b11daefacf0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjEzNDQwNjA&ixlib=rb-1.2.1&q=80&w=1080" className='backgroundImg' />
-            <StyledImg src="https://images.unsplash.com/photo-1620503007227-b11daefacf0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjEzNDQwNjA&ixlib=rb-1.2.1&q=80&w=1080" className='backgroundImg' />
-            <StyledImg src="https://images.unsplash.com/photo-1620503007227-b11daefacf0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjEzNDQwNjA&ixlib=rb-1.2.1&q=80&w=1080" className='backgroundImg' />
-        </Container>
             <Link href={`/profile/${coll.id}`}>
                 <StyledLink><span>{coll.name}</span></StyledLink>
             </Link>

@@ -32,18 +32,20 @@ const EditCollNameScreen = ({ collId }) => {
     };
 
     const changeName = async () => {
-        if(!nameAlreadyInUse) {
-            let ref = await readCollectionFromUser(currentUser.uid, collId);
-            ref.update({
-                name: name
-            })
+        if(name.length > 1) {
+            if(!nameAlreadyInUse) {
+                let ref = await readCollectionFromUser(currentUser.uid, collId);
+                ref.update({
+                    name: name
+                })
+                setName('');
+                closeWindow();
+            }
         }
-        setName('');
-        closeWindow();
     };
 
     const closeWindow = (e) => {
-        let item = document.querySelector('.createCollScreen')
+        let item = document.querySelector('.editCollNameScreen')
         item.classList.remove('visible');
         console.log(e)
     };

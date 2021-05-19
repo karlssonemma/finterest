@@ -42,7 +42,8 @@ export const deletePhotoFromCollection = async (userId, collId, photoId) => {
 
 export const addPhoto = async (userId, collId, photoId, photoObject) => {
     console.log(photoObject)
-    await firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId).set(photoObject);
+    console.log(userId, collId, photoId, photoObject)
+    firebaseInstance.firestore().collection('users').doc(userId).collection('collections').doc(collId).collection('photos').doc(photoId).set(photoObject);
 };
 
 export const addCollection = async (userId, collObject) => {

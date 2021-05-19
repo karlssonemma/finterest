@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import theme from '../utils/theme';
 import HeaderLanding from '../components/HeaderLanding';
-import { fetchOneRandomPhoto } from '../helpers/apiHelpers';
+import { fetchRandomPhotos } from '../helpers/apiHelpers';
 
 
 const StyledMain = styled.main`
@@ -113,7 +113,7 @@ export default function Home() {
 
   useEffect(async () => {
     let photoArr = [];
-    let resp = await fetchOneRandomPhoto();
+    let resp = await fetchRandomPhotos(4);
 
     resp.response.map(item => {
       photoArr.push(item.urls.regular)
