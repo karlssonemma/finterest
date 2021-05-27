@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 const StyledInput = styled.input`
-    width: 100px;   
+    width: 120px;   
     padding: ${props => props.theme.space[2]} ${props => props.theme.space[3]};
 
     border: none;

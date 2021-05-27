@@ -28,7 +28,7 @@ const StyledSelect = styled.select`
 
 const SelectCollection = ({ item }) => {
 
-    const { id, url, user } = item;
+    const { id, url, user, alt_description } = item;
     const { currentUser } = useAuth();
     const [collections, setCollections] = useState([]);
     const [selectedCollId, setSelectedCollId] = useState('');
@@ -101,9 +101,10 @@ const SelectCollection = ({ item }) => {
                     addPhoto(currentUser.uid, collId, (`img${id}`), {
                         url: url,
                         id: id,
-                        user: user
+                        user: user,
+                        alt_description: alt_description
                     });
-                    console.log('doenst exist', doc.id)
+                    console.log('doesnt exist', doc.id)
                 }
             }).then(() => setFilled(!filled))
         }

@@ -36,8 +36,9 @@ const StyledSection = styled.nav`
     }
 `;
 
-
-const StyledLink = styled.a`
+const LogOut = styled.button`
+    background-color: transparent;
+    border: none;
     cursor: pointer;
     font-size: ${props => props.theme.fontSizes.lg};
 
@@ -45,6 +46,27 @@ const StyledLink = styled.a`
         text-decoration: underline;
     }
 `;
+
+const StyledLink = styled.a`
+    cursor: pointer;
+    font-size: ${props => props.theme.fontSizes.lg};
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+`;
+
+const MenuLink = ({ children, href }) => {
+    return(
+        <Link passHref={true} href={href}>
+            <StyledLink>
+                { children }
+            </StyledLink>
+        </Link>
+    )
+}
 
 const Menu = () => {
 
@@ -63,13 +85,9 @@ const Menu = () => {
 
     return(
         <StyledSection id='menu' tabIndex={0}>
-            <Link href='/home'>
-                <StyledLink tabIndex={0}>Feed</StyledLink>
-            </Link>
-            <Link href='/profile'>
-                <StyledLink tabIndex={0}>Profile</StyledLink>
-            </Link>
-            <StyledLink tabIndex={0} onClick={handleLogOut}>Log Out</StyledLink>
+            <MenuLink href='/home'>Feed</MenuLink>
+            <MenuLink href='/profile'>Profile</MenuLink>
+            <LogOut onClick={handleLogOut}>Log Out</LogOut>
         </StyledSection>
     )
 }

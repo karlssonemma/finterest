@@ -59,7 +59,7 @@ const Profile = () => {
     const [collections, setCollections] = useState([]);
     const [filteredCollections, setFilteredCollections] = useState([]);
     const [searchInput, setSearchInput] = useState('');
-    const [profilePic, setProfilePic] = useState(null);
+    const [profilePic, setProfilePic] = useState('/user.svg');
 
     useEffect(async () => {
         let url = await getProfilePicWithUserId(currentUser.uid)

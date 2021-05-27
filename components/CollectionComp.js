@@ -47,13 +47,21 @@ const StyledLink = styled.a`
     top: 0;
     left: 0;
     background-color: rgba(255,255,255, .7);
+    color: black;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: .2s;
+
+    &:focus, :hover {
+        background-color: transparent;
+    }
 `;
 
-const StyledImg = styled.img`
+const StyledImg = styled.img.attrs(props => {
+    alt: ''
+})`
     width: 100%;
     min-height: 100%;
     height: auto;
@@ -111,15 +119,15 @@ const CollectionComp = ({ coll }) => {
                     photos.map((item, i) => {
                         if(i < 3) {
                             return(
-                                <StyledImg src={item.url} className='backgroundImg' key={item.id} />
+                                <StyledImg alt={item.alt_description} src={item.url} className='backgroundImg' key={item.id} />
                             )
                         }
                     })
                 }
             </ThreePicContainer> 
             }
-            <Link href={`/profile/${coll.id}`}>
-                <StyledLink><span>{coll.name}</span></StyledLink>
+            <Link passHref={true} href={`/profile/${coll.id}`}>
+                <StyledLink>{coll.name}</StyledLink>
             </Link>
         </StyledListItem>
     )

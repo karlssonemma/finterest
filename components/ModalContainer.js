@@ -55,7 +55,6 @@ const ModalContainer = ({ children, name }) => {
     const closeWindow = (e) => {
         let item = document.querySelector(`.${name}`)
         item.classList.remove('visible');
-        console.log(e)
     };
 
     return(

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import theme from '../utils/theme';
+import Link from 'next/link';
 
 import SearchField from './SearchField';
 import Menu from './Menu';
@@ -21,6 +22,13 @@ const StyledNav = styled.header`
     z-index: 10;
 `;
 
+const Icon = styled.img`
+    width: 18px;
+    
+    pointer-events: none;
+    transform: rotate(90deg);
+`;
+
 const StyledMenuBtn = styled.button`
     padding: ${props => props.theme.space[1]};
     z-index: 100;
@@ -39,16 +47,9 @@ const StyledMenuBtn = styled.button`
         border-color: black;
     }
 
-    &.open_menu .menu-icon {
+    &.open_menu ${Icon} {
         transform: rotate(270deg);
     }
-`;
-
-const Icon = styled.img`
-    width: 18px;
-    
-    pointer-events: none;
-    transform: rotate(90deg);
 `;
 
 const HeaderMain = ({ handleInput }) => {
@@ -60,19 +61,22 @@ const HeaderMain = ({ handleInput }) => {
     const handleMenu = (e) => {
         document.querySelector('#menu').classList.toggle('open');
         e.target.classList.toggle('open_menu');
-        console.log(e.target)
     }
 
     return(
         <StyledNav>
-            <p>Finterest</p>
+            
+            <Link href='/home'>
+                <a>Finterest</a>
+            </Link>
             {
                 router.asPath === '/profile' || router.asPath === '/home' ?  <SearchField handleInput={(e) => handleInput(e)} />  : ''
             }            
             <StyledMenuBtn onClick={(e) => handleMenu(e)}>
                 {
-                    screen.width > 300 ? <span>Menu</span> : ''               }
-                <Icon className='menu-icon' aria-hidden='true' src={'/next.png'} />
+                    screen.width > 300 ? <span>Menu</span> : ''               
+                }
+                <Icon aria-hidden='true' src={'/next.png'} />
             </StyledMenuBtn>
             <Menu />
         </StyledNav>

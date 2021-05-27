@@ -12,6 +12,7 @@ import InputField from '../FormComponents/InputField';
 
 const AddPhotoToNewCollScreen = ({ item }) => {
 
+    const { id, url, alt_description, user } = item;
     const { currentUser } = useAuth()
     const [text, setText] = useState('');
     const [nameAlreadyInUse, setNameAlreadyInUse] = useState(false);
@@ -36,9 +37,11 @@ const AddPhotoToNewCollScreen = ({ item }) => {
         ref.get()
         .then(query => {
             query.forEach(doc => {
-                addPhoto(currentUser.uid, doc.id, item.id, {
-                    url: item.url,
-                    id: item.id
+                addPhoto(currentUser.uid, doc.id, id, {
+                    url: url,
+                    id: id,
+                    alt_description: alt_description,
+                    user: user
                 })
             })
         })

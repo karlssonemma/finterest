@@ -12,12 +12,12 @@ const MainGrid = styled.ul`
     grid-template-columns: 1fr;
     /* grid-template-rows: 1fr; */
 
-    @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+    @media screen and (min-width: ${props => props.theme.breakpoints[0]}) {
         grid-template-columns: repeat(2, 1fr);
     }
 
     @media screen and (min-width: ${props => props.theme.breakpoints[2]}) {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 `;
 
