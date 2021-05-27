@@ -53,7 +53,7 @@ const ImageInCollection = ({ item, handleClick }) => {
             <Photo src={item.url} alt={item.alt_description} />
             <ButtonFieldForImages 
                 className={`buttonField_${item.id}`}
-                tabIndex={0}
+                tabIndex={0} 
                 onFocus={showBtns}
                 onBlur={hideBtns}
                 onMouseLeave={hideBtns}
