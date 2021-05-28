@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import theme from '../utils/theme';
 import { useAuth } from '../contexts/AuthContext';
-import { readPhotosFromCollection } from '../helpers/firebaseHelpers';
+import { readPhotos } from '../helpers/firebaseHelpers';
 import { fetchRandomPhotos } from '../helpers/apiHelpers';
 
 
@@ -19,7 +19,6 @@ const StyledListItem = styled.li`
     list-style: none;
 
     position: relative;
-    overflow: hidden;
 `;
 
 const ThreePicContainer = styled.div`
@@ -39,43 +38,47 @@ const OnePicContainer = styled.div`
     overflow: hidden;
 `;
 
+const Shadow = styled.div`
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    transition: .2s;
+
+    background-color: rgba(255,255,255, .3);
+`;
+
 const StyledLink = styled.a`
     width: 100%;
     height: 100%;
-    font-size: ${props => props.theme.fontSizes.lg};
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(255,255,255, .7);
-    color: black;
+    display: block;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: ${props => props.theme.fontSizes.lg};
+    color: black;
     transition: .2s;
 
-    &:focus, :hover {
-        background-color: transparent;
+    &:focus ${Shadow}, :hover ${Shadow}{
+        opacity: 0;
     }
 `;
 
-const StyledImg = styled.img.attrs(props => {
-    alt: ''
-})`
+
+const StyledImg = styled.img`
     width: 100%;
     min-height: 100%;
     height: auto;
     object-fit: cover;
 
-    &.backgroundImg:first-child {
+    &:first-child {
         grid-column: span 2;
         grid-row: 1 / 3;
     }
-    &.backgroundImg:nth-child(2) {
+    &:nth-child(2) {
         grid-column: 3 / 4;
         grid-row: 1 / 2;
     }
-    &.backgroundImg:nth-child(3) {
+    &:nth-child(3) {
         grid-column: 3 / 4;
         grid-row: 2 / 3;
     }
@@ -86,48 +89,53 @@ const CollectionComp = ({ coll }) => {
 
     const { currentUser } = useAuth();
     const [photos, setPhotos] = useState([]);
+    const length = photos.length;
 
 
     useEffect(async () => {
-            let photosRef = await readPhotosFromCollection(currentUser.uid, coll.id);
-            photosRef.get()
-            .then(query => {
-                query.forEach(doc => {
-                    setPhotos(prevState => [...prevState, doc.data()])
-                })
+        let photosRef = await readPhotos(currentUser.uid, coll.id);
+        photosRef.get()
+        .then(query => {
+            query.forEach(doc => {
+                setPhotos(prevState => [...prevState, doc.data()])
             })
+        })
     }, [])
 
 
     return(
         <StyledListItem>
-            {
-                photos.length < 3 
-                ? <OnePicContainer>
+            <Link passHref={true} href={`/profile/${coll.id}`}>
+                <StyledLink>
                     {
-                        photos.map((item, i) => {
-                            if(i === 0) {
-                                return(
-                                    <StyledImg src={item.url} className='backgroundImg' key={item.id} />
+                        length < 3 
+                        ? <OnePicContainer>
+                            {
+                                photos.map((item, i) => (i === 0) && 
+                                    <StyledImg 
+                                        alt={item.alt_description}
+                                        src={item.url} 
+                                        key={item.id} 
+                                    />
                                 )
                             }
-                        })
+                        <Shadow />
+                        </OnePicContainer> 
+                        : <ThreePicContainer>
+                            {
+                                photos.map((item, i) => (i < 3) && 
+                                    <StyledImg 
+                                        alt={item.alt_description} 
+                                        src={item.url} 
+                                        key={item.id} 
+                                    />
+                                )
+                            }
+                        <Shadow />
+                        </ThreePicContainer> 
                     }
-                </OnePicContainer> 
-                : <ThreePicContainer>
-                {
-                    photos.map((item, i) => {
-                        if(i < 3) {
-                            return(
-                                <StyledImg alt={item.alt_description} src={item.url} className='backgroundImg' key={item.id} />
-                            )
-                        }
-                    })
-                }
-            </ThreePicContainer> 
-            }
-            <Link passHref={true} href={`/profile/${coll.id}`}>
-                <StyledLink>{coll.name}</StyledLink>
+                <span>{coll.name}</span>
+                </StyledLink>
             </Link>
         </StyledListItem>
     )

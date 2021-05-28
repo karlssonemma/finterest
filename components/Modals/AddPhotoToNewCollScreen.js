@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 
-import { addPhoto, addCollection, readCollectionByName, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
+import { addPhoto, addCollection, getCollectionByName, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
 import ModalContainer from '../ModalContainer';
 import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
@@ -33,8 +33,7 @@ const AddPhotoToNewCollScreen = ({ item }) => {
                 createdAt: new Date().toLocaleDateString(),
                 user: currentUser.uid
             })
-        let ref = await readCollectionByName(currentUser.uid, text)
-        ref.get()
+        await getCollectionByName(currentUser.uid, text)
         .then(query => {
             query.forEach(doc => {
                 addPhoto(currentUser.uid, doc.id, id, {

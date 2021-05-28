@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 
 import { useAuth } from '../contexts/AuthContext';
-import { readUsers, readUsersCollections, readPhotoFromCollection, readPhotosFromCollection, deletePhotoFromCollection, addPhoto } from '../helpers/firebaseHelpers';
+import { readUsers, readAllCollections, getPhoto, getCollection, readPhotos, deletePhoto, addPhoto } from '../helpers/firebaseHelpers';
 import HeartBtn from '../components/Buttons/HeartBtn';
 import AddPhotoToNewCollScreen from '../components/Modals/AddPhotoToNewCollScreen';
 
@@ -45,19 +45,19 @@ const SelectCollection = ({ item }) => {
 
     //uppdaterar heart icon då select ändras
     useEffect(async () => {
-        let photoFoundInColl;
+        let photoFoundInColl = false;
 
         if(selectedCollId === 'new') {
             photoFoundInColl = false;
         } else if (selectedCollId.length > 0) {
-            let ref = await readPhotosFromCollection(currentUser.uid, selectedCollId)
+            let ref = await readPhotos(currentUser.uid, selectedCollId)
             ref.get()
-            .then(sub => {
+            .then((sub) => {
                 //checkar om coll "photos" existerar
                 if (sub.docs.length > 0) {
                     photoFoundInColl = false;
                     sub.forEach(doc => {
-                        if(doc.data().id === id) {
+                        if(doc.data().id === item.id) {
                             photoFoundInColl = true;
                         }
                     })
@@ -65,14 +65,18 @@ const SelectCollection = ({ item }) => {
                     photoFoundInColl = false;
                 }
             })
+            .then(() => {
+                setFilled(photoFoundInColl);
+            })
+            
         }
-        setFilled(photoFoundInColl);
     }, [selectedCollId])
+
 
     useEffect(async () => {
         readUsers();
         if (collections.length < 1) {
-            let coll = await readUsersCollections(currentUser.uid);
+            let coll = await readAllCollections(currentUser.uid);
             coll.onSnapshot(snapshot => {
                 let colls = [];
                 snapshot.forEach(doc => {
@@ -91,14 +95,13 @@ const SelectCollection = ({ item }) => {
              //endast pga tom string vid submit utan att select blivit touched
             let collId = data.collectionId ? data.collectionId : collections[0].id;
 
-            let coll = await readPhotoFromCollection(currentUser.uid, collId, id)
-            coll.get()
+            await getPhoto(currentUser.uid, collId, `img${id}`)
             .then(doc => {
                 if(doc.exists) {
-                    deletePhotoFromCollection(currentUser.uid, collId, doc.id)
+                    deletePhoto(currentUser.uid, collId, doc.id)
                     console.log('exists', doc.id)
                 } else {
-                    addPhoto(currentUser.uid, collId, (`img${id}`), {
+                    addPhoto(currentUser.uid, collId, doc.id, {
                         url: url,
                         id: id,
                         user: user,

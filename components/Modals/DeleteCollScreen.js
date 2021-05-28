@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/router';
 
-import { deleteCollectionDoc, readPhotosFromCollection } from '../../helpers/firebaseHelpers';
+import { deleteCollectionDoc, readPhotos } from '../../helpers/firebaseHelpers';
 import ModalContainer from '../ModalContainer';
 import { StandardBtn } from '../Buttons/StandardBtn';
 
@@ -20,7 +20,7 @@ const DeleteCollScreen = ({ collId }) => {
     const router = useRouter()
 
     const handleDeleteColl = async () => {
-        let photos = await readPhotosFromCollection(currentUser.uid, collId)
+        let photos = await readPhotos(currentUser.uid, collId)
         photos.get()
         .then((query) => {
             query.forEach((doc) => {

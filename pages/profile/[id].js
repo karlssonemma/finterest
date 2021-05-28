@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import HeaderMain from '../../components/HeaderMain';
 import { useAuth } from '../../contexts/AuthContext';
-import { deletePhotoFromCollection, getCollectionFromUser, readPhotosFromCollection, deleteCollection, deleteCollectionDoc } from '../../helpers/firebaseHelpers';
+import { deletePhoto, getCollection, readPhotos, deleteCollection, deleteCollectionDoc } from '../../helpers/firebaseHelpers';
 import MainGrid from '../../components/MainGrid';
 import ImageInCollection from '../../components/ImageInCollection';
 import theme from '../../utils/theme';
@@ -82,26 +82,19 @@ const CollectionPage = () => {
     };
 
     const handleGetCollInfo = async () => {
-        let coll = await getCollectionFromUser(currentUser.uid, collId);
+        let coll = await getCollection(currentUser.uid, collId);
         setCollInfo(coll.data())
     };
 
     const handleGetPhotos = async () => {
-
-        //kanske inte bästa løsningen men snapshot lyssnar ej till delete as of now
-        setPhotos([]);
-        
-        let coll = await readPhotosFromCollection(currentUser.uid, collId)
+        let coll = await readPhotos(currentUser.uid, collId)
         coll.onSnapshot((querySnapshot) => {
+            let arr = [];
             querySnapshot.forEach((doc) => {
-                setPhotos(prevState => [...prevState, {...doc.data()}])
+                arr.push({...doc.data()})
             })
+            setPhotos(arr)
         })
-    };
-
-    const handleDeletePhoto = async (id) => {
-        deletePhotoFromCollection(currentUser.uid, collId, id)
-        .then(() => handleGetPhotos())
     };
 
     const renderPhotos = () => {
@@ -109,7 +102,7 @@ const CollectionPage = () => {
             <MainGrid>
                 {
                     photos.map(item => 
-                        <ImageInCollection key={item.id} item={item} handleClick={() => handleDeletePhoto(item.id)} />
+                        <ImageInCollection key={item.id} item={item} />
                     )
                 }
             </MainGrid>
@@ -138,13 +131,13 @@ const CollectionPage = () => {
                     <IconBtn 
                         label='Edit name of collection.' 
                         icon='/edit.png' 
-                        btnFunction={openChangeNameScreen} 
+                        btnFunction={() => openChangeNameScreen()} 
                     />
                     <EditCollNameScreen collId={collId} />
                     <IconBtn 
                         label='Delete collection.' 
                         icon='/cancel.png' 
-                        btnFunction={openDeleteCollWindow} 
+                        btnFunction={() => openDeleteCollWindow()} 
                     />
                     <DeleteCollScreen collId={collId} />
                 </BtnContainer>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { readCollectionFromUser, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
+import { readCollection, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
 
 import ModalContainer from '../ModalContainer';
 import { StandardBtn } from '../Buttons/StandardBtn';
@@ -34,7 +34,7 @@ const EditCollNameScreen = ({ collId }) => {
     const changeName = async () => {
         if(name.length > 1) {
             if(!nameAlreadyInUse) {
-                let ref = await readCollectionFromUser(currentUser.uid, collId);
+                let ref = await readCollection(currentUser.uid, collId);
                 ref.update({
                     name: name
                 })

@@ -19,12 +19,13 @@ const StyledInput = styled.input`
 const SearchField = ({ handleInput }) => {
 
     const router = useRouter();
-    const placeHolder = router.asPath === '/home' ? 'search' : 'search collections'; 
+    const placeHolder = router.asPath === '/home' ? 'search for images' : 'search collections'; 
 
     return(
         <StyledInput 
             placeholder={placeHolder}
             onChange={(e) => handleInput(e)}
+            aria-label={placeHolder}
         />
     )
 }

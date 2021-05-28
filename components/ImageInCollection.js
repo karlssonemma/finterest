@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
+import { useAuth } from '../contexts/AuthContext';
 import { ButtonFieldForImages } from './ButtonFieldForImages';
 
 import IconBtn from './Buttons/IconBtn';
 import InfoBox from './InfoBox';
+import { deletePhoto } from '../helpers/firebaseHelpers';
 
 
 const Container = styled.li`
@@ -34,19 +37,28 @@ const Photo = styled.img`
 `;
 
 
-const ImageInCollection = ({ item, handleClick }) => {
+const ImageInCollection = ({ item }) => {
+
+    const { currentUser } = useAuth();
+    const router = useRouter();
+    const collId = router.query.id;
     
     const showInfo = () => {
         let box = document.querySelector(`.infoBox_${item.id}`)    
         box.classList.toggle('infoVisible');
     };
 
+    const deletePhoto = () => {
+        deletePhoto(currentUser.uid, collId, `img${item.id}`)
+    };
+
     const showBtns = () => {
         document.querySelector(`.buttonField_${item.id}`).classList.toggle('visibleBtnField')
     };
+
     const hideBtns = () => {
         document.querySelector(`.buttonField_${item.id}`).classList.remove('visibleBtnField')
-    }
+    };
 
     return(
         <Container>
@@ -67,7 +79,7 @@ const ImageInCollection = ({ item, handleClick }) => {
                 />
                 <IconBtn 
                     icon='/cancel.png' 
-                    btnFunction={item => handleClick(item)} 
+                    btnFunction={() => deletePhoto()} 
                     white={true}
                     label='Delete photo from collection.'
                 />

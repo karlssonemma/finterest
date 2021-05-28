@@ -52,6 +52,11 @@ const StyledMenuBtn = styled.button`
     }
 `;
 
+const LogoLink = styled.a`
+    color: black;
+    text-decoration: none;      
+`;
+
 const HeaderMain = ({ handleInput }) => {
 
     const router = useRouter();
@@ -66,8 +71,8 @@ const HeaderMain = ({ handleInput }) => {
     return(
         <StyledNav>
             
-            <Link href='/home'>
-                <a>Finterest</a>
+            <Link passHref={true} href='/home'>
+                <LogoLink aria-label='Link to homepage'>Finterest</LogoLink>
             </Link>
             {
                 router.asPath === '/profile' || router.asPath === '/home' ?  <SearchField handleInput={(e) => handleInput(e)} />  : ''
