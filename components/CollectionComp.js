@@ -49,18 +49,33 @@ const Shadow = styled.div`
     background-color: rgba(255,255,255, .3);
 `;
 
+const CollectionTitle = styled.p`
+    font-size: ${props => props.theme.fontSizes.lg};
+    color: black;
+    
+`;
+
 const StyledLink = styled.a`
     width: 100%;
     height: 100%;
     display: block;
 
-    font-size: ${props => props.theme.fontSizes.lg};
-    color: black;
     transition: .2s;
+    text-decoration: none;
 
-    &:focus ${Shadow}, :hover ${Shadow}{
+    &:focus ${Shadow}, 
+    :hover ${Shadow} {
         opacity: 0;
     }
+    &:hover ${CollectionTitle} {
+        text-decoration: underline;
+    }
+`;
+
+const Pins = styled.span`
+    font-size: ${props => props.theme.fontSizes.xs};
+    display: block;
+    color: black;
 `;
 
 
@@ -134,9 +149,11 @@ const CollectionComp = ({ coll }) => {
                         <Shadow />
                         </ThreePicContainer> 
                     }
-                <span>{coll.name}</span>
+                <CollectionTitle>{coll.name}</CollectionTitle>
+                <Pins>{length} Pin{length === 1 ? '' : 's'}</Pins>
                 </StyledLink>
             </Link>
+            
         </StyledListItem>
     )
 }
