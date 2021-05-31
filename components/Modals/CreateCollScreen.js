@@ -35,9 +35,9 @@ const CreateCollScreen = () => {
                 createdAt: new Date().toLocaleDateString(),
                 user: currentUser.uid
             })
-        closeWindow();
-        setText('');
         }
+        setText('');
+        closeWindow();
     };
 
     const closeWindow = (e) => {
@@ -55,7 +55,7 @@ const CreateCollScreen = () => {
                 inputType='text' 
                 inputName='nameOfColl' 
                 labelText='name of collection' 
-                handleChange={e => handleText(e)} 
+                handleChange={e => handleText(e)}
             />
             
             <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create coll</StandardBtn>

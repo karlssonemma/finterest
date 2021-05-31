@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import theme from '../utils/theme';
 import Link from 'next/link';
 
@@ -7,7 +7,7 @@ import SearchField from './SearchField';
 import Menu from './Menu';
 import { useRouter } from 'next/router';
 
-const StyledNav = styled.header`
+const StyledHeader = styled.header`
     width: 100vw;
     height: 100px;
     padding: 0 ${props => props.theme.space[4]};
@@ -20,6 +20,12 @@ const StyledNav = styled.header`
     position: fixed;
     top: 0;
     z-index: 10;
+    transition: .2s;
+
+    &.border {
+        box-shadow: 0px 8px 8px -8px rgba(0,0,0, 0.2);
+        transition: .2s;
+    }
 `;
 
 const Icon = styled.img`
@@ -58,15 +64,19 @@ const HeaderMain = ({ handleInput }) => {
 
     const router = useRouter();
     let path = router.route;
+    const [scrollValue, setScrollValue] = useState(0);
 
- 
+    useEffect(() => {
+        window.addEventListener('scroll', () => setScrollValue(window.scrollY))
+    }, [])
+
     const handleMenu = (e) => {
         document.querySelector('#menu').classList.toggle('open');
         e.target.classList.toggle('open_menu');
     }
 
     return(
-        <StyledNav>
+        <StyledHeader className={scrollValue > 0 && 'border'}>
             
             <Link passHref={true} href='/home'>
                 <LogoLink aria-label='Link to homepage'>Finterest</LogoLink>
@@ -84,7 +94,7 @@ const HeaderMain = ({ handleInput }) => {
                 <Icon aria-hidden='true' src={'/next.png'} />
             </StyledMenuBtn>
             <Menu />
-        </StyledNav>
+        </StyledHeader>
     )
 }
 
