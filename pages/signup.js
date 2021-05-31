@@ -63,6 +63,7 @@ const SignUp = () => {
                     email: user.user.email,
                     id: user.user.uid,
                     username: user.user.displayName,
+                    displayName: user.user.displayName,
                     signedUp: new Date().toLocaleDateString()
                 })
                 router.push('/profile')

@@ -41,10 +41,7 @@ const StyledMenuBtn = styled.button`
 
     & span {
         margin-right: ${props => props.theme.space[1]};
-    }
-
-    &:hover {
-        border-color: black;
+        pointer-events: none;
     }
 
     &.open_menu ${Icon} {
@@ -77,7 +74,10 @@ const HeaderMain = ({ handleInput }) => {
             {
                 router.asPath === '/profile' || router.asPath === '/home' ?  <SearchField handleInput={(e) => handleInput(e)} />  : ''
             }            
-            <StyledMenuBtn onClick={(e) => handleMenu(e)}>
+            <StyledMenuBtn 
+                onClick={(e) => handleMenu(e)}
+                
+            >
                 {
                     screen.width > 300 ? <span>Menu</span> : ''               
                 }

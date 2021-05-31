@@ -7,8 +7,12 @@ const StyledInput = styled.input`
     padding: ${props => props.theme.space[2]} ${props => props.theme.space[3]};
 
     border: none;
-    border: 2px solid black;
-
+    border-bottom: 1px solid black;
+    
+    font-weight: 100;
+    font-family: ${props => props.theme.fonts.cardo};
+    text-align: center;
+    
     background-color: transparent;
 
     @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {

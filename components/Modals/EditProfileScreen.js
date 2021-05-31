@@ -95,24 +95,22 @@ const EditProfileScreen = ({ item }) => {
     return (
         <ModalContainer name='editProfileWindow'>
             {error && <ErrorMessage>{error}</ErrorMessage>}
-            <StyledForm onSubmit={handleSubmit(onSubmit)}>                
+            <StyledForm onSubmit={handleSubmit(onSubmit)}>
+                <InputField 
+                    inputType='name' 
+                    inputName='name' 
+                    labelText='Display name' 
+                    handleChange={e => handleName(e)} 
+                    register={register}
+                    minLength='4'
+                />            
                 <InputField 
                     inputType='text' 
                     inputName='username' 
                     labelText='Username' 
                     handleChange={e => handleUsername(e)} 
                     register={register}
-                    placeholder='username'
                     minLength='5'
-                />
-                <InputField 
-                    inputType='name' 
-                    inputName='name' 
-                    labelText='Name' 
-                    handleChange={e => handleName(e)} 
-                    register={register}
-                    placeholder='name'
-                    minLength='4'
                 />
                 <FileInput 
                     labelText='Profile picture'

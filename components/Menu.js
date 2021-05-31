@@ -11,10 +11,11 @@ const StyledSection = styled.nav`
     height: 100vh;
 
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
 
     background-color: white;
+    box-shadow: 0px 0px 15px 5px rgba(0,0,0, 0.2);
 
     display: none;
 
@@ -30,9 +31,9 @@ const StyledSection = styled.nav`
         height: max-content;
         padding: 50px;
 
-        top: 100px;
+        top: 90px;
 
-        border: 2px solid black;
+        /* border: 2px solid black; */
     }
 `;
 

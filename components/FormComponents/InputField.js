@@ -4,10 +4,15 @@ import styled from 'styled-components';
 
 
 const StyledInput = styled.input`
-    padding: ${props => props.theme.space[2]};
+    padding: ${props => props.theme.space[2]} 0;
     margin-bottom: ${props => props.theme.space[1]};
     border: none;
     border-bottom: 1px solid black;
+
+    &::placeholder {
+        color: darkgray;
+        font-weight: 100;
+    }
 `;
 
 const StyledLabel = styled.label`

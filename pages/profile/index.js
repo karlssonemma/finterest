@@ -50,6 +50,7 @@ const BtnContainer = styled.div`
 const Text = styled.p`
     text-align: center;
     font-size: ${props => props.theme.fontSizes.m};
+    font-family: ${props => props.theme.fonts.cardo};
 `;
 
 const DisplayName = styled.p`

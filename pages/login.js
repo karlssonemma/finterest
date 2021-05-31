@@ -22,6 +22,10 @@ const StyledMain = styled.main`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    & a {
+        font-family: ${props => props.theme.fonts.cardo};
+    }
 `;
 
 

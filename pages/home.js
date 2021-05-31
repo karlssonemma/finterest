@@ -66,7 +66,6 @@ const Home = () => {
         try {
             setLoadingPhotos(true)
             let resp = await fetchRandomPhotos(30);
-            console.log(resp)
             resp.response.map(item => {
                 let photo = {
                     id: item.id,

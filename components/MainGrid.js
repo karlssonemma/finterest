@@ -4,9 +4,9 @@ import theme from '../utils/theme';
 const MainGrid = styled.ul`
     width: 100%;
     /* margin-top: 100px; */
-    padding: ${props => props.theme.space[4]};
+    padding: 0 100px;
     z-index: 0;
-    gap: 60px;
+    gap: 10px;
 
     display:grid;
     grid-template-columns: 1fr;
@@ -17,7 +17,7 @@ const MainGrid = styled.ul`
     }
 
     @media screen and (min-width: ${props => props.theme.breakpoints[2]}) {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 `;
 

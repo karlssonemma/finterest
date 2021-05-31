@@ -48,7 +48,7 @@ const ImageInCollection = ({ item }) => {
         box.classList.toggle('infoVisible');
     };
 
-    const deletePhoto = () => {
+    const handleDeletePhoto = () => {
         deletePhoto(currentUser.uid, collId, `img${item.id}`)
     };
 
@@ -79,7 +79,7 @@ const ImageInCollection = ({ item }) => {
                 />
                 <IconBtn 
                     icon='/cancel.png' 
-                    btnFunction={() => deletePhoto()} 
+                    btnFunction={() => handleDeletePhoto()} 
                     white={true}
                     label='Delete photo from collection.'
                 />

@@ -46,6 +46,7 @@ const Arrow = styled.img`
 const Date = styled.p`
     font-size: ${props => props.theme.fontSizes.s};
     color: gray;
+    font-weight: 100;
 `;
 
 

@@ -68,7 +68,7 @@ export const getPhoto = async (userId, collId, photoId) => {
 };
 
 export const deletePhoto = async (userId, collId, photoId) => {
-    firebaseInstance.firestore()
+    await firebaseInstance.firestore()
     .collection('users')
     .doc(userId)
     .collection('collections')
