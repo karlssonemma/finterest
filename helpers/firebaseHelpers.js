@@ -5,9 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 
 export const readUsers = async () => {
-    return await 
-    firebaseInstance.firestore()
-    .collection('users');
+    return await firebaseInstance.firestore().collection('users');
 };
 
 export const readCurrentUser = async (id) => {

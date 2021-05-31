@@ -53,7 +53,7 @@ const CollectionTitle = styled.p`
     font-size: ${props => props.theme.fontSizes.lg};
     color: black;
     
-`;
+`;3
 
 const StyledLink = styled.a`
     width: 100%;
@@ -109,7 +109,7 @@ const CollectionComp = ({ coll }) => {
 
     useEffect(async () => {
         let photosRef = await readPhotos(currentUser.uid, coll.id);
-        photosRef.get()
+        photosRef.limit(3).get()
         .then(query => {
             query.forEach(doc => {
                 setPhotos(prevState => [...prevState, doc.data()])

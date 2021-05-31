@@ -72,6 +72,17 @@ const Profile = () => {
     const [profilePic, setProfilePic] = useState('/user.svg');
 
     useEffect(async () => {
+        await firebaseInstance.firestore().collection('users').doc(currentUser.uid).collection('collections').doc('3nWD3NKKEozecZ87z3oLP').get()
+        .then(doc => {
+            if(doc.exists) {
+                console.log('exists!')
+            } else {
+                console.log('does not exist!')
+            }
+        })
+    }, [])
+
+    useEffect(async () => {
         let url = await getProfilePicWithUserId(currentUser.uid)
         url ? setProfilePic(url) : setProfilePic('/user.svg')
     }, [])
