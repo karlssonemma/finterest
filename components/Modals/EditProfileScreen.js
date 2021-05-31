@@ -36,7 +36,8 @@ const ProfileUpdated = () => {
 const EditProfileScreen = ({ item }) => {
 
     const { currentUser } = useAuth()
-    const [text, setText] = useState('');
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [error, setError] = useState('');
     const [updated, setUpdated] = useState(false);
 
@@ -49,27 +50,35 @@ const EditProfileScreen = ({ item }) => {
         item.classList.remove('visible');
     };
 
-    const handleText = (e) => {
-        setText(e.target.value)
-        console.log(e.target.value)
+    const handleName = (e) => {
+        setName(e.target.value)
+        setError('');
+        setUpdated(false)
+    };
+
+    const handleUsername = (e) => {
+        setUsername(e.target.value)
         setError('');
         setUpdated(false)
     };
 
 
     const onSubmit = async (data) => {
-        console.log(data)
         let userNameAlreadyExists = await checkIfUsernameExists(data.username);
         
         if(!userNameAlreadyExists) {
+            let user = await readCurrentUser(currentUser.uid)
             if(data.username) {
-                let user = await readCurrentUser(currentUser.uid)
-                console.log(user)
                 user.update({
                     username: data.username
                 })
+            }
+            if (data.name) {
+                user.update({
+                    displayName: data.name
+                })
                 currentUser.updateProfile({
-                    displayName: data.username
+                    displayName: data.name
                 })
             }
             if (data.pic.length) {
@@ -90,12 +99,23 @@ const EditProfileScreen = ({ item }) => {
                 <InputField 
                     inputType='text' 
                     inputName='username' 
-                    labelText='New username' 
-                    handleChange={e => handleText(e)} 
+                    labelText='Username' 
+                    handleChange={e => handleUsername(e)} 
                     register={register}
+                    placeholder='username'
+                    minLength='5'
+                />
+                <InputField 
+                    inputType='name' 
+                    inputName='name' 
+                    labelText='Name' 
+                    handleChange={e => handleName(e)} 
+                    register={register}
+                    placeholder='name'
+                    minLength='4'
                 />
                 <FileInput 
-                    labelText='New profile picture'
+                    labelText='Profile picture'
                     inputName='pic'
                     handleChange={e => setPicture(e.target.value)} 
                     register={register}

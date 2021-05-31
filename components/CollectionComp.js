@@ -33,6 +33,7 @@ const ThreePicContainer = styled.div`
 `;
 
 const OnePicContainer = styled.div`
+    display: grid;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -52,8 +53,9 @@ const Shadow = styled.div`
 const CollectionTitle = styled.p`
     font-size: ${props => props.theme.fontSizes.lg};
     color: black;
+    font-family: ${props => props.theme.fonts.cardo};
     
-`;3
+`;
 
 const StyledLink = styled.a`
     width: 100%;

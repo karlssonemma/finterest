@@ -55,6 +55,7 @@ const Text = styled.p`
 const DisplayName = styled.p`
     font-size: ${props => props.theme.fontSizes.lg};
     font-weight: 100;
+    font-family: ${props => props.theme.fonts.cardo};
 `;
 
 const Username = styled.p`
@@ -69,16 +70,26 @@ const Profile = () => {
     const [collections, setCollections] = useState([]);
     const [filteredCollections, setFilteredCollections] = useState([]);
     const [searchInput, setSearchInput] = useState('');
+    const [displayName, setDisplayName] = useState('');
+    const [username, setUsername] = useState('');
     const [profilePic, setProfilePic] = useState('/user.svg');
 
+    // useEffect(async () => {
+    //     await firebaseInstance.firestore().collection('users').doc(currentUser.uid).collection('collections').doc('3nWD3NKKEozecZ87z3oLP').get()
+    //     .then(doc => {
+    //         if(doc.exists) {
+    //             console.log('exists!')
+    //         } else {
+    //             console.log('does not exist!')
+    //         }
+    //     })
+    // }, [])
+
     useEffect(async () => {
-        await firebaseInstance.firestore().collection('users').doc(currentUser.uid).collection('collections').doc('3nWD3NKKEozecZ87z3oLP').get()
-        .then(doc => {
-            if(doc.exists) {
-                console.log('exists!')
-            } else {
-                console.log('does not exist!')
-            }
+        let ref = await readCurrentUser(currentUser.uid)
+        ref.onSnapshot(doc => {
+            setDisplayName(doc.data().displayName)
+            setUsername(doc.data().username)
         })
     }, [])
 
@@ -155,8 +166,8 @@ const Profile = () => {
                     {
                         profilePic && <StyledPic src={profilePic} />
                     }
-                    <DisplayName>{currentUser && currentUser.displayName ? currentUser.displayName : currentUser.email}</DisplayName>
-                    <Username>@{currentUser.displayName}</Username>
+                    <DisplayName>{displayName && displayName}</DisplayName>
+                    <Username>@{username && username}</Username>
                     <BtnContainer>
                         <IconBtn
                             label='Create new collection.'

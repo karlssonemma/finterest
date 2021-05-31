@@ -4,7 +4,8 @@ const theme = {
         
     },
     fonts: {
-        
+        cardo: '"Cardo", serif',
+        manrope: '"Manrope", sans-serif'
     },
     fontSizes: {
         xs: '0.75rem',

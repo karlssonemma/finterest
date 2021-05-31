@@ -41,6 +41,7 @@ const LogOut = styled.button`
     border: none;
     cursor: pointer;
     font-size: ${props => props.theme.fontSizes.lg};
+    font-family: ${props => props.theme.fonts.cardo};
 
     &:hover {
         text-decoration: underline;
@@ -52,6 +53,7 @@ const StyledLink = styled.a`
     font-size: ${props => props.theme.fontSizes.lg};
     color: black;
     text-decoration: none;
+    font-family: ${props => props.theme.fonts.cardo};
 
     &:hover {
         text-decoration: underline;

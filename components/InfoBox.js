@@ -9,6 +9,10 @@ const Box = styled.div`
     font-weight: 100;
     display: none;
 
+    & p {
+        font-family: ${props => props.theme.fonts.cardo};
+    }
+
     &.infoVisible {
         display: block;
     }
