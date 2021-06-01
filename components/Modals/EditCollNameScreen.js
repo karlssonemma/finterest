@@ -60,7 +60,8 @@ const EditCollNameScreen = ({ collId }) => {
                 inputType='text' 
                 inputName='newCollName' 
                 labelText='New name' 
-                handleChange={e => handleText(e)} 
+                handleChange={e => handleText(e)}
+                value={name}
             />
             <StandardBtn onClick={changeName}>Change name</StandardBtn>
         </ModalContainer>

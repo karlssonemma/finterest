@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 import HeaderMain from '../../components/HeaderMain';
 import { useAuth } from '../../contexts/AuthContext';
-import { deletePhoto, getCollection, readPhotos, deleteCollection, deleteCollectionDoc } from '../../helpers/firebaseHelpers';
+import { deletePhoto, getCollection, readPhotos, deleteCollection, deleteCollectionDoc, readCollection } from '../../helpers/firebaseHelpers';
 import MainGrid from '../../components/MainGrid';
 import ImageInCollection from '../../components/ImageInCollection';
 import theme from '../../utils/theme';
@@ -57,8 +57,8 @@ const Text = styled.p`
 
 const LinkToProfile = () => {
     return(
-        <Link href={'/profile'}>
-            <a aria-label='Go back.' style={{position: 'absolute', left: '0'}}><Arrow alt='' src='/right.svg' /></a>
+        <Link href='/profile'>
+            <a aria-label='Go back.' style={{position: 'absolute', left: '100px'}}><Arrow alt='' src='/right.svg' /></a>
         </Link>
     )
 };
@@ -83,8 +83,8 @@ const CollectionPage = () => {
     };
 
     const handleGetCollInfo = async () => {
-        let coll = await getCollection(currentUser.uid, collId);
-        setCollInfo(coll.data())
+        let ref = await readCollection(currentUser.uid, collId);
+        ref.onSnapshot(doc => setCollInfo(doc.data()))
     };
 
     const handleGetPhotos = async () => {

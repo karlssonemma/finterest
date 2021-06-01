@@ -52,6 +52,7 @@ const Shadow = styled.div`
 
 const CollectionTitle = styled.p`
     height: max-content;
+    margin-top: ${props => props.theme.space[0]};
     font-size: ${props => props.theme.fontSizes.lg};
     color: black;
     font-family: ${props => props.theme.fonts.cardo};

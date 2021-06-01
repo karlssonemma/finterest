@@ -51,14 +51,15 @@ const CreateCollScreen = () => {
             {
                 nameAlreadyInUse && <ErrorMessage>Name already in use</ErrorMessage>
             }
-            <InputField 
+            <InputField
+                value={text}
                 inputType='text' 
                 inputName='nameOfColl' 
                 labelText='name of collection' 
                 handleChange={e => handleText(e)}
             />
             
-            <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create coll</StandardBtn>
+            <StandardBtn disabled={nameAlreadyInUse} onClick={() => createColl()}>Create coll</StandardBtn>
         </ModalContainer>
     )
 }

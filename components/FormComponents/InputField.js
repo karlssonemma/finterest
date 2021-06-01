@@ -8,6 +8,7 @@ const StyledInput = styled.input`
     margin-bottom: ${props => props.theme.space[1]};
     border: none;
     border-bottom: 1px solid black;
+    color: darkgray;
 
     &::placeholder {
         color: darkgray;
