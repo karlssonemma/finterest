@@ -49,6 +49,7 @@ const SelectCollection = ({ item }) => {
 
         if(selectedCollId === 'new') {
             photoFoundInColl = false;
+            setFilled(photoFoundInColl)
         } else if (selectedCollId.length > 0) {
             let ref = await readPhotos(currentUser.uid, selectedCollId)
             ref.get()

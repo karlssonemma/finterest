@@ -18,16 +18,12 @@ import LinkLogInSignUp from '../components/LinkLogInSignUp';
 
 const StyledMain = styled.main`
     width: 100vw;
-    min-height: calc(100vh - 100px);
+    height: 100vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    & a {
-        font-family: ${props => props.theme.fonts.cardo};
-    }
 `;
 
 
@@ -57,10 +53,10 @@ const LogIn = () => {
 
     return(
         <>
-        <HeaderLanding />
+        {/* <HeaderLanding /> */}
         <StyledMain>
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
-                <Pagetitle>Log In</Pagetitle>
+                <Pagetitle>Welcome back</Pagetitle>
                 {error && <ErrorMessage>{error}</ErrorMessage>}
                 <InputField 
                     inputName='email'
@@ -74,9 +70,9 @@ const LogIn = () => {
                     labelText='Password *'
                     register={register}
                 />
-                <StandardBtn type='submit'>Log in</StandardBtn>
+                <StandardBtn style={{width: '100%'}} type='submit'>Log in</StandardBtn>
+            <LinkLogInSignUp href='/signup'>Don't have an account? Sign up</LinkLogInSignUp>
             </StyledForm>
-            <LinkLogInSignUp href='/signup'>Dont have an account? Click here to create one</LinkLogInSignUp>
         </StyledMain>
         </>
 

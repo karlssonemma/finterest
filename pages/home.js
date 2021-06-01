@@ -51,7 +51,12 @@ const Home = () => {
                 resp.response.results.map(item => {
                     let photo = {
                         id: item.id,
-                        url: item.urls.regular
+                        url: item.urls.regular,
+                        alt_description: item.alt_description,
+                        user: {
+                            name: item.user.name,
+                            instagram: item.user.instagram_username
+                        }
                     };
                     setPhotos((prevState) => [...prevState, photo]);
                 })

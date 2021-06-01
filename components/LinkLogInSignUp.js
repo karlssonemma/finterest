@@ -6,7 +6,7 @@ import theme from '../utils/theme';
 
 
 const StyledLink = styled.a`
-    margin-top: ${props => props.theme.space[1]};
+    margin-top: ${props => props.theme.space[3]};
     font-family: ${props => props.theme.fonts.cardo};
     color: black;
 

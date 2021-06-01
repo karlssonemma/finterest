@@ -20,7 +20,7 @@ import LinkLogInSignUp from '../components/LinkLogInSignUp';
 
 const StyledMain = styled.main`
     width: 100vw;
-    min-height: calc(100vh - 100px);
+    height: 100vh;
 
     display: flex;
     flex-direction: column;
@@ -81,9 +81,9 @@ const SignUp = () => {
 
     return(
         <>
-        <HeaderLanding />
+        {/* <HeaderLanding /> */}
         <StyledMain>
-
+            {/* <Landing /> */}
             <StyledForm
                 onSubmit={handleSubmit(onSubmit)}
                 >
@@ -120,9 +120,9 @@ const SignUp = () => {
                     register={register}
                     labelText='Profile picture'
                 />
-                <StandardBtn type='submit'>Sign up</StandardBtn>
+                <StandardBtn style={{width: '100%'}} type='submit'>Sign up</StandardBtn>
+            <LinkLogInSignUp href='/login'>Already have an account? Click here</LinkLogInSignUp>
             </StyledForm>
-            <LinkLogInSignUp href='/login'>Already have an account? Click here to log in</LinkLogInSignUp>
         </StyledMain>
         </>
     )

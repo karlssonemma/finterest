@@ -62,7 +62,8 @@ const AddPhotoToNewCollScreen = ({ item }) => {
             <InputField 
                 inputType='text' 
                 labelText='name of collection' 
-                handleChange={e => handleText(e)} 
+                handleChange={e => handleText(e)}
+                value={text}
             />
             <StandardBtn disabled={nameAlreadyInUse} onClick={createColl}>Create collection</StandardBtn>
             
