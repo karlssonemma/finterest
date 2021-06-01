@@ -58,7 +58,7 @@ const Text = styled.p`
 const LinkToProfile = () => {
     return(
         <Link href={'/profile'}>
-            <a style={{position: 'absolute', left: '0'}}><Arrow src='/right.svg' /></a>
+            <a aria-label='Go back.' style={{position: 'absolute', left: '0'}}><Arrow alt='' src='/right.svg' /></a>
         </Link>
     )
 };

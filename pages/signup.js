@@ -16,17 +16,18 @@ import HeaderLanding from '../components/HeaderLanding';
 import { StandardBtn } from '../components/Buttons/StandardBtn';
 import FileInput from '../components/FormComponents/FileInput';
 import { ErrorMessage } from '../components/ErrorMessage';
-
+import LinkLogInSignUp from '../components/LinkLogInSignUp';
 
 const StyledMain = styled.main`
     width: 100vw;
-    min-height: 100vh;
+    min-height: calc(100vh - 100px);
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
+
 
 const SignUp = () => {
 
@@ -121,9 +122,7 @@ const SignUp = () => {
                 />
                 <StandardBtn type='submit'>Sign up</StandardBtn>
             </StyledForm>
-            <Link href='/login'>
-                <a>Already have an account? Click here to log in</a>
-            </Link>
+            <LinkLogInSignUp href='/login'>Already have an account? Click here to log in</LinkLogInSignUp>
         </StyledMain>
         </>
     )

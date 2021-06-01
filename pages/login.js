@@ -13,10 +13,12 @@ import BigLogo from '../components/BigLogo';
 import { Pagetitle } from '../components/Pagetitle';
 import HeaderLanding from '../components/HeaderLanding';
 import { ErrorMessage } from '../components/ErrorMessage';
+import LinkLogInSignUp from '../components/LinkLogInSignUp';
+
 
 const StyledMain = styled.main`
     width: 100vw;
-    min-height: 100vh;
+    min-height: calc(100vh - 100px);
 
     display: flex;
     flex-direction: column;
@@ -74,9 +76,7 @@ const LogIn = () => {
                 />
                 <StandardBtn type='submit'>Log in</StandardBtn>
             </StyledForm>
-            <Link href='/signup'>
-                <a>Dont have an account? Click here to create one</a>
-            </Link>
+            <LinkLogInSignUp href='/signup'>Dont have an account? Click here to create one</LinkLogInSignUp>
         </StyledMain>
         </>
 

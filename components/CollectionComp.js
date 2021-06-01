@@ -8,41 +8,41 @@ import { readPhotos } from '../helpers/firebaseHelpers';
 import { fetchRandomPhotos } from '../helpers/apiHelpers';
 
 
-const StyledListItem = styled.li`
-    width: auto;
-    //må ändras
-    height: 400px;
-    margin-bottom: ${props => props.theme.space[4]};
-    /* border-radius: 10px; */
+// const StyledListItem = styled.li`
+//     width: auto;
+//     margin-bottom: ${props => props.theme.space[4]};
     
-    box-shadow: 0 0 10px lightgray;
-    list-style: none;
+//     box-shadow: 0 0 10px lightgray;
+//     background-color: white;
+//     list-style: none;
 
-    position: relative;
-`;
+//     position: relative;
+// `;
 
 const ThreePicContainer = styled.div`
     display: grid;
-    width: 100%;
-    height: 100%;
+    /* width: 100%; */
+    /* height: 80%; */
 
     grid-template-rows: 3, 1fr;
     grid-template-columns: repeat(3, 1fr);
 
     overflow: hidden;
+    box-shadow: 0 0 10px lightgray;
 `;
 
 const OnePicContainer = styled.div`
     display: grid;
-    width: 100%;
-    height: 100%;
+    /* width: 100%; */
+    /* height: 80%; */
     overflow: hidden;
+    box-shadow: 0 0 10px lightgray;
 `;
 
 const Shadow = styled.div`
     opacity: 1;
     width: 100%;
-    height: 100%;
+    height: 80%;
 
     position: absolute;
     transition: .2s;
@@ -51,6 +51,7 @@ const Shadow = styled.div`
 `;
 
 const CollectionTitle = styled.p`
+    height: max-content;
     font-size: ${props => props.theme.fontSizes.lg};
     color: black;
     font-family: ${props => props.theme.fonts.cardo};
@@ -60,10 +61,18 @@ const CollectionTitle = styled.p`
 const StyledLink = styled.a`
     width: 100%;
     height: 100%;
-    display: block;
+    display: grid;
+    grid-template-rows: 80% 20%;
 
     transition: .2s;
     text-decoration: none;
+
+    /* margin-bottom: ${props => props.theme.space[4]}; */
+    
+    background-color: white;
+    list-style: none;
+
+    position: relative;
 
     &:focus ${Shadow}, 
     :hover ${Shadow} {
@@ -121,7 +130,7 @@ const CollectionComp = ({ coll }) => {
 
 
     return(
-        <StyledListItem>
+        // <StyledListItem>
             <Link passHref={true} href={`/profile/${coll.id}`}>
                 <StyledLink>
                     {
@@ -130,7 +139,7 @@ const CollectionComp = ({ coll }) => {
                             {
                                 photos.map((item, i) => (i === 0) && 
                                     <StyledImg 
-                                        alt={item.alt_description}
+                                        alt=''
                                         src={item.url} 
                                         key={item.id} 
                                     />
@@ -142,7 +151,7 @@ const CollectionComp = ({ coll }) => {
                             {
                                 photos.map((item, i) => (i < 3) && 
                                     <StyledImg 
-                                        alt={item.alt_description} 
+                                        alt='' 
                                         src={item.url} 
                                         key={item.id} 
                                     />
@@ -151,12 +160,14 @@ const CollectionComp = ({ coll }) => {
                         <Shadow />
                         </ThreePicContainer> 
                     }
-                <CollectionTitle>{coll.name}</CollectionTitle>
-                <Pins>{length} Pin{length === 1 ? '' : 's'}</Pins>
+                    <div>
+                        <CollectionTitle>{coll.name}</CollectionTitle>
+                        <Pins>{length} Pin{length === 1 ? '' : 's'}</Pins>
+                    </div>
                 </StyledLink>
             </Link>
             
-        </StyledListItem>
+        // </StyledListItem>
     )
 }
 

@@ -17,6 +17,26 @@ import { useRouter } from 'next/router';
 import IconBtn from '../../components/Buttons/IconBtn';
 import firebaseInstance from '../../config/firebase';
 
+const StyledGrid = styled.section`
+    width: 100%;
+    /* margin-top: 100px; */
+    padding: 0 100px;
+    z-index: 0;
+    gap: 10px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 350px;
+
+    @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (min-width: ${props => props.theme.breakpoints[2]}) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+`;
+
 const Container = styled.section`
     height: 300px;
     width: 100%;
@@ -149,11 +169,11 @@ const Profile = () => {
 
     const renderCollections = () => {
         return(
-            <MainGrid>
+            <StyledGrid>
                 {
                     filteredCollections && filteredCollections.map((item, i) => <CollectionComp key={item.id + i} coll={item} />)
                 }
-            </MainGrid>
+            </StyledGrid>
         )
     };
 

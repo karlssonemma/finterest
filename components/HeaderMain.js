@@ -64,10 +64,14 @@ const HeaderMain = ({ handleInput }) => {
 
     const router = useRouter();
     let path = router.route;
-    const [scrollValue, setScrollValue] = useState(0);
+    const [scrolledToTop, setScrolledToTop] = useState(true);
 
     useEffect(() => {
-        window.addEventListener('scroll', () => setScrollValue(window.scrollY))
+        window.addEventListener('scroll', () => {
+            window.scrollY > 0 
+                ? setScrolledToTop(false)
+                : setScrolledToTop(true)
+        })
     }, [])
 
     const handleMenu = (e) => {
@@ -76,7 +80,7 @@ const HeaderMain = ({ handleInput }) => {
     }
 
     return(
-        <StyledHeader className={scrollValue > 0 && 'border'}>
+        <StyledHeader className={!scrolledToTop && 'border'}>
             
             <Link passHref={true} href='/home'>
                 <LogoLink aria-label='Link to homepage'>Finterest</LogoLink>

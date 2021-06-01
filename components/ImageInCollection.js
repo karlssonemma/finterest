@@ -62,7 +62,7 @@ const ImageInCollection = ({ item }) => {
 
     return(
         <Container>
-            <Photo src={item.url} alt={item.alt_description} />
+            <Photo src={item.url} alt={item.alt_description} tabIndex={0} />
             <ButtonFieldForImages 
                 className={`buttonField_${item.id}`}
                 tabIndex={0} 
