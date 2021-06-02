@@ -16,7 +16,6 @@ import LinkLogInSignUp from '../components/LinkLogInSignUp';
 import { fetchRandomPhotos } from '../helpers/apiHelpers';
 
 
-
 const StyledMain = styled.main`
     width: 100vw;
     height: 100vh;

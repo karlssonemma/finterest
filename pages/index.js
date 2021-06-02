@@ -1,154 +1,147 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { useAuth } from '../contexts/AuthContext';
 import Link from 'next/link';
 
-import theme from '../utils/theme';
-import HeaderLanding from '../components/HeaderLanding';
+import InputField from '../components/FormComponents/InputField';
+import { StyledForm } from '../components/FormComponents/StyledForm';
+import { StandardBtn } from '../components/Buttons/StandardBtn';
+import BigLogo from '../components/BigLogo';
+import { Pagetitle } from '../components/Pagetitle';
+import { ErrorMessage } from '../components/ErrorMessage';
+import LinkLogInSignUp from '../components/LinkLogInSignUp';
 import { fetchRandomPhotos } from '../helpers/apiHelpers';
 
 
 const StyledMain = styled.main`
-  height: max-content;
-  width: 100vw;
+    width: 100vw;
+    height: 100vh;
 
-  padding: 0 ${props => props.theme.space[4]};
+    display: grid;
+    grid-template-columns: 100%;
 
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-
-  @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
-    height: calc(100vh - 100px);
-    grid-template-columns: 40% 60%;
-  }
-`;
-
-const Quote = styled.p`
-  padding-bottom: ${props => props.theme.space[2]};
-
-  font-size: ${props => props.theme.fontSizes.xl};
-`;
-
-const Container = styled.section`
-  min-height: 100%;
-  max-width: 600px;
-  padding: ${props => props.theme.space[4]};
-
-  border-radius: 10px;
-  background-color:rgba(255,255,255, 0.5);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-`;
-
-const StyledLink = styled.a`
-  width: max-content;
-  height: max-content;
-  border: 2px solid black;
-  padding: ${props => props.theme.space[1]} ${props => props.theme.space[5]};
-  
-  display: block;
-  text-transform: uppercase;
-  font-size: ${props => props.theme.fontSizes.s};
-  cursor: pointer;
-  color: black;
-  text-decoration: none;
-
-  &:hover {
-    color: white;
-    background-color: black;
-  }
-`;
-
-const Grid = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-`;
-
-const BubbleImg = styled.img`
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%;
-  opacity: 0;
-  animation: 1s show 1s forwards;
-
-  &.bubble:first-child {
-    animation-delay: 1.5s;
-  }
-  &.bubble:nth-child(2) {
-    animation-delay: 2s;
-    width: 100px;
-    height: 100px;
-  }
-  &.bubble:nth-child(3) {
-    animation-delay: 1s;
-    width: 150px;
-    height: 150px;
-  }
-  &.bubble:nth-child(4) {
-    animation-delay: 1.25s;
-    width: 500px;
-    height: 500px;
-    grid-column: 1 / 4;
-  }
-
-  @keyframes show {
-    0% {
-      transform: translateY(20px)
+    @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+        grid-template-columns: auto minmax(450px, 40%);
     }
-    100% {
-      transform: translateY(-0px);
-      opacity: 1;
-    }
-  }
 `;
 
+const Background = styled.div`
+    display: none;
+    padding: ${props => props.theme.space[3]};
+    background: url("https://images.unsplash.com/photo-1621084355896-abf2ae1ae876?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjI2MjIyNTY&ixlib=rb-1.2.1&q=80&w=1080");
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: 1s showImg;
 
-export default function Home() {
+    @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-  const [photos, setPhotos] = useState(null);
+    @keyframes showImg {
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 100%
+        }
+    }
+`;
 
-  useEffect(async () => {
-    let photoArr = [];
-    let resp = await fetchRandomPhotos(4);
+// const Shadow = styled.div`
+//     opacity: 1;
+//     width: 60%;
+//     height: 100%;
 
-    resp.response.map(item => {
-      photoArr.push(item.urls.regular)
-    })
-    setPhotos(photoArr)
-  }, [])
+//     position: absolute;
+//     transition: .2s;
+
+//     background-color: rgba(0,0,0, .3);
+// `;
 
 
-  return (
-    <>
-      <HeaderLanding />
+
+const LogIn = () => {
+
+    const { login, currentUser } = useAuth();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const router = useRouter();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [photos, setPhotos] = useState(null);
+    let delay = 0.25;
+
+    // useEffect(async () => {
+    //     let photoArr = [];
+    //     let resp = await fetchRandomPhotos(4);
+
+    //     resp.response.map(item => {
+    //         photoArr.push(item.urls.regular)
+    //     })
+    //     setPhotos(photoArr)
+    // }, [])
+
+
+    useEffect(() => {
+        let delay = 1;
+        let formElements = document.querySelectorAll('.logInSignUpForm > *')
+
+        for (const el of formElements) {
+            el.style.animationDelay = `${delay}s`;
+            delay += 0.10;
+        }
+    }, [])
+
+    const onSubmit = async (data) => {
+        console.log(data)
+        try {
+            setError('')
+            setLoading(true)
+            const user = await login(data.email, data.password)
+            console.log(user)
+            // console.log('SUCCESSful login!!', user.user.email)
+            router.push('/home')
+        } catch (error) {
+            setError('Failed to log in', error)
+            console.log(error)
+        }
+        setLoading(false)
+    }
+
+    return(
+        <>
+
         <StyledMain>
-          
-          <Container>
-            <Quote>
-              "Cupim sausage salami, drumstick chicken ball tip jowl pork belly shoulder hamburger turducken."
-            </Quote>
-            <Link href='/signup' passHref={true}>
-              <StyledLink>Sign up now</StyledLink>
-            </Link>
-          </Container>
-          <Grid>
-            {
-              photos && 
-              <>
-                <BubbleImg src={photos[0]} className='bubble' alt='' />
-                <BubbleImg src={photos[1]} className='bubble' alt='' />
-                <BubbleImg src={photos[2]} className='bubble' alt='' />
-                <BubbleImg src={photos[3]} className='bubble' alt='' />
-              </>
-            }
-
-          </Grid>
+            <Background className='bubbleGrid'>
+                {/* <Shadow /> */}
+            </Background>
+            <StyledForm className='logInSignUpForm' onSubmit={handleSubmit(onSubmit)}>
+                <Pagetitle>Welcome back</Pagetitle>
+                {error && <ErrorMessage>{error}</ErrorMessage>}
+                <InputField 
+                    inputName='email'
+                    inputType='email'
+                    labelText='Email *'
+                    register={register}
+                />
+                <InputField 
+                    inputName='password'
+                    inputType='password'
+                    labelText='Password *'
+                    register={register}
+                />
+                <StandardBtn style={{width: '100%'}} type='submit'>Log in</StandardBtn>
+            <LinkLogInSignUp href='/signup'>Don't have an account? Sign up</LinkLogInSignUp>
+            </StyledForm>
         </StyledMain>
-    </>
-    
-  )
+        </>
+
+    )
 }
+
+export default LogIn;

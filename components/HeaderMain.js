@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 const StyledHeader = styled.header`
     width: 100vw;
     height: 100px;
-    padding: 0 ${props => props.theme.space[4]};
+    padding: 0 100px;
 
     display: flex;
     align-items: center;
@@ -57,7 +57,9 @@ const StyledMenuBtn = styled.button`
 
 const LogoLink = styled.a`
     color: black;
-    text-decoration: none;      
+    text-decoration: none;
+    font-family: ${props => props.theme.fonts.cardo};
+ 
 `;
 
 const HeaderMain = ({ handleInput }) => {

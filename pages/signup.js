@@ -22,10 +22,36 @@ const StyledMain = styled.main`
     width: 100vw;
     height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 100%;
+
+    @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+        grid-template-columns: auto minmax(450px, 40%);
+    }
+`;
+
+const Background = styled.div`
+    display: none;
+    padding: ${props => props.theme.space[3]};
+    background: url("https://images.unsplash.com/photo-1621084355896-abf2ae1ae876?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMjUyMjZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjI2MjIyNTY&ixlib=rb-1.2.1&q=80&w=1080");
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: 1s showImg;
+
+    @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    @keyframes showImg {
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 100%
+        }
+    }
 `;
 
 
@@ -47,6 +73,15 @@ const SignUp = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        let delay = 1;
+        let formElements = document.querySelectorAll('.logInSignUpForm > *')
+
+        for (const el of formElements) {
+            el.style.animationDelay = `${delay}s`;
+            delay += 0.10;
+        }
+    }, [])
 
     const onSubmit = async (data) => {
         let userNameAlreadyExists = await checkIfUsernameExists(data.username);
@@ -83,10 +118,8 @@ const SignUp = () => {
         <>
         {/* <HeaderLanding /> */}
         <StyledMain>
-            {/* <Landing /> */}
-            <StyledForm
-                onSubmit={handleSubmit(onSubmit)}
-                >
+            <Background />
+            <StyledForm className='logInSignUpForm' onSubmit={handleSubmit(onSubmit)}>
                 <Pagetitle>Sign up</Pagetitle>
                 {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword.message }</ErrorMessage>}
                 {errors.password && <ErrorMessage>{errors.password.message }</ErrorMessage>}
@@ -121,7 +154,7 @@ const SignUp = () => {
                     labelText='Profile picture'
                 />
                 <StandardBtn style={{width: '100%'}} type='submit'>Sign up</StandardBtn>
-            <LinkLogInSignUp href='/login'>Already have an account? Click here</LinkLogInSignUp>
+            <LinkLogInSignUp href='/'>Already have an account? Log in</LinkLogInSignUp>
             </StyledForm>
         </StyledMain>
         </>
