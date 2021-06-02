@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import theme from '../../utils/theme';
 
@@ -5,7 +6,6 @@ export const StyledForm = styled.form`
     width: 100%;
     height: 100%;
     padding: 90px;
-    border-left: 1px solid black;
 
     display: flex;
     flex-direction: column;
@@ -14,8 +14,19 @@ export const StyledForm = styled.form`
     align-self: flex-end;
     background-color: white;
 
-    @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
-        width: 50%;
-        max-width: 600px;
+    & > * {
+        opacity: 0;
+        animation: .5s slideIn forwards;
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateY(40px);
+            opacity: 0;
+        } 100% {
+            transform: translateY(0px);
+            opacity: 1;
+        }
     }
 `;
+
