@@ -1,5 +1,6 @@
 import React from 'react';
 
+import firebase from 'firebase';
 import firebaseInstance from '../config/firebase';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -75,12 +76,11 @@ export const deletePhoto = async (userId, collId, photoId) => {
     .doc(collId)
     .collection('photos')
     .doc(photoId)
-    .delete();
+    .delete()
+    .then(() => subCount(userId, collId))
 };
 
 export const addPhoto = async (userId, collId, photoId, photoObject) => {
-    console.log(photoObject)
-    console.log(userId, collId, photoId, photoObject)
     firebaseInstance.firestore()
     .collection('users')
     .doc(userId)
@@ -89,7 +89,30 @@ export const addPhoto = async (userId, collId, photoId, photoObject) => {
     .collection('photos')
     .doc(photoId)
     .set(photoObject)
+    .then(() => addToCount(userId, collId))
 };
+
+export const addToCount = async (userId, collId) => {
+    firebaseInstance.firestore()
+    .collection('users')
+    .doc(userId)
+    .collection('collections')
+    .doc(collId)
+    .update({
+        numberOfPins: firebase.firestore.FieldValue.increment(1)
+    })
+}
+
+export const subCount = async (userId, collId) => {
+    firebaseInstance.firestore()
+    .collection('users')
+    .doc(userId)
+    .collection('collections')
+    .doc(collId)
+    .update({
+        numberOfPins: firebase.firestore.FieldValue.decrement(1)
+    })
+}
 
 export const addCollection = async (userId, collObject) => {
     await firebaseInstance.firestore()

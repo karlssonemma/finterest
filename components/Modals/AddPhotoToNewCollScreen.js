@@ -28,11 +28,12 @@ const AddPhotoToNewCollScreen = ({ item }) => {
     };
 
     const createColl = async () => {
-        addCollection(currentUser.uid, {
-                name: text,
-                createdAt: new Date().toLocaleDateString(),
-                user: currentUser.uid
-            })
+        await addCollection(currentUser.uid, {
+            name: text,
+            createdAt: new Date().toLocaleDateString(),
+            user: currentUser.uid,
+            numberOfPins: 0
+        })
         await getCollectionByName(currentUser.uid, text)
         .then(query => {
             query.forEach(doc => {

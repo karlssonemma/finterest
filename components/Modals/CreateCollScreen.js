@@ -33,7 +33,8 @@ const CreateCollScreen = () => {
             addCollection(currentUser.uid, {
                 name: text,
                 createdAt: new Date().toLocaleDateString(),
-                user: currentUser.uid
+                user: currentUser.uid,
+                numberOfPins: 0
             })
         }
         setText('');
@@ -59,7 +60,7 @@ const CreateCollScreen = () => {
                 handleChange={e => handleText(e)}
             />
             
-            <StandardBtn disabled={nameAlreadyInUse} onClick={() => createColl()}>Create coll</StandardBtn>
+            <StandardBtn disabled={nameAlreadyInUse} onClick={() => createColl()}>Create collection</StandardBtn>
         </ModalContainer>
     )
 }

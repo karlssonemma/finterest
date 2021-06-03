@@ -78,7 +78,7 @@ const CollectionPage = () => {
     }, []);
 
     if (!isAuthenticated) {
-        router.push('/login')
+        router.push('/')
         return <p>not signed in</p>
     };
 

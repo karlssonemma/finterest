@@ -116,7 +116,6 @@ const CollectionComp = ({ coll }) => {
 
     const { currentUser } = useAuth();
     const [photos, setPhotos] = useState([]);
-    const length = photos.length;
 
 
     useEffect(async () => {
@@ -129,13 +128,12 @@ const CollectionComp = ({ coll }) => {
         })
     }, [])
 
-
     return(
         // <StyledListItem>
             <Link passHref={true} href={`/profile/${coll.id}`}>
                 <StyledLink>
                     {
-                        length < 3 
+                        coll.numberOfPins < 3 
                         ? <OnePicContainer>
                             {
                                 photos.map((item, i) => (i === 0) && 
@@ -163,7 +161,7 @@ const CollectionComp = ({ coll }) => {
                     }
                     <div>
                         <CollectionTitle>{coll.name}</CollectionTitle>
-                        <Pins>{length} Pin{length === 1 ? '' : 's'}</Pins>
+                        <Pins>{coll.numberOfPins} Pin{coll.numberOfPins === 1 ? '' : 's'}</Pins>
                     </div>
                 </StyledLink>
             </Link>
