@@ -43,13 +43,6 @@ const EditProfileScreen = ({ item }) => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
-
-    const closeWindow = () => {
-        console.log('cliked')
-        let item = document.querySelector('.editProfileWindow')
-        item.classList.remove('visible');
-    };
-
     const handleName = (e) => {
         setName(e.target.value)
         setError('');
@@ -88,9 +81,7 @@ const EditProfileScreen = ({ item }) => {
         } else {
             setError('username already exists')
         }
-    }
-
-
+    };
 
     return (
         <ModalContainer name='editProfileWindow'>

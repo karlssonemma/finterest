@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import HeaderMain from '../components/HeaderMain';
 
-import unsplashInstance from '../config/unsplash';
-
 import ImageComp from '../components/ImageComp';
-import MainGrid from '../components/MainGrid';
+import ImageGrid from '../components/ImageGrid';
 import { getPhotosBySearch, fetchRandomPhotos } from '../helpers/apiHelpers';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
-import IconBtn from '../components/Buttons/IconBtn';
 import { StandardBtn } from '../components/Buttons/StandardBtn';
 
 
@@ -111,7 +108,7 @@ const Home = () => {
         <>
             <HeaderMain handleInput={(e) => setSearchInput(e.target.value)} />
                 <main style={{marginTop: '100px'}}>
-                    <MainGrid>
+                    <ImageGrid>
                         {photos !== null && photos.map((item, i) => {
                             if (i <= count) {
                                 return(
@@ -120,8 +117,8 @@ const Home = () => {
                             }
                         })
                         }
-                    </MainGrid>
-                    <StandardBtn style={{margin: '2em auto'}} onClick={addToCount}>Load more</StandardBtn>
+                    </ImageGrid>
+                    <StandardBtn style={{margin: '2em auto'}} onClick={() => addToCount()}>Load more</StandardBtn>
                 </main>
         </>
     )

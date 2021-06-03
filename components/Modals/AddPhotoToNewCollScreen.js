@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 import { addPhoto, addCollection, getCollectionByName, checkIfCollectionExistsByName } from '../../helpers/firebaseHelpers';
 import ModalContainer from '../ModalContainer';
-import CloseBtn from '../Buttons/CloseBtn';
 import { StandardBtn } from '../Buttons/StandardBtn';
 import { useAuth } from '../../contexts/AuthContext';
 import InputField from '../FormComponents/InputField';

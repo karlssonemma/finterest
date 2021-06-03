@@ -6,7 +6,7 @@ const Background = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-
+    z-index: 100;
     background-color: rgba(0,0,0, 0.8);
 `;
 
@@ -18,7 +18,7 @@ const Container = styled.div`
     top: 0;
     left: 0;
     display: none;
-    z-index: 20;
+    z-index: 200;
 
 
     &.visible {
@@ -41,7 +41,7 @@ const Modal = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 200;
+    z-index: 100;
 
     @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
         min-width: 30%;

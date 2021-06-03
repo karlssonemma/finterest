@@ -11,8 +11,8 @@ const StyledSection = styled.nav`
     height: 100vh;
 
     position: absolute;
-    top: 10px;
-    right: 90px;
+    top: 0px;
+    right: 0px;
 
     background-color: white;
     box-shadow: 0px 0px 15px 5px rgba(0,0,0, 0.2);
@@ -30,10 +30,12 @@ const StyledSection = styled.nav`
         width: max-content;
         height: max-content;
         padding: 50px;
-
+        right: 10px;
         top: 90px;
-
-        /* border: 2px solid black; */
+    }
+    @media screen and (min-width: ${props => props.theme.breakpoints[2]}) {
+        right: 90px;
+        top: 90px;
     }
 `;
 
@@ -80,7 +82,7 @@ const Menu = () => {
         try {
             await logout();
             console.log('successful logout')
-            // router.push('/');
+            router.push('/');
         } catch (e) {
             console.log('Failed to log out', e)
         }

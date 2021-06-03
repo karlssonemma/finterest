@@ -14,8 +14,6 @@ export const StandardBtn = styled.button`
     text-transform: uppercase;
     letter-spacing: .1em;
 
-    /* font-family: ${props => props.theme.fonts.cardo}; */
-
     &:hover, :focus {
         background-color: black;
         color: white;

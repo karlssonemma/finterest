@@ -8,7 +8,7 @@ import Link from 'next/link';
 import HeaderMain from '../../components/HeaderMain';
 import { useAuth } from '../../contexts/AuthContext';
 import { deletePhoto, getCollection, readPhotos, deleteCollection, deleteCollectionDoc, readCollection } from '../../helpers/firebaseHelpers';
-import MainGrid from '../../components/MainGrid';
+import ImageGrid from '../../components/ImageGrid';
 import ImageInCollection from '../../components/ImageInCollection';
 import theme from '../../utils/theme';
 import DeleteCollScreen from '../../components/Modals/DeleteCollScreen';
@@ -27,6 +27,7 @@ const Container = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
 `;
 
 const BtnContainer = styled.section`
@@ -39,7 +40,6 @@ const BtnContainer = styled.section`
 const Arrow = styled.img`
     width: 30px;
     height: auto;
-    margin-left: ${props => props.theme.space[4]};
     transform: rotate(180deg);
 `;
 
@@ -53,12 +53,25 @@ const Date = styled.p`
 const Text = styled.p`
     text-align: center;
     font-size: ${props => props.theme.fontSizes.m};
+    font-family: ${props => props.theme.fonts.cardo};
+`;
+
+const StyledLink = styled.a`
+    width: max-content;
+    margin-left: ${props => props.theme.space[3]};
+    display: block;
+    position: absolute;
+    left: 20px;
+
+    @media screen and (min-width: ${props => props.theme.breakpoints[2]}) {
+        left: 100px;
+    }
 `;
 
 const LinkToProfile = () => {
     return(
         <Link href='/profile'>
-            <a aria-label='Go back.' style={{position: 'absolute', left: '100px'}}><Arrow alt='' src='/right.svg' /></a>
+            <StyledLink aria-label='Go back.'><Arrow alt='' src='/right.svg' /></StyledLink>
         </Link>
     )
 };
@@ -100,13 +113,13 @@ const CollectionPage = () => {
 
     const renderPhotos = () => {
         return(
-            <MainGrid>
+            <ImageGrid>
                 {
                     photos.map(item => 
                         <ImageInCollection key={item.id} item={item} />
                     )
                 }
-            </MainGrid>
+            </ImageGrid>
         )
     };
 

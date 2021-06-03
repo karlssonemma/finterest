@@ -15,7 +15,6 @@ const Icon = styled.img`
     &.white {
         filter: invert(100%);
     }
-    /* margin: ${props => props.theme.space[3]} ${props => props.theme.space[1]}; */
 `;
 
 const IconBtn = (props) => {

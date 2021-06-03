@@ -21,7 +21,7 @@ const HeartBtn = ({ filled }) => {
 
     return(
         <StyledBtn type='submit' aria-label={label}>
-            <Icon src={photoSrc} />
+            <Icon src={photoSrc} alt='' />
         </StyledBtn>
     )
 }

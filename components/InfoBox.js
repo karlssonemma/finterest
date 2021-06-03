@@ -25,8 +25,8 @@ const InfoBox = (props) => {
     const renderInfo = () => {
         return(
             <>
-                <p>By: {photographer.name ? photographer.name : 'Unknown'}</p>
-                <p>Instagram: {photographer.instagram ? photographer.instagram : 'Unknown'}</p>
+                <p tabIndex={0}>By: {photographer.name ? photographer.name : 'Unknown'}</p>
+                <p tabIndex={0}>Instagram: {photographer.instagram ? photographer.instagram : 'Unknown'}</p>
             </>
         )
     }

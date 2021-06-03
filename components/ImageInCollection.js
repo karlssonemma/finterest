@@ -10,22 +10,11 @@ import { deletePhoto } from '../helpers/firebaseHelpers';
 
 
 const Container = styled.li`
-
-    animation: slideIn 1s;
     list-style: none;
     position: relative;
-    
-    @keyframes slideIn {
-        0% {
-            opacity: 0%;
-            transform: translateX(-20deg)
-        } 100% {
-            opacity: 100%;
-            transform: translateX(0)
-        }
-    }
+    opacity: 0;
 `;
-//kopia av comp i ImageComp, borde gøras till egen comp
+
 const Photo = styled.img`
     width: 100%;
     height: 100%;

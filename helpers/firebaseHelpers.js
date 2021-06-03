@@ -110,7 +110,7 @@ export const subCount = async (userId, collId) => {
     .collection('collections')
     .doc(collId)
     .update({
-        numberOfPins: firebase.firestore.FieldValue.decrement(1)
+        numberOfPins: firebase.firestore.FieldValue.increment(-1)
     })
 }
 

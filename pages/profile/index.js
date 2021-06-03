@@ -1,26 +1,19 @@
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-
 import styled from 'styled-components';
-import Link from 'next/link';
 
-import StandardBtn from '../../components/Buttons/StandardBtn';
+import IconBtn from '../../components/Buttons/IconBtn';
 import CollectionComp from '../../components/CollectionComp';
+import HeaderMain from '../../components/HeaderMain';
 import CreateCollScreen from '../../components/Modals/CreateCollScreen';
 import EditProfileScreen from '../../components/Modals/EditProfileScreen';
-import MainGrid from '../../components/MainGrid';
-import HeaderMain from '../../components/HeaderMain';
-import ModalContainer from '../../components/ModalContainer';
-import { Pagetitle } from '../../components/Pagetitle';
 import { useAuth } from '../../contexts/AuthContext';
-import { getProfilePicWithUserId, readCurrentUser, readAllCollections } from '../../helpers/firebaseHelpers';
-import { useRouter } from 'next/router';
-import IconBtn from '../../components/Buttons/IconBtn';
-import firebaseInstance from '../../config/firebase';
+import { getProfilePicWithUserId, readAllCollections, readCurrentUser } from '../../helpers/firebaseHelpers';
+
 
 const StyledGrid = styled.section`
     width: 100%;
-    /* margin-top: 100px; */
-    padding: 0 100px;
+    padding: 0 20px;
     z-index: 0;
     gap: 10px;
 
@@ -28,12 +21,16 @@ const StyledGrid = styled.section`
     grid-template-columns: 1fr;
     grid-auto-rows: 350px;
 
+    @media screen and (min-width: ${props => props.theme.breakpoints[0]}) {
+        grid-template-columns: repeat(2, 1fr);
+    }
     @media screen and (min-width: ${props => props.theme.breakpoints[1]}) {
         grid-template-columns: repeat(3, 1fr);
     }
 
     @media screen and (min-width: ${props => props.theme.breakpoints[2]}) {
         grid-template-columns: repeat(4, 1fr);
+        padding: 0 100px;
     }
 `;
 
@@ -41,7 +38,6 @@ const Container = styled.section`
     height: 300px;
     width: 100%;
     background-color: white;
-    //måste ändras
     margin-top: 100px;
 
     display: flex;
@@ -108,8 +104,15 @@ const Profile = () => {
         url ? setProfilePic(url) : setProfilePic('/user.svg')
     }, [])
 
-    useEffect(() => {
-        getCollections()
+    useEffect(async () => {
+        let coll = await readAllCollections(currentUser.uid)
+        coll.onSnapshot((querySnapshot) => {
+            let arr = [];
+            querySnapshot.forEach(doc => {
+                arr.push({...doc.data(), id: doc.id})
+            })
+            setCollections(arr)
+        })
     }, []);
 
     useEffect(() => {
@@ -129,17 +132,6 @@ const Profile = () => {
     if (!isAuthenticated) {
         router.push('/')
         return <p>not signed in</p>
-    };
-
-    const getCollections = async () => {
-        let coll = await readAllCollections(currentUser.uid)
-        coll.onSnapshot((querySnapshot) => {
-            let arr = [];
-            querySnapshot.forEach(doc => {
-                arr.push({...doc.data(), id: doc.id})
-            })
-            setCollections(arr)
-        })
     };
 
     const openCreateCollWindow = () => {
@@ -170,7 +162,6 @@ const Profile = () => {
     return(
         <>
             <HeaderMain handleInput={e => handleText(e)} />
-            
             <main>
                 <Container>
                     {
@@ -196,7 +187,13 @@ const Profile = () => {
                 {
                     filteredCollections.length 
                     ? renderCollections() 
-                    : <Text style={{textAlign: 'center'}}>Create a new collection by pressing +</Text>
+                    : <Text style={{textAlign: 'center'}}>
+                        {
+                            searchInput.length 
+                                ? `No results for "${searchInput}"` 
+                                : 'Create a new collection by pressing +'
+                        }
+                    </Text>
                 }
             </main>
         </>

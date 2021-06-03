@@ -16,10 +16,10 @@ export const StyledForm = styled.form`
 
     & > * {
         opacity: 0;
-        animation: .5s slideIn forwards;
+        animation: .5s slideUp forwards;
     }
 
-    @keyframes slideIn {
+    @keyframes slideUp {
         0% {
             transform: translateY(40px);
             opacity: 0;

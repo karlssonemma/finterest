@@ -5,25 +5,10 @@ import Link from 'next/link';
 import theme from '../utils/theme';
 import { useAuth } from '../contexts/AuthContext';
 import { readPhotos } from '../helpers/firebaseHelpers';
-import { fetchRandomPhotos } from '../helpers/apiHelpers';
 
-
-// const StyledListItem = styled.li`
-//     width: auto;
-//     margin-bottom: ${props => props.theme.space[4]};
-    
-//     box-shadow: 0 0 10px lightgray;
-//     background-color: white;
-//     list-style: none;
-
-//     position: relative;
-// `;
 
 const ThreePicContainer = styled.div`
     display: grid;
-    /* width: 100%; */
-    /* height: 80%; */
-
     grid-template-rows: 3, 1fr;
     grid-template-columns: repeat(3, 1fr);
 
@@ -33,8 +18,6 @@ const ThreePicContainer = styled.div`
 
 const OnePicContainer = styled.div`
     display: grid;
-    /* width: 100%; */
-    /* height: 80%; */
     overflow: hidden;
     box-shadow: 0 0 10px lightgray;
 `;
@@ -62,14 +45,12 @@ const CollectionTitle = styled.p`
 const StyledLink = styled.a`
     width: 100%;
     height: 100%;
+
     display: grid;
     grid-template-rows: 80% 20%;
 
     transition: .2s;
     text-decoration: none;
-
-    /* margin-bottom: ${props => props.theme.space[4]}; */
-    
     background-color: white;
     list-style: none;
 
@@ -129,44 +110,41 @@ const CollectionComp = ({ coll }) => {
     }, [])
 
     return(
-        // <StyledListItem>
-            <Link passHref={true} href={`/profile/${coll.id}`}>
-                <StyledLink>
-                    {
-                        coll.numberOfPins < 3 
-                        ? <OnePicContainer>
-                            {
-                                photos.map((item, i) => (i === 0) && 
-                                    <StyledImg 
-                                        alt=''
-                                        src={item.url} 
-                                        key={item.id} 
-                                    />
-                                )
-                            }
-                        <Shadow />
-                        </OnePicContainer> 
-                        : <ThreePicContainer>
-                            {
-                                photos.map((item, i) => (i < 3) && 
-                                    <StyledImg 
-                                        alt='' 
-                                        src={item.url} 
-                                        key={item.id} 
-                                    />
-                                )
-                            }
-                        <Shadow />
-                        </ThreePicContainer> 
-                    }
-                    <div>
-                        <CollectionTitle>{coll.name}</CollectionTitle>
-                        <Pins>{coll.numberOfPins} Pin{coll.numberOfPins === 1 ? '' : 's'}</Pins>
-                    </div>
-                </StyledLink>
-            </Link>
-            
-        // </StyledListItem>
+        <Link passHref={true} href={`/profile/${coll.id}`}>
+            <StyledLink>
+                {
+                    coll.numberOfPins < 3 
+                    ? <OnePicContainer>
+                        {
+                            photos.map((item, i) => (i === 0) && 
+                                <StyledImg 
+                                    alt=''
+                                    src={item.url} 
+                                    key={item.id} 
+                                />
+                            )
+                        }
+                    <Shadow />
+                    </OnePicContainer> 
+                    : <ThreePicContainer>
+                        {
+                            photos.map((item, i) => (i < 3) && 
+                                <StyledImg 
+                                    alt='' 
+                                    src={item.url} 
+                                    key={item.id} 
+                                />
+                            )
+                        }
+                    <Shadow />
+                    </ThreePicContainer> 
+                }
+                <div>
+                    <CollectionTitle>{coll.name}</CollectionTitle>
+                    <Pins>{coll.numberOfPins} Pin{coll.numberOfPins === 1 ? '' : 's'}</Pins>
+                </div>
+            </StyledLink>
+        </Link>
     )
 }
 

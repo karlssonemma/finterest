@@ -10,7 +10,8 @@ import { useRouter } from 'next/router';
 const StyledHeader = styled.header`
     width: 100vw;
     height: 100px;
-    padding: 0 100px;
+    padding: 0 20px;
+    
 
     display: flex;
     align-items: center;
@@ -26,6 +27,10 @@ const StyledHeader = styled.header`
         box-shadow: 0px 8px 8px -8px rgba(0,0,0, 0.2);
         transition: .2s;
     }
+
+    @media screen and (min-width: ${props => props.theme.breakpoints[2]}) {
+        padding: 0 100px;
+    }
 `;
 
 const Icon = styled.img`
@@ -35,7 +40,7 @@ const Icon = styled.img`
     transform: rotate(90deg);
 `;
 
-const StyledMenuBtn = styled.button`
+const MenuBtn = styled.button`
     padding: ${props => props.theme.space[1]};
     z-index: 100;
     background-color: transparent;
@@ -90,15 +95,12 @@ const HeaderMain = ({ handleInput }) => {
             {
                 router.asPath === '/profile' || router.asPath === '/home' ?  <SearchField handleInput={(e) => handleInput(e)} />  : ''
             }            
-            <StyledMenuBtn 
-                onClick={(e) => handleMenu(e)}
-                
-            >
+            <MenuBtn onClick={(e) => handleMenu(e)}>
                 {
                     screen.width > 300 ? <span>Menu</span> : ''               
                 }
                 <Icon aria-hidden='true' src={'/next.png'} />
-            </StyledMenuBtn>
+            </MenuBtn>
             <Menu />
         </StyledHeader>
     )

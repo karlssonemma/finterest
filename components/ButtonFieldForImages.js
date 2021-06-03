@@ -22,12 +22,4 @@ export const ButtonFieldForImages = styled.div`
     &:hover {
         opacity: 1
     }
-
-    /* &:hover {
-        opacity: 1;
-    }
-    &:focus {
-        opacity: 1;
-    } */
-
 `;
