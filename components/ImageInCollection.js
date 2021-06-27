@@ -12,7 +12,7 @@ import { deletePhoto } from '../helpers/firebaseHelpers';
 const Container = styled.li`
     list-style: none;
     position: relative;
-    opacity: 0;
+    /* opacity: 0; */
 `;
 
 const Photo = styled.img`
